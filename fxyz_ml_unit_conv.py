@@ -3,7 +3,7 @@ from fxyz_ml_math_ops import *
 #Self Conversion Definition
 SELF: float = 1
 
-# Prefixes
+# PART 1: PREFIXES
 YOTTA_PREFIX: str = "Y"
 ZETTA_PREFIX: str = "Z"
 EXA_PREFIX: str = "E"
@@ -598,6 +598,8 @@ PREFIX_CONVERSION: float = {
     
 }
 
+# PART 2: Unit Conversions
+
 # Energy Conversions
 JOULE_UNIT: str = "J"
 CAL_UNIT: str = "cal"
@@ -714,3 +716,7 @@ PRESSURE_CONVERSION: float = {
 
 
 }
+
+TIME_CONVERSIONS: float = {}
+
+LENGTH_CONVERSIONS: float = {}
