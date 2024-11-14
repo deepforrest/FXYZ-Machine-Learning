@@ -61,8 +61,11 @@ def exponentiate(base: float, power: float) -> float:
 def root(base: float, nth_root: float) -> float:
 
     # Calls Functions 01-007, ######, & 
-    return exponentiate(base, reciprical(nth_root))
+    return exponentiate(base, reciprocal(nth_root))
 
+def sci_note(power: int) -> float:
+
+    return exponentiate(10, power)
 
 # Part II: Advanced Math Functions, Nonarray
 
@@ -71,7 +74,7 @@ def neg(num: float) -> float:
     return -num
 
 
-def reciprical(num: float) -> float:
+def reciprocal(num: float) -> float:
 
     return float_quotient(1, num) if num != 0 else None
 
@@ -166,7 +169,7 @@ def slope_from_point_array(point_arr_2: float, point_arr_1: float) -> float:
 
 def perp_slope(slope: float) -> float:
 
-    return neg(reciprical(slope)) if slope != 0 else None
+    return neg(reciprocal(slope)) if slope != 0 else None
 
 
 def normal_slope(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
