@@ -1,7 +1,7 @@
-from fxyz_ml_math_ops import neg, exponentiate
+from fxyz_ml_math_ops import *
 
 # Part 1: Constants For Readibility
-inf_increment: float = exponentiate(sci_base, neg(3)) 
+# inf_increment: float = exponentiate(sci_base, neg(3)) 
 product_init: int = 1
 sci_base: int = 10
 sum_init: int = 0

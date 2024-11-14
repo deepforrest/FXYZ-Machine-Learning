@@ -1,4 +1,4 @@
-from fxyz_ml_math_alg import *
+from fxyz_ml_math_ops import *
 from fxyz_ml_consts import *
 
 def build_arithmethic_sequence(first_term: float, common_diff: float, num_of_terms: int) -> float:
