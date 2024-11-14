@@ -33,6 +33,3 @@ def build_geometric_sequence(first_term: float, common_ratio: float, num_of_term
         current_rank += 1
 
     return geo_seq_arr
-
-
-print(build_arithmethic_sequence(2, -3, 10), "\n\n", build_geometric_sequence(2, 1/3, 12))
