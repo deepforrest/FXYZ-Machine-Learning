@@ -621,6 +621,7 @@ PA_TO_BAR: float = reciprocal(sci_note(5))
 PA_TO_TORR: float = reciprocal(133.322)
 PA_TO_PSI: float = reciprocal(6894.76)
 
+
 ENERGY_CONVERSIONS: float = {
 
     JOULE_UNIT: {
@@ -676,6 +677,7 @@ ENERGY_CONVERSIONS: float = {
 
 }
 
+
 PRESSURE_CONVERSION: float = {
 
     PA_UNIT: {
@@ -711,6 +713,5 @@ PRESSURE_CONVERSION: float = {
         BAR_UNIT: float_quotient(PA_TO_TORR, PA_TO_BAR),
         TORR_UNIT: SELF,
     }
-
 
 }
