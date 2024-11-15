@@ -716,13 +716,9 @@ PRESSURE_CONVERSION: float = {
         TORR_UNIT: SELF,
     }
 
-<<<<<<< HEAD
 
 }
 
 TIME_CONVERSIONS: float = {}
 
 LENGTH_CONVERSIONS: float = {}
-=======
-}
->>>>>>> a359e84eecb7c9d40abf69785a21a0c28dbdb9ad
