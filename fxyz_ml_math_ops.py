@@ -81,7 +81,7 @@ def reciprocal(num: float) -> float:
 
 def abs_value(num: float) -> float:
 
-    return num if num >= WHOLE_NUM_MIN else -num
+    return num if num >= WHOLE_NUM_MIN else neg(num)
 
 
 def add_one(num):
@@ -255,7 +255,7 @@ def find_comm_diff(first_term: float, nth_term: float, nth_rank: int) -> float:
 
 def find_first_term_arith(nth_term: float, nth_rank: float, common_diff: float) -> float:
 
-    return difference(nth_term, difference(nth_rank, 1))
+    return difference(nth_term, subtract_one(nth_rank))
 
 
 def arith_sum(num_terms: int, first_term: float, last_term: float) -> float:
