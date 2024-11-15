@@ -26,7 +26,7 @@ def product(first_num: float, second_num: float) -> float:
 # This function will likely need to be updated to handle indeterminant forms.
 def float_quotient(num: float, denom: float) -> float:
 
-    return num / denom if denom != zero_denom else None
+    return num / denom if denom != ZERO_DENOM else None
 
 
 # Function 01-005
@@ -34,26 +34,26 @@ def float_quotient(num: float, denom: float) -> float:
 def int_quotient(num: float, denom: float) -> int:
 
     # // means integer division
-    return num // denom if denom != zero_denom else None
+    return num // denom if denom != ZERO_DENOM else None
 
 
 # Function 01-006
 # This function may need more checks to ensure the wrong data type is not passed.
 def remainder(num: float, denom: float) -> int:
 
-    return num % denom if denom != zero_denom else None
+    return num % denom if denom != ZERO_DENOM else None
 
 
 # Function 01-007
 def exponentiate(base: float, power: float) -> float:
 
-    if base != zero_base:
+    if base != ZERO_BASE:
 
-        if power!= zeroth_power:
+        if power!= ZEROTH_POWER:
         
             return base ** power
         
-        return zero_base
+        return ZERO_BASE
     
     return None
 
@@ -65,7 +65,7 @@ def root(base: float, nth_root: float) -> float:
 
 def sci_note(power: int) -> float:
 
-    return exponentiate(10, power)
+    return exponentiate(SCI_BASE, power)
 
 # Part II: Advanced Math Functions, Nonarray
 
@@ -76,12 +76,12 @@ def neg(num: float) -> float:
 
 def reciprocal(num: float) -> float:
 
-    return float_quotient(1, num) if num != 0 else None
+    return float_quotient(1, num) if num != ZERO_DENOM else None
 
 
 def abs_value(num: float) -> float:
 
-    return num if num >= whole_num_min else -num
+    return num if num >= WHOLE_NUM_MIN else -num
 
 
 def add_one(num):
@@ -106,12 +106,12 @@ def num_midpoint(first_num: float, second_num: float) -> float:
 
 def factorial(num: int) -> int:
 
-    if num >= whole_num_min and int(num) == True:
+    if num >= WHOLE_NUM_MIN and int(num) == True:
 
-        result = product_init
+        result = PRODUCT_INIT
         counter = num
 
-        while counter > natural_num_min:
+        while counter > NATURAL_NUM_MIN:
 
             result *= counter
             counter -= 1
@@ -124,7 +124,7 @@ def factorial(num: int) -> int:
 def polynomial_derivative(coeff: float, base: float, power: float) -> float:
 
     # Checks for instances of divide by 0 and/or indeterminant forms
-    if power <= zeroth_power and base == zero_base:
+    if power <= ZEROTH_POWER and base == ZERO_BASE:
         
         return None
 
@@ -169,7 +169,7 @@ def slope_from_point_array(point_arr_2: float, point_arr_1: float) -> float:
 
 def perp_slope(slope: float) -> float:
 
-    return neg(reciprocal(slope)) if slope != 0 else None
+    return neg(reciprocal(slope)) if slope != ZERO_DENOM else None
 
 
 def normal_slope(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
@@ -178,7 +178,7 @@ def normal_slope(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
         return None
     
-    return product(-1, float_quotient(difference(x_2, x_1), difference(y_2, y_1)))
+    return neg(float_quotient(difference(x_2, x_1), difference(y_2, y_1)))
 
 # Needs to be thought out
 #def slope_at_point(poly_coeff_arr: List[float]):
@@ -210,7 +210,7 @@ def general_to_vertex_quad(lead_coeff: float, linear_coeff: float, const: float)
     vertical_offset = 0
 
     
-    while power >= zeroth_power:
+    while power >= ZEROTH_POWER:
     
         for num in range(len(calc_array)):
         
@@ -275,7 +275,7 @@ def geo_sum_inf(common_ratio: float, first_term: float) -> float:
 # Statistics
 def calc_data_avg(data_arr: float) -> float:
 
-    sum = 0
+    sum = SUM_INIT
     count = 0
 
     for pt in range(len(data_arr)):
