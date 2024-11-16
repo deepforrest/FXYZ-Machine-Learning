@@ -262,9 +262,11 @@ def arith_sum(num_terms: int, first_term: float, last_term: float) -> float:
 
     return float_quotient(product(num_terms, add(first_term, last_term)), 2)
 
+
 def geo_sum_part(num_terms: float, nth_term: int, common_ratio: float) -> float:
 
     return float_quotient(difference(1, exponentiate(common_ratio, nth_term)), difference(1, common_ratio))
+
 
 def geo_sum_inf(common_ratio: float, first_term: float) -> float:
 
@@ -272,6 +274,7 @@ def geo_sum_inf(common_ratio: float, first_term: float) -> float:
     return float_quotient(first_term, difference(1, common_ratio)) if abs_value(common_ratio) < 1 else None
 
 # Part X: Test Functions
+
 
 def mult_then_divide(num_times: int):
 
@@ -297,13 +300,16 @@ def mult_then_divide(num_times: int):
     # print(numerator, " / ", denominator, " = ", str(numerator/denominator))
     return numerator/denominator
 
+
 def calc_quad_disc(lead_coeff: float, linear_coeff: float, constant) -> float:
 
     return difference(exponentiate(linear_coeff, 2), product(4, product(lead_coeff, constant)))
 
+
 def calc_x_vertex(lead_coeff: float, linear_coeff: float) -> float:
 
     return(float_quotient(neg(linear_coeff), product(2, lead_coeff)))
+
 
 def calc_y_vertex(lead_coeff: float, linear_coeff: float, constant: float):
 
@@ -311,11 +317,67 @@ def calc_y_vertex(lead_coeff: float, linear_coeff: float, constant: float):
 
     return add(polynomial(lead_coeff, x_vertex, 2), add(polynomial(linear_coeff, x_vertex, 1), constant))
 
-def calc_num_x_ints_quad(lead_coeff: float, linear_coeff: float, constant: float) -> int:
 
+def calc_num_ints_quad(lead_coeff: float, linear_coeff: float, constant: float) -> int:
+    
     discriminant = calc_quad_disc(lead_coeff, linear_coeff, constant)
 
-    if discriminant > 0: 
-        return 2
+    match discriminant:
+
+        case _ if discriminant > 0:
+
+            return 2
+
+        case _ if discriminant == 0:
+
+            return 1
+
+        case _ if discriminant < 0:
+
+            return 0
+
+        case _:
+
+            return None
+
+
+def axis_of_sym(coord: float, dir: str) -> str:
+
+    match dir:
+
+        case "horizontal":
+        
+            return f'y = {coord}'
+        
+        case "vertical":
+        
+            return f'x = {coord}'
+        
+        case _:
+            
+            return f'No direction specified'
+
+
+
+def parabola_focus(lead_coeff: float, linear_coeff: float, constant: float, dir: str) -> float:
+
+    x_coord: float = calc_x_vertex(lead_coeff, linear_coeff, constant)
     
-    return 1 if discriminant == 0 else 0
+    y_coord: float = calc_y_vertex(lead_coeff, linear_coeff, constant)
+
+    p_value: float = reciprocal(product(4, lead_coeff))
+
+    if dir == "horizontal":
+
+        x_coord += p_value
+
+    if dir == "vertical":
+
+        y_coord += p_value
+
+    return[x_coord, y_coord]
+
+
+def latus_points():
+
+    pass
