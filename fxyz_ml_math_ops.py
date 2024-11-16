@@ -324,15 +324,15 @@ def calc_num_ints_quad(lead_coeff: float, linear_coeff: float, constant: float) 
 
     match discriminant:
 
-        case _ if discriminant > 0:
+        case _ if discriminant > DISC_THRESH:
 
             return 2
 
-        case _ if discriminant == 0:
+        case _ if discriminant == DISC_THRESH:
 
             return 1
 
-        case _ if discriminant < 0:
+        case _ if discriminant < DISC_THRESH:
 
             return 0
 
@@ -378,6 +378,46 @@ def parabola_focus(lead_coeff: float, linear_coeff: float, constant: float, dir:
     return[x_coord, y_coord]
 
 
-def latus_points():
+def para_lotus_points(lead_coeff: float, linear_coeff: float, constant: float, dir: str) -> float):
 
-    pass
+    # 1 Calculate Vertex,
+    # 2 Calculate Focus,
+    # 3 Calculate Distance
+    focus = parabola_focus(lead_coeff, linear_coeff, constant, dir)
+    adj_value: int = reciprocal(lead_coeff)
+
+    match dir:
+        
+        case VER_DIR:
+            
+            left_pt = focus[LEFT_IND] - adj_value
+            right_pt = focus[RIGHT_IND] + adj_value
+
+            return[left_pt, right_pt]
+        
+        case HOR_DIR:
+
+            lower_pt = focus[LOWER_IND] - adj_value
+            upper_pt: float = focus[UPPER_IND] + adj_value
+
+            return[lower_pt, upper_pt]
+        
+        case _:
+
+            return []    
+
+
+
+def syn_div(coeff_arr: float, synth_div: float) -> float:
+
+    if len(coeff_arr) < 2: return None
+
+    new_coeff_arr = [coeff_arr[0]]
+    ind = 1
+
+    while ind < range(len(coeff_arr)):
+
+        additive = product(new_coeff_arr[ind - 1], synth_div)
+        new_coeff_arr.append(add(coeff_arr[ind], additive))
+
+    return new_coeff_arr
