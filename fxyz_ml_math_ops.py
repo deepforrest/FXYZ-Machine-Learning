@@ -296,3 +296,25 @@ def mult_then_divide(num_times: int):
     
     # print(numerator, " / ", denominator, " = ", str(numerator/denominator))
     return numerator/denominator
+
+def calc_quad_disc(lead_coeff: float, linear_coeff: float, constant) -> float:
+
+    return difference(exponentiate(linear_coeff, 2), product(4, product(lead_coeff, constant)))
+
+def calc_x_vertex(lead_coeff: float, linear_coeff: float) -> float:
+
+    return(float_quotient(neg(linear_coeff), product(2, lead_coeff)))
+
+def calc_y_vertex(lead_coeff: float, linear_coeff: float, constant: float):
+
+    x_vertex = calc_x_vertex(lead_coeff, linear_coeff)
+
+    return add(polynomial(lead_coeff, x_vertex, 2), add(polynomial(linear_coeff, x_vertex, 1), constant))
+
+def calc_num_x_ints_quad(lead_coeff: float, linear_coeff: float, constant: float) -> int:
+
+    discriminant = calc_quad_disc(lead_coeff, linear_coeff, constant)
+
+    if discriminant > 0: return 2
+
+    return 1 if discriminant == 0 else 0
