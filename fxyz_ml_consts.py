@@ -1,7 +1,8 @@
 from fxyz_ml_math_ops import *
 
-# Part 1: Constants For Readibility
-# inf_increment: float = exponentiate(sci_base, neg(3)) 
+# Part 1: Readibility Constants
+BINARY_BASE: int = 2
+INF_CRE: float = sci_note(neg(4))
 PRODUCT_INIT: int = 1
 SCI_BASE: int = 10
 SUM_INIT: int = 0
