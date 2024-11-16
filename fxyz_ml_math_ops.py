@@ -378,33 +378,30 @@ def parabola_focus(lead_coeff: float, linear_coeff: float, constant: float, dir:
     return[x_coord, y_coord]
 
 
-def para_lotus_points(lead_coeff: float, linear_coeff: float, constant: float, dir: str) -> float):
+def para_lotus_points(lead_coeff: float, linear_coeff: float, constant: float, dir: str) -> list:
 
-    # 1 Calculate Vertex,
-    # 2 Calculate Focus,
-    # 3 Calculate Distance
     focus = parabola_focus(lead_coeff, linear_coeff, constant, dir)
     adj_value: int = reciprocal(lead_coeff)
+
+    first_pt, second_pt = [], []
 
     match dir:
         
         case VER_DIR:
             
-            left_pt = focus[LEFT_IND] - adj_value
-            right_pt = focus[RIGHT_IND] + adj_value
-
-            return[left_pt, right_pt]
+            first_pt: float = [focus[X_IND] - adj_value, focus[Y_IND]]
+            second_pt: float = [focus[X_IND] + adj_value, focus[Y_IND]]
         
         case HOR_DIR:
 
-            lower_pt = focus[LOWER_IND] - adj_value
-            upper_pt: float = focus[UPPER_IND] + adj_value
-
-            return[lower_pt, upper_pt]
+            first_pt: float = [focus[X_IND], focus[Y_IND] - adj_value]
+            second_pt: float = [focus[X_IND], focus[Y_IND] + adj_value]
         
         case _:
 
-            return []    
+            raise ValueError("Invalid direction specified")
+
+    return [first_pt, second_pt]
 
 
 

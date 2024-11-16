@@ -18,10 +18,8 @@ ZERO_BASE: int = 0
 ZERO_DENOM: int = 0
 ZEROTH_POWER: int = 0
 
-LEFT_IND: int = 0
-RIGHT_IND: int = 1
-LOWER_IND: int = 0
-UPPER_IND: int = 1
+X_IND: int = 0
+Y_IND: int = 1
 
 # Part 2: Science Constants
 
