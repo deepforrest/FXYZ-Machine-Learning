@@ -315,6 +315,7 @@ def calc_num_x_ints_quad(lead_coeff: float, linear_coeff: float, constant: float
 
     discriminant = calc_quad_disc(lead_coeff, linear_coeff, constant)
 
-    if discriminant > 0: return 2
-
+    if discriminant > 0: 
+        return 2
+    
     return 1 if discriminant == 0 else 0
