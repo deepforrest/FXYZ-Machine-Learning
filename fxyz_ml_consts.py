@@ -20,6 +20,7 @@ ZEROTH_POWER: int = 0
 
 X_IND: int = 0
 Y_IND: int = 1
+Z_IND: int = 2
 
 # Part 2: Science Constants
 
