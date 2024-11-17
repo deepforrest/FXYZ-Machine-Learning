@@ -1,33 +1,60 @@
-class MentalData:
-    """
-    A base class for entries with common attributes and methods.
-    """
-    def __init__(self, id_num: int, content: str, notes: str = None, tags: str = None, modified: str = None):
+# This serves as a template of which all divisions inherit these class properties
+class UniversalProperties:
+
+    def __init__(self, id_num: int, data: str, tags: str, updated: str):
+
         self.id_num = id_num
-        self.content = content
+        self.data = data
         self.tags = tags
+        self.updated = updated
+
+    def display_universal_data(self):
+
+        return f'Entry {self.id_num} contains "{self.data}", last modified on {self.updated}.'
+
+    def display_universal_tags(self):
+
+        return f'Entry {self.data} contains the tags {self.tags}.'
+
+# Division 1: Organization Class Template
+class OrganizationalData(UniversalProperties):
+    pass
+
+# Division 3: Mental Class Template
+class MentalData(UniversalProperties):
+    
+    def __init__(self, id_num: int, content: str, notes: str = None, tags: str = None, modified: str = None):
+        super().__init__(id_num, data, updated)
+
 
     def display_content(self) -> str:
         """Display the main content."""
         return f"{self.content}"
 
-class CreativeData:
-    def __init__(self, id_num:int, abbr: str, int, title: str, summary: str, series: str, word_count: str, tags: str, status: str, save_point: str, next_steps: str, created: str, modified: str):
 
-        self.id_num = id_num
+class CreativeData(UniversalProperties):
+  
+    def __init__(id_num, data, tags, updated, abbr: str, summary: str, series: str, status: str, save_point: str, next_steps: str, created: str):
+
+        super().__init__(id_num, data, tags, updated)
         self.abbr = abbr
-        self.title = title
         self.summary = summary
         self.series = series
-        self.tags = tags
         self.status = status
         self.save_point = save_point
         self.next_steps = next_steps
         self.created = created
-        self.modified = modified
     
     def get_status(self):
+
         return f'{self.abbr}{self.id_num}: {self.title} is marked as {self.status} on {self.modified}.'
+
+# To be defined
+class SocialData(UniversalProperties):
+    
+    def __init__(self):
+
+        pass
 
 # Specific entry types inheriting from MentalData
 class MentalAffirmation(MentalData):
@@ -50,8 +77,7 @@ class MentalBehavior(MentalData):
 
 
 class MentalCharacteristic(MentalData):
-    def __init__(self, id_num: int, characteristic: str):
-        super().__init__(id_num, characteristic)
+    pass
 
 
 class MentalDichotomy(MentalData):
