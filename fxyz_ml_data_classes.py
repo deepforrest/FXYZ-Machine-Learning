@@ -16,14 +16,23 @@ class UniversalProperties:
 
         return f'Entry {self.data} contains the tags {self.tags}.'
 
+#-----------------------DIVISION--CLASSES--------------------------------#
+
 # Division 1: Organization Class Template
 class OrganizationalData(UniversalProperties):
-    pass
+    
+    def __init__(self, id_num, data, tags, updated):
+        
+        super().__init__(id_num, data, tags, updated)
+
 
 # Division 2: Physical
-
 class PhysicalData(UniversalProperties):
-    pass
+    
+    def __init__(self, id_num, data, tags, updated):
+        
+        super().__init__(id_num, data, tags, updated)
+
 
 # Division 3: Mental Class Template
 class MentalData(UniversalProperties):
@@ -37,16 +46,26 @@ class MentalData(UniversalProperties):
         return f"{self.content}"
 
 # Division 4: Spiritual Class Template
+# This class may not get touched for a long time.
 class SpiritualData(UniversalProperties):
-    pass
+    
+    def __init__(self, id_num, data, tags, updated):
+        
+        super().__init__(id_num, data, tags, updated)
 
 # Division 5: Chronological Class Template
 class ChronologicalData(UniversalProperties):
-    pass
+    
+    def __init__(self, id_num, data, tags, updated):
+        
+        super().__init__(id_num, data, tags, updated)
 
 # Division 6: Financial Class Template
 class FinancialData(UniversalProperties):
-    pass
+    
+    def __init__(self, id_num, data, tags, updated):
+        
+        super().__init__(id_num, data, tags, updated)
 
 # Division 7: Materials Class Template:
 class MaterialData(UniversalProperties):
@@ -60,13 +79,18 @@ class MaterialData(UniversalProperties):
 # Division 8: Knowledge Class Template
 class KnowledgeData(UniversalProperties):
 
-    pass
+    def __init__(self, id_num, data, tags, updated):
+        
+        super().__init__(id_num, data, tags, updated)
+
 
 # Division 9: Skills Class Template
 
 class SkillsData(UniversalProperties):
 
-    pass
+    def __init__(self, id_num, data, tags, updated):
+        
+        super().__init__(id_num, data, tags, updated)
 
 
 # Division 10: Creative Class Template
@@ -88,20 +112,24 @@ class CreativeData(UniversalProperties):
 
         return f'{self.abbr}{self.id_num}: {self.title} is marked as {self.status} on {self.modified}.'
 
+
 # Division 11: Social Class Template
 class SocialData(UniversalProperties):
     
-    def __init__(self):
-
-        pass
+    def __init__(self, id_num, data, tags, updated):
+        
+        super().__init__(id_num, data, tags, updated)
 
 # Division 12: Business Class Template
 class BusinessData(UniversalProperties):
-    pass
+    
+    def __init__(self, id_num, data, tags, updated):
+        
+        super().__init__(id_num, data, tags, updated)
 
-#-----------------------------DIVISION--INHERITANCE---------------------------------------#
+#----------------------------UNIT-DIVISION--INHERITANCE----------------------------------#
 
-# Specific entry types inheriting from MentalData
+# DIVISION 3 UNIT CLASSES
 class MentalAffirmation(MentalData):
     pass
 
@@ -174,32 +202,63 @@ class MentalProverb(MentalData):
 
 
 class MentalQuotation(MentalData):
+    
     def __init__(self, id_num: int, quotation: str, attributor: str, tags: str):
+    
         super().__init__(id_num, quotation, tags)
+        
         self.attributor = attributor
 
+    
     def display_quotation(self) -> str:
+        
         return f'"{self.content}" - {self.attributor}'
 
 
 class MentalReflection(MentalData):
+    
     pass
 
 
 class MentalReligious(MentalData):
+    
     def __init__(self, id_num: int, passage: str, source: str):
+        
         super().__init__(id_num, passage)
         self.source = source
 
     def display_passage(self) -> str:
+        
         return f'"{self.content}" - {self.source}'
 
 
 class MentalStory(MentalData):
+    
     def __init__(self, id_num: int, story: str, origination: str):
+    
         super().__init__(id_num, story)
         self.origination = origination
 
 
 class MentalWisdomNugget(MentalData):
+    
     pass
+
+# Division 11 Unit Classes
+
+class SocialIndividuals(SocialData):
+
+    def __init__(self, id_num, data, tags, updated, 
+        first_name: str, middle_init: str, last_name: str, birth_month: int, birth_day_of_month: int, 
+        birth_year: int, gender: str, location: str, status: str):
+        
+        super().__init__(id_num, data, tags, updated)
+
+        self.first_name = first_name
+        self.middle_init = middle_init
+        self.last_name = last_name
+        self.full_name = f'{first_name} {middle_init}. {last_name}'
+        self.birth_month = birth_month
+        self.birth_day_of_month = birth_day_of_month
+        self.birth_year = birth_year
+        self.birthday: str = f'{birth_month} / {birth_day_of_month} / {birth_year}'

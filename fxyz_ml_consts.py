@@ -18,6 +18,12 @@ ZERO_BASE: int = 0
 ZERO_DENOM: int = 0
 ZEROTH_POWER: int = 0
 
+SINGLE_DIGIT_NUM_MIN: int = 9
+TWO_DIGIT_NUM_MIN: int = 10
+TWO_DIGIT_NUM_MAX: int = 99
+THREE_DIGIT_NUM_MIN: int = 100
+THREE_DIGIT_NUM_MAX: int = 999
+
 X_IND: int = 0
 Y_IND: int = 1
 Z_IND: int = 2
