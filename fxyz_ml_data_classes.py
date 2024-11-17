@@ -20,6 +20,11 @@ class UniversalProperties:
 class OrganizationalData(UniversalProperties):
     pass
 
+# Division 2: Physical
+
+class PhysicalData(UniversalProperties):
+    pass
+
 # Division 3: Mental Class Template
 class MentalData(UniversalProperties):
     
@@ -31,15 +36,49 @@ class MentalData(UniversalProperties):
         """Display the main content."""
         return f"{self.content}"
 
+# Division 4: Spiritual Class Template
+class SpiritualData(UniversalProperties):
+    pass
 
+# Division 5: Chronological Class Template
+class ChronologicalData(UniversalProperties):
+    pass
+
+# Division 6: Financial Class Template
+class FinancialData(UniversalProperties):
+    pass
+
+# Division 7: Materials Class Template:
+class MaterialData(UniversalProperties):
+
+    def __init__(self, id_num, data, tags, updated, appraised_value: float, status: float):
+        super().__init__(id_num, data, tags, updated)
+
+        self.appraised_value = appraised_value
+        self.status = status
+
+# Division 8: Knowledge Class Template
+class KnowledgeData(UniversalProperties):
+
+    pass
+
+# Division 9: Skills Class Template
+
+class SkillsData(UniversalProperties):
+
+    pass
+
+
+# Division 10: Creative Class Template
 class CreativeData(UniversalProperties):
   
-    def __init__(id_num, data, tags, updated, abbr: str, summary: str, series: str, status: str, save_point: str, next_steps: str, created: str):
+    def __init__(id_num, data, tags, updated, abbr: str, summary: str, series: str, version: int, status: str, save_point: str, next_steps: str, created: str):
 
         super().__init__(id_num, data, tags, updated)
         self.abbr = abbr
         self.summary = summary
         self.series = series
+        self.version = version
         self.status = status
         self.save_point = save_point
         self.next_steps = next_steps
@@ -49,12 +88,18 @@ class CreativeData(UniversalProperties):
 
         return f'{self.abbr}{self.id_num}: {self.title} is marked as {self.status} on {self.modified}.'
 
-# To be defined
+# Division 11: Social Class Template
 class SocialData(UniversalProperties):
     
     def __init__(self):
 
         pass
+
+# Division 12: Business Class Template
+class BusinessData(UniversalProperties):
+    pass
+
+#-----------------------------DIVISION--INHERITANCE---------------------------------------#
 
 # Specific entry types inheriting from MentalData
 class MentalAffirmation(MentalData):
