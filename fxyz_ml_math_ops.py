@@ -222,10 +222,10 @@ def general_to_vertex_quad(lead_coeff: float, linear_coeff: float, const: float)
 
     # Printing conditions for cleaner output
     
-    horizontal_sign = "-" if horizontal_offset >= whole_num_min else "+"
-    vertical_sign = "+" if vertical_offset >= whole_num_min else "-"
-    print_hor_offset: str = str(horizontal_offset) if horizontal_offset >= whole_num_min else abs_value(horizontal_offset)
-    print_vert_offset: str = str(vertical_offset) if vertical_offset >= whole_num_min else abs_value(vertical_offset)
+    horizontal_sign = "-" if horizontal_offset >= WHOLE_NUM_MIN else "+"
+    vertical_sign = "+" if vertical_offset >= WHOLE_NUM_MIN else "-"
+    print_hor_offset: str = str(horizontal_offset) if horizontal_offset >= WHOLE_NUM_MIN else abs_value(horizontal_offset)
+    print_vert_offset: str = str(vertical_offset) if vertical_offset >= WHOLE_NUM_MIN else abs_value(vertical_offset)
     print_lead_coeff: str = str(lead_coeff) if lead_coeff != 1 else ""
     
     print("y = ", print_lead_coeff, "(x", horizontal_sign, print_hor_offset, ") ^ 2", vertical_sign, print_vert_offset)
@@ -387,22 +387,21 @@ def para_lotus_points(lead_coeff: float, linear_coeff: float, constant: float, d
 
     match dir:
         
-        case VER_DIR:
+        case "vertical":
             
-            first_pt: float = [focus[X_IND] - adj_value, focus[Y_IND]]
-            second_pt: float = [focus[X_IND] + adj_value, focus[Y_IND]]
+            first_pt: float = [focus[0] - adj_value, focus[1]]
+            second_pt: float = [focus[0] + adj_value, focus[1]]
         
-        case HOR_DIR:
+        case "horizontal":
 
-            first_pt: float = [focus[X_IND], focus[Y_IND] - adj_value]
-            second_pt: float = [focus[X_IND], focus[Y_IND] + adj_value]
+            first_pt: float = [focus[0], focus[1] - adj_value]
+            second_pt: float = [focus[0], focus[1] + adj_value]
         
         case _:
 
             raise ValueError("Invalid direction specified")
 
     return [first_pt, second_pt]
-
 
 
 def syn_div(coeff_arr: float, synth_div: float) -> float:
@@ -418,3 +417,26 @@ def syn_div(coeff_arr: float, synth_div: float) -> float:
         new_coeff_arr.append(add(coeff_arr[ind], additive))
 
     return new_coeff_arr
+
+
+def div_then_mult_num(num: int) -> int:
+
+    to_divide: bool = True
+    counter: int = num
+    final_num: int = num
+
+    while counter > NATURAL_NUM_MIN:
+
+        counter -= 1
+        
+        if to_divide == True:
+
+            final_num /= counter
+            to_divide == False
+
+        else:
+
+            final_num *= counter
+            to_divide == True
+
+    return final_num

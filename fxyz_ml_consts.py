@@ -5,7 +5,7 @@ BINARY_BASE: int = 2
 DENOM_INDEX: int = 1
 DISC_THRESH: int = 0
 HOR_DIR: str = "horizontal"
-INF_CRE: float = sci_note(neg(4))
+# INF_CRE: float = sci_note(neg(4))
 NUM_INDEX: int = 0
 PRODUCT_INIT: int = 1
 SCI_BASE: int = 10
@@ -23,4 +23,3 @@ Y_IND: int = 1
 Z_IND: int = 2
 
 # Part 2: Science Constants
-
