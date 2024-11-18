@@ -1,5 +1,4 @@
 from math_library.fund_comp import *
-from fundamentals_library import *
 
 # Part 1: Readibility Constants
 BINARY_BASE: int = 2
