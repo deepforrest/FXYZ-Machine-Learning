@@ -1,3 +1,6 @@
+from math_library.fund_comp import *
+from constants import *
+
 def num_modifier(num: int, desired_digits: int) -> str:
 
     num_of_digits: int = 1

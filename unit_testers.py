@@ -1,4 +1,10 @@
+from math_library.algebraic_functions import *
+from math_library.differential_calculus import *
+from math_library.discrete_math import *
 from math_library.fund_comp import *
+from math_library.number_theory import *
+from math_library.statistics import *
+
 from fundamentals_library.constants import *
 
 def build_arithmethic_sequence(first_term: float, common_diff: float, num_of_terms: int) -> float:
@@ -103,3 +109,23 @@ def g_to_v_unit_tester():
         test_a += 1
 
     print("Number of iterations = ", f"{num_iter:,}")
+
+def test_mult_then_divide(num: int) -> list:
+
+    start_num: int = 1
+    test_arr = []
+
+    while start_num <= num:
+
+        test_num = mult_then_divide(start_num)
+        test_arr.append(test_num)
+        print(f'{start_num} generates a result of {test_num}')
+        start_num += 1
+
+    final_product: int = PRODUCT_INIT
+
+    for result in range(len(test_arr)):
+
+        final_product *= test_arr[result]
+    
+    print(f'The product of all numbers is {final_product}.')

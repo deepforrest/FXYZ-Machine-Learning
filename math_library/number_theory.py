@@ -52,3 +52,49 @@ def split_num_into_arr(num: int) -> int:
 def prod_to_sum_digits_ratio(num: int) -> float:
 
     return(float_quotient(prod_of_nz_digits(num), sum_of_digits(num)))
+
+def mult_then_divide(num_times: int):
+
+    counter: int = 1
+    numerator: int = 1
+    denominator: int = 1
+    no_remainder: int = 0
+
+    while counter <= num_times:
+
+        # Hopefully Python will allow ternary expressions with multiple variable :-/
+        
+        if counter % 2 == no_remainder:
+        
+            numerator *= counter
+        
+        else:
+        
+            denominator *= counter
+
+        counter += 1
+    
+    # print(numerator, " / ", denominator, " = ", str(numerator/denominator))
+    return numerator/denominator
+
+def div_then_mult_num(num: int) -> int:
+
+    to_divide: bool = True
+    counter: int = num
+    final_num: int = num
+
+    while counter > NATURAL_NUM_MIN:
+
+        counter -= 1
+        
+        if to_divide == True:
+
+            final_num /= counter
+            to_divide == False
+
+        else:
+
+            final_num *= counter
+            to_divide == True
+
+    return final_num
