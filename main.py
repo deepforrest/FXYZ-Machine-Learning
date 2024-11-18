@@ -1,7 +1,7 @@
 from math_library.algebraic_functions import *
 from math_library.differential_calculus import *
 from math_library.discrete_math import *
-from math_library.fund_comp import *
+from fundamentals_library.computations import *
 from math_library.number_theory import *
 from math_library.statistics import *
 

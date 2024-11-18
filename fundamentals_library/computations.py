@@ -9,6 +9,15 @@ def add(first_num: float, second_num: float) -> float:
 
     return first_num + second_num
 
+def add_arr(num_arr: list) -> float:
+
+    sum_of_num: float = SUM_INIT
+    
+    for num in num_arr:
+
+        sum_of_nums += num
+
+    return sum_of_nums
 
 # Function 01-002
 def difference(first_num: float, second_num: float) -> float:
@@ -20,6 +29,18 @@ def difference(first_num: float, second_num: float) -> float:
 def product(first_num: float, second_num: float) -> float:
 
     return first_num * second_num
+
+
+
+def product_arr(num_arr: list) -> float:
+
+    product_of_nums: float = PRODUCT_INIT
+
+    for num in num_arr:
+
+        product_of_nums *= num
+
+    return product_of_nums
 
 
 # Function 01-004
@@ -45,6 +66,7 @@ def remainder(num: float, denom: float) -> int:
 
 
 # Function 01-007
+# Similar to pow(base, power) but throws exceptions as needed
 def exponentiate(base: float, power: float) -> float:
 
     if base != ZERO_BASE:
@@ -63,11 +85,11 @@ def root(base: float, nth_root: float) -> float:
     # Calls Functions 01-007, ######, & 
     return exponentiate(base, reciprocal(nth_root))
 
+
 def sci_note(power: int) -> float:
 
     return exponentiate(SCI_BASE, power)
 
-# Part II: Advanced Math Functions, Nonarray
 
 def neg(num: float) -> float:
 
@@ -102,6 +124,11 @@ def polynomial(coeff: float, base: float, power: float) -> float:
 def num_midpoint(first_num: float, second_num: float) -> float:
 
     return float_quotient(add(first_num, second_num), 2)
+
+
+def square_diff(first_num: float, second_num: float) -> float:
+
+    return exponentiate(difference(first_num, second_num), 2)
 
 
 def factorial(num: int) -> int:

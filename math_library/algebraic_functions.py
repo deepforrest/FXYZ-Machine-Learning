@@ -1,5 +1,5 @@
 from math import *
-from math_library.fund_comp import *
+from fundamentals_library.computations import *
 from fundamentals_library.constants import *
 
 def reduce_fraction(num: int, denom: int) -> int:
@@ -44,6 +44,7 @@ def reduce_fraction(num: int, denom: int) -> int:
 
         return [reduced_num, reduced_denom]
 
+
 def slope_from_two_points(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
     # Prevents divide by zero returns
@@ -52,7 +53,6 @@ def slope_from_two_points(y_2: float, y_1: float, x_2: float, x_1: float) -> flo
     return(float_quotient(difference(y_2, y_1), difference(x_2, x_1)))
 
 
-# Ready To Test
 def slope_from_point_array(point_arr_2: float, point_arr_1: float) -> float:
 
     # Validates arrays to ensure they have two coordinates:
@@ -96,9 +96,10 @@ def midpoint_2d_arr(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
 def distance_2d(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
-    return root(add(exponentiate(difference(x_1, x_2), 2), (exponentiate(difference(y_1, y_2), 2))), 2)
+    return root(add(square_diff(x_1, x_2), square_diff(y_2, y_1)), 2)
 
 
+# Verified
 def general_to_vertex_quad(lead_coeff: float, linear_coeff: float, const: float) -> float:
 
     if lead_coeff == 0:
@@ -237,16 +238,46 @@ def para_lotus_points(lead_coeff: float, linear_coeff: float, constant: float, d
     return [first_pt, second_pt]
 
 
-def syn_div(coeff_arr: float, synth_div: float) -> float:
+def poly_syn_div(coeff_arr: list, synth_div: float) -> list:
 
     if len(coeff_arr) < 2: return None
 
+    # Brings down the lead coefficient
     new_coeff_arr = [coeff_arr[0]]
+
+    # Moves the index of analysis over
     ind = 1
 
     while ind < range(len(coeff_arr)):
 
-        additive = product(new_coeff_arr[ind - 1], synth_div)
+        additive = product(new_coeff_arr[subtract_one(ind)], synth_div)
         new_coeff_arr.append(add(coeff_arr[ind], additive))
 
     return new_coeff_arr
+
+# Definitely needs to be double checked, but should be on the right track.
+# Needs validation to ensure the len(remainder) ≥ len(divisor) inside loop
+def poly_long_div(dividend_coeffs: list, divisor_coeffs: list) -> list:
+
+    divisor_terms: int = subtract_one(len(divisor_coeffs))
+    quotient_coeffs: list = []
+    new_remainder_coeffs: list = dividend_coeffs
+
+    for coeff in range(len(dividend_coeffs)):
+
+        product_coeffs: list = []
+
+        quotient_coeffs.append(float_quotient(dividend_coeffs[coeff], dividend_coeffs[coeff]))
+
+        for div_coeff in range(len(divisor_coeffs)):
+
+            product_coeffs.append(product(quotient_coeffs[coeff], divisor_coeffs[div_coeff]))
+
+        old_remainder_coeffs = new_remainder_coeffs
+        new_remainder_coeffs = []
+
+        for prod_coeff in range(len(product_coeffs)):
+
+            new_remainder_coeffs.append(difference(old_remainder_coeffs[prod_coeff]), product_coeffs[prod_coeff])
+
+    return quotient_coeffs

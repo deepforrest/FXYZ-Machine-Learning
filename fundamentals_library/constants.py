@@ -1,4 +1,4 @@
-from math_library.fund_comp import *
+from fundamentals_library.computations import *
 from fundamentals_libary.unit_conversions import *
 
 # Part 1: Readibility Constants
@@ -7,6 +7,7 @@ DENOM_INDEX: int = 1
 DISC_THRESH: int = 0
 HOR_DIR: str = "horizontal"
 INF_CRE: float = sci_note(neg(4))
+NUM_DIGITS_INIT: int = 1
 NUM_INDEX: int = 0
 PRODUCT_INIT: int = 1
 SCI_BASE: int = 10
