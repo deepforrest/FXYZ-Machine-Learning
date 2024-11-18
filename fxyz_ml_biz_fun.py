@@ -1,3 +1,6 @@
+from fxyz_ml_consts import *
+from fxyz_ml_math_ops import *
+
 # Calculates the adjusted hourly wage earned from working with clients based on travel time (an opp. cost)
 
 def assignment_earnings(hourly_rate: float, hours_worked: float, travel_charges: float = 0):

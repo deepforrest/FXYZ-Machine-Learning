@@ -48,6 +48,31 @@ ATTO_VALUE: float = sci_note(neg(18))
 ZEPTO_VALUE: float = sci_note(neg(21))
 YOCTO_VALUE: float = sci_note(neg(24))
 
+
+PREFIX_IND, VALUE_IND = 0, 1
+
+YOTTA_TUPLE: tuple = (YOTTA_PREFIX, YOTTA_VALUE)
+ZETTA_TUPLE: tuple = (ZETTA_PREFIX, ZETTA_VALUE)
+EXA_TUPLE: tuple = (EXA_PREFIX, EXA_VALUE)
+PETA_TUPLE: tuple = (PETA_PREFIX, PETA_VALUE)
+TERA_TUPLE: tuple = (TERA_PREFIX, TERA_VALUE)
+GIGA_TUPLE: tuple = (GIGA_PREFIX, GIGA_VALUE)
+MEGA_TUPLE: tuple = (MEGA_PREFIX, MEGA_VALUE)
+KILO_TUPLE: tuple = (KILO_PREFIX, KILO_VALUE)
+HECTO_TUPLE: tuple = (HECTO_PREFIX, HECTO_VALUE)
+DECA_TUPLE: tuple = (DECA_PREFIX, DECA_VALUE)
+NO_TUPLE: tuple = (NO_PREFIX, NO_VALUE)
+DECI_TUPLE: tuple = (DECI_PREFIX, DECI_VALUE)
+CENTI_TUPLE: tuple = (CENTI_PREFIX, CENTI_VALUE)
+MILLI_TUPLE: tuple = (MILLI_PREFIX, MILLI_VALUE)
+MICRO_TUPLE: tuple = (MICRO_PREFIX, MICRO_VALUE)
+NANO_TUPLE: tuple = (NANO_PREFIX, NANO_VALUE)
+PICO_TUPLE: tuple = (PICO_PREFIX, PICO_VALUE)
+FEMTO_TUPLE: tuple = (FEMTO_PREFIX, FEMTO_VALUE)
+ATTO_TUPLE: tuple = (ATTO_PREFIX, ATTO_VALUE)
+ZEPTO_TUPLE: tuple = (ZEPTO_PREFIX, ZEPTO_VALUE)
+YOCTO_TUPLE: tuple = (YOCTO_PREFIX, YOCTO_VALUE)
+
 PREFIX_CONVERSION: float = {
 
     YOTTA_PREFIX: {
@@ -622,6 +647,22 @@ PA_TO_ATM: float = reciprocal(101325)
 PA_TO_BAR: float = reciprocal(sci_note(5))
 PA_TO_TORR: float = reciprocal(133.322)
 PA_TO_PSI: float = reciprocal(6894.76)
+
+# Time Conversions
+SEC_UNIT: str = "sec"
+MIN_UNIT: str = "min"
+HOUR_UNIT: str = "hr"
+DAY_UNIT: str = "day"
+WEEK_UNIT: str = "week"
+MONTH_UNIT: str = "month"
+YEAR_UNIT: str = "year"
+
+SEC_TO_MIN: float = reciprocal(60)
+SEC_TO_HR: float = float_quotient(SEC_TO_MIN, 60)
+SEC_TO_DAY: float = float_quotient(SEC_TO_HR, 24)
+SEC_TO_WEEK: float = float_quotient(SEC_TO_DAY, 7)
+SEC_TO_MONTH: float = float_quotient(SEC_TO_DAY, float_quotient(365.24/12))
+SEC_TO_YEAR: float = float_quotient(SEC_TO_DAY, 365.24)
 
 
 ENERGY_CONVERSIONS: float = {
