@@ -1,4 +1,5 @@
 from math_library.fund_comp import *
+from fundamentals_libary.unit_conversions import *
 
 # Part 1: Readibility Constants
 BINARY_BASE: int = 2
@@ -29,3 +30,10 @@ Y_IND: int = 1
 Z_IND: int = 2
 
 # Part 2: Science Constants
+
+# Constants to make as a function of units:
+
+#1 - Speed of Light (length_unit, time_unit)
+#2 - Gravitational Acceleration Constant (length_unit, time_unit)
+#3 - Gravitational Force Constant (length_unit, time_unit, mass_unit)
+#4 - Electrostatic Force Constant (length_unit, time_unit, charge_unit)
