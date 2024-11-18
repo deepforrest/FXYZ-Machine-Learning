@@ -1,5 +1,7 @@
-from fxyz_ml_consts import *
-from fxyz_ml_math_ops import *
+from math_library.algebraic_functions import *
+from math_library.fund_comp import *
+from fundamentals_library.constants import *
+
 
 # Calculates the adjusted hourly wage earned from working with clients based on travel time (an opp. cost)
 

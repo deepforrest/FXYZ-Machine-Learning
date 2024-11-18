@@ -1,5 +1,5 @@
-from fxyz_ml_math_ops import *
-from fxyz_ml_consts import *
+from MATH_FUN.fund_comp import *
+from fundamentals_library.constants import *
 
 def divisible_by_n(num: int, divisor: int) -> bool:
 

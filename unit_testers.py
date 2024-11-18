@@ -1,5 +1,5 @@
-from fxyz_ml_math_ops import *
-from fxyz_ml_consts import *
+from math_library.fund_comp import *
+from fundamentals_library.constants import *
 
 def build_arithmethic_sequence(first_term: float, common_diff: float, num_of_terms: int) -> float:
     
@@ -20,7 +20,7 @@ def build_arithmethic_sequence(first_term: float, common_diff: float, num_of_ter
 
 def build_geometric_sequence(first_term: float, common_ratio: float, num_of_terms: int) -> float:
     
-    if num_of_terms < 1 or int(num_of_terms) == False or common_ratio == zero_base:
+    if num_of_terms < 1 or int(num_of_terms) == False or common_ratio == ZERO_BASE:
 
         return None
 

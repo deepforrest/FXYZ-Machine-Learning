@@ -1,3 +1,6 @@
+from math_library.fund_comp import *
+from fundamentals_library.constants import *
+
 # This serves as a template of which all divisions inherit these class properties
 class UniversalProperties:
 
@@ -37,7 +40,7 @@ class PhysicalData(UniversalProperties):
 # Division 3: Mental Class Template
 class MentalData(UniversalProperties):
     
-    def __init__(self, id_num: int, content: str, notes: str = None, tags: str = None, modified: str = None):
+    def __init__(self, id_num: int, data: str, notes: str = None, tags: str = None, updated: str = None):
         super().__init__(id_num, data, updated)
 
 
@@ -96,9 +99,12 @@ class SkillsData(UniversalProperties):
 # Division 10: Creative Class Template
 class CreativeData(UniversalProperties):
   
-    def __init__(id_num, data, tags, updated, abbr: str, summary: str, series: str, version: int, status: str, save_point: str, next_steps: str, created: str):
+    def __init__(self, id_num, data, tags, updated, 
+                 abbr: str, summary: str, series: str, version: int, status: str, save_point: str, 
+                 next_steps: str, created: str):
 
         super().__init__(id_num, data, tags, updated)
+
         self.abbr = abbr
         self.summary = summary
         self.series = series

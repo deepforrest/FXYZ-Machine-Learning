@@ -1,4 +1,4 @@
-from fxyz_ml_consts import *
+from fundamentals_library.constants import *
 
 # Function 01 Family: Elementary Functions
 # These functions were created to remove the clutter of +, -, *, and / operations to make them more readable and intentional.  This also prevents mismatched parentheses in most cases.

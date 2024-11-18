@@ -1,4 +1,5 @@
-from fxyz_ml_math_ops import *
+from math_library.fund_comp import *
+from fundamentals_library.constants import *
 
 def reduce_fraction(num: int, denom: int) -> int:
 
@@ -18,8 +19,8 @@ def reduce_fraction(num: int, denom: int) -> int:
     # Stage 2: ???
 
     # Stage 3: Create Reduced Numbers
-    reduced_num = PROD_INIT
-    reduced_denom = PROD_INIT
+    reduced_num = PRODUCT_INIT
+    reduced_denom = PRODUCT_INIT
 
     if range(len(num_factors)) == range(len(denom_factors)):
 

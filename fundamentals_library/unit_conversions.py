@@ -1,4 +1,5 @@
-from fxyz_ml_math_ops import *
+from math_library.fund_comp import *
+from fundamentals_library.constants import *
 
 #Self Conversion Definition
 SELF: float = 1

@@ -1,5 +1,5 @@
-from fxyz_ml_math_ops import *
-from fxyz_ml_consts import *
+from math_library.fund_comp import *
+from fundamentals_library.constants import *
 
 def calc_data_avg(data_arr: float) -> float:
 
@@ -20,7 +20,7 @@ def calc_data_variance(data_arr: float) -> float:
 
     sum_squares: float = SUM_INIT
 
-    count = 1 if difference(range(len(data_arr)), 1) >= variance_threshold else 0
+    count = 1 if difference(range(len(data_arr)), 1) >= VARIANCE_THRESHOLD else 0
 
     for pt in range(len(data_arr)):
 
