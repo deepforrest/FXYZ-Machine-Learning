@@ -2,6 +2,7 @@ from fundamentals_library.computations import *
 from fundamentals_library.constants import *
 import math
 
+
 def polynomial_point_derivative(coeff: float, base: float, power: float) -> float:
 
     # Checks for instances of divide by 0 and/or indeterminant forms
@@ -10,6 +11,7 @@ def polynomial_point_derivative(coeff: float, base: float, power: float) -> floa
         return None
 
     return polynomial(product(coeff, power), base, subtract_one(power))
+
 
 def log_point_derivative(point: float, base: float, vertical_stretch: float, horizontal_stretch: float, horizontal_displacement: float, vertical_displacement: float) -> float
 
@@ -30,6 +32,15 @@ def exp_point_derivative(point: float, base: float, vertical_stretch: float, hor
     return product(original_function, exp_derivative)
 
 # Unfinished
+def poly_nth_point_derivative(coeff_arr: float, num_of_der: int) -> float:
+
+    # Taking more derivatives than the higher power always generates a zero.
+    if len(coeff_arr) < subtract_one(num_of_der):
+
+        return 0
+
+
+# Unfinished
 def find_critical_points(poly_coeff_arr: list) -> list:
 
     poly_der_coeffs = []
@@ -37,4 +48,3 @@ def find_critical_points(poly_coeff_arr: list) -> list:
     # Generate a new arr of coefficients
 
     return -1
-

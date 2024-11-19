@@ -26,9 +26,8 @@ TWO_DIGIT_NUM_MAX: int = 99
 THREE_DIGIT_NUM_MIN: int = 100
 THREE_DIGIT_NUM_MAX: int = 999
 
-X_IND: int = 0
-Y_IND: int = 1
-Z_IND: int = 2
+
+X_IND, Y_IND, Z_IND = 0, 1, 2
 
 # Part 2: Science Constants
 
