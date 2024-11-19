@@ -20,6 +20,10 @@ ZERO_BASE: int = 0
 ZERO_DENOM: int = 0
 ZEROTH_POWER: int = 0
 
+FULL_CIRCLE_DEG: float = 360
+FULL_CIRCLE_GRAD: float = 400
+FULL_CIRCLE_RAD: float = 2 * math.pi
+
 SINGLE_DIGIT_NUM_MIN: int = 9
 TWO_DIGIT_NUM_MIN: int = 10
 TWO_DIGIT_NUM_MAX: int = 99

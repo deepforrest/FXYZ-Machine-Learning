@@ -1,5 +1,6 @@
 from fundamentals_library.computations import *
 from fundamentals_library.constants import *
+import math
 
 #Self Conversion Definition
 SELF: float = 1
@@ -626,6 +627,14 @@ PREFIX_CONVERSION: float = {
 
 # PART 2: Unit Conversions
 
+# Angle Conversions
+DEG_UNIT: str = "degrees"
+RAD_UNIT: str = "rad"
+GRAD_UNIT: str = "grad"
+
+DEG_TO_RAD: float = float_quotient(FULL_CIRCLE_RAD, FULL_CIRCLE_RAD)
+DEG_TO_GRAD: float = float_quotient(FULL_CIRCLE_GRAD, FULL_CIRCLE_DEG)
+
 # Energy Conversions
 JOULE_UNIT: str = "J"
 CAL_UNIT: str = "cal"
@@ -637,6 +646,26 @@ JOULE_TO_CAL: float = 4.184
 JOULE_TO_LITER_X_ATM: float = 101.325
 JOULE_TO_CUBIC_FT_PSI: float = 6894.76
 JOULE_TO_WATT_HR: float = 3600
+
+# Length Conversions
+MTR_UNIT: str = "m"
+FT_UNIT: str = "ft"
+IN_UNIT: str = "in"
+YD_UNIT: str = "yd"
+MI_UNIT: str = "mi"
+FATH_UNIT: str = "fath"
+NL_UNIT: str = "nl"
+ANGST_UNIT: str = "Å"
+ROD_UNIT: str = "rod"
+
+MTR_TO_FT: float = 3.28084
+MTR_TO_IN: float = product(12, MTR_TO_FT)
+MTR_TO_YD: float = product(3, MTR_TO_IN)
+MTR_TO_MI: float = product(5280, MTR_TO_IN)
+MTR_TO_FATH: float = float_quotient(MTR_TO_YD, 2)
+MTR_TO_NL: float = reciprocal(5556)
+MTR_TO_ANGST: float = sci_note(neg(10))
+MTR_TO_ROD: float = reciprocal(5.029)
 
 # Pressure Conversions
 PA_UNIT: str = "Pa"
@@ -665,6 +694,33 @@ SEC_TO_WEEK: float = float_quotient(SEC_TO_DAY, 7)
 SEC_TO_MONTH: float = float_quotient(SEC_TO_DAY, float_quotient(365.24/12))
 SEC_TO_YEAR: float = float_quotient(SEC_TO_DAY, 365.24)
 
+ANGLE_CONVERSIONS: float = {
+
+    DEG_UNIT: {
+
+        DEG_UNIT: SELF,
+        GRAD_UNIT: DEG_TO_GRAD,
+        RAD_UNIT: DEG_TO_RAD
+
+    },
+
+    GRAD_UNIT: {
+
+        DEG_UNIT: reciprocal(DEG_TO_GRAD),
+        GRAD_UNIT: SELF,
+        RAD_UNIT: float_quotient(DEG_TO_GRAD, DEG_TO_RAD)
+
+    },
+
+    RAD_UNIT: {
+
+        DEG_UNIT: reciprocal(DEG_TO_RAD),
+        GRAD_UNIT: float_quotient(DEG_TO_RAD, DEG_TO_GRAD),
+        RAD_UNIT: SELF
+
+    }
+
+}
 
 ENERGY_CONVERSIONS: float = {
 
@@ -721,7 +777,6 @@ ENERGY_CONVERSIONS: float = {
 
 }
 
-
 PRESSURE_CONVERSION: float = {
 
     PA_UNIT: {
@@ -757,7 +812,6 @@ PRESSURE_CONVERSION: float = {
         BAR_UNIT: float_quotient(PA_TO_TORR, PA_TO_BAR),
         TORR_UNIT: SELF,
     }
-
 
 }
 

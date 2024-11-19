@@ -1,6 +1,6 @@
-from math import *
 from fundamentals_library.computations import *
 from fundamentals_library.constants import *
+import math
 
 def reduce_fraction(num: int, denom: int) -> int:
 
@@ -292,3 +292,9 @@ def discrete_exponential(initial_value: float, rate: float, interval: int, power
     exponent = product(interval, power)
     
     return polynomial(initial_value, base, exponent)
+
+def continuous_exponential(initial_value: float, rate: float, power: int) -> float:
+
+    exponent: float = product(rate, power)
+
+    return polynomial(initial_value, math.e, exponent)
