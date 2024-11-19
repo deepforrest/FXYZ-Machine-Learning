@@ -108,7 +108,7 @@ def general_to_vertex_quad(lead_coeff: float, linear_coeff: float, const: float)
         return None
 
     calc_array = [lead_coeff, linear_coeff, const]
-    horizontal_offset = float_quotient(neg(linear_coeff), product(2, lead_coeff))
+    horizontal_offset = float_quotient(neg(linear_coeff), double(lead_coeff))
     power = 2
     vertical_offset = 0
 
@@ -192,22 +192,27 @@ def axis_of_sym(coord: float, dir: str) -> str:
             return f'No direction specified'
 
 
-
 def parabola_focus(lead_coeff: float, linear_coeff: float, constant: float, dir: str) -> float:
-
-    x_coord: float = calc_x_vertex(lead_coeff, linear_coeff, constant)
-    
-    y_coord: float = calc_y_vertex(lead_coeff, linear_coeff, constant)
 
     p_value: float = reciprocal(product(4, lead_coeff))
 
-    if dir == "horizontal":
+    if dir == HOR_DIR:
 
+        # Though it looks incorrect, we're switching inputs and outputs for the calc portion
+        y_coord: float = calc_x_vertex(lead_coeff, linear_coeff, constant)
+        x_coord: float = calc_y_vertex(lead_coeff, linear_coeff, constant)
         x_coord += p_value
 
-    if dir == "vertical":
+    elif dir == VER_DIR:
 
+        x_coord: float = calc_x_vertex(lead_coeff, linear_coeff, constant)
+        y_coord: float = calc_y_vertex(lead_coeff, linear_coeff, constant)
         y_coord += p_value
+
+    else:
+
+        x_coord: float = None
+        y_coord: float = None
 
     return[x_coord, y_coord]
 

@@ -25,7 +25,6 @@ def log_point_derivative(point: float, base: float, vertical_stretch: float, hor
 
 def exp_point_derivative(point: float, base: float, vertical_stretch: float, horizontal_stretch: float, horizontal_displacement: float, vertical_displacement: float) -> float:
 
-
     original_function: float = product(vertical_stretch, exponentiate(base, difference(product(horizontal_stretch, point), horizontal_displacement)))
     exp_derivative: float =  product(horizontal_displacement, math.log(base, math.e))
 
@@ -44,7 +43,7 @@ def poly_nth_point_derivative(coeff_arr: float, num_of_der: int) -> float:
 def find_critical_points(poly_coeff_arr: list) -> list:
 
     poly_der_coeffs = []
-    highest_power = len(poly_coeff_arr) - 1
+    highest_power = subtract_one(len(poly_coeff_arr))
     # Generate a new arr of coefficients
 
     return -1

@@ -106,14 +106,24 @@ def abs_value(num: float) -> float:
     return num if num >= WHOLE_NUM_MIN else neg(num)
 
 
-def add_one(num):
+def add_one(num: float) -> float:
 
     return add(num, 1)
 
 
-def subtract_one(num):
+def subtract_one(num: float) -> float:
 
     return difference(num, 1)
+
+
+def double(num: float) -> float:
+
+    return product(2, num)
+
+
+def half(num: float) -> float:
+    
+    return float_quotient(num, 2)
 
 
 def polynomial(coeff: float, base: float, power: float) -> float:

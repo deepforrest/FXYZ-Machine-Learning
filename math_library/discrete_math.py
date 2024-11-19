@@ -15,7 +15,7 @@ def nth_term_geo(first_term: float, nth_rank: int, common_ratio) -> float:
 
 def find_comm_diff(first_term: float, nth_term: float, nth_rank: int) -> float:
 
-    if int(nth_rank) == False or nth_rank < 2:
+    if int(nth_rank) == False or nth_rank < MIN_RANKS:
 
         return None
 
@@ -29,7 +29,7 @@ def find_first_term_arith(nth_term: float, nth_rank: float, common_diff: float) 
 
 def arith_sum(num_terms: int, first_term: float, last_term: float) -> float:
 
-    return float_quotient(product(num_terms, add(first_term, last_term)), 2)
+    return half(product(num_terms, add(first_term, last_term)))
 
 
 def geo_sum_part(num_terms: float, nth_term: int, common_ratio: float) -> float:

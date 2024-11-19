@@ -50,7 +50,7 @@ ATTO_VALUE: float = sci_note(neg(18))
 ZEPTO_VALUE: float = sci_note(neg(21))
 YOCTO_VALUE: float = sci_note(neg(24))
 
-
+# Prefix Datasets
 PREFIX_IND, VALUE_IND = 0, 1
 
 YOTTA_DATASET: tuple = (YOTTA_PREFIX, YOTTA_VALUE)
@@ -687,12 +687,12 @@ WEEK_UNIT: str = "week"
 MONTH_UNIT: str = "month"
 YEAR_UNIT: str = "year"
 
-SEC_TO_MIN: float = reciprocal(60)
-SEC_TO_HR: float = float_quotient(SEC_TO_MIN, 60)
-SEC_TO_DAY: float = float_quotient(SEC_TO_HR, 24)
-SEC_TO_WEEK: float = float_quotient(SEC_TO_DAY, 7)
-SEC_TO_MONTH: float = float_quotient(SEC_TO_DAY, float_quotient(365.24/12))
-SEC_TO_YEAR: float = float_quotient(SEC_TO_DAY, 365.24)
+SEC_TO_MIN: float = reciprocal(SEC_PER_MIN)
+SEC_TO_HR: float = float_quotient(SEC_TO_MIN, MIN_PER_HR)
+SEC_TO_DAY: float = float_quotient(SEC_TO_HR, HR_PER_DAY)
+SEC_TO_WEEK: float = float_quotient(SEC_TO_DAY, DAY_PER_WEEK)
+SEC_TO_MONTH: float = float_quotient(SEC_TO_DAY, float_quotient(DAY_PER_YEAR/MONTH_PER_YEAR))
+SEC_TO_YEAR: float = float_quotient(SEC_TO_DAY, DAY_PER_YEAR)
 
 ANGLE_CONVERSIONS: float = {
 
@@ -815,6 +815,92 @@ PRESSURE_CONVERSION: float = {
 
 }
 
-TIME_CONVERSIONS: float = {}
+TIME_CONVERSIONS: float = {
+
+    SEC_UNIT: {
+
+        SEC_UNIT: SELF,
+        MIN_UNIT: SEC_TO_MIN,
+        HOUR_UNIT: SEC_TO_HR,
+        DAY_UNIT: SEC_TO_DAY,
+        WEEK_UNIT: SEC_TO_WEEK,
+        MONTH_UNIT: SEC_TO_MONTH,
+        YEAR_UNIT: SEC_TO_YEAR,
+
+    },
+
+    MIN_UNIT: {
+
+        SEC_UNIT: reciprocal(SEC_TO_MIN),
+        MIN_UNIT: SELF,
+        HOUR_UNIT: float_quotient(SEC_TO_MIN, SEC_TO_HR),
+        DAY_UNIT: float_quotient(SEC_TO_MIN, SEC_TO_DAY),
+        WEEK_UNIT: float_quotient(SEC_TO_MIN, SEC_TO_WEEK),
+        MONTH_UNIT: float_quotient(SEC_TO_MIN, SEC_TO_MONTH),
+        YEAR_UNIT: float_quotient(SEC_TO_MIN, SEC_TO_YEAR),
+
+    },
+
+    HOUR_UNIT: {
+
+        SEC_UNIT: reciprocal(SEC_TO_HR),
+        MIN_UNIT: float_quotient(SEC_TO_HR, SEC_TO_MIN),
+        HOUR_UNIT: SELF,
+        DAY_UNIT: float_quotient(SEC_TO_HR, SEC_TO_DAY),
+        WEEK_UNIT: float_quotient(SEC_TO_HR, SEC_TO_WEEK),
+        MONTH_UNIT: float_quotient(SEC_TO_HR, SEC_TO_MONTH),
+        YEAR_UNIT: float_quotient(SEC_TO_HR, SEC_TO_YEAR),
+
+    },
+
+    DAY_UNIT: {
+
+        SEC_UNIT: reciprocal(SEC_TO_DAY),
+        MIN_UNIT: float_quotient(SEC_TO_DAY, SEC_TO_MIN),
+        HOUR_UNIT: float_quotient(SEC_TO_DAY, SEC_TO_HR),
+        DAY_UNIT: SELF,
+        WEEK_UNIT: float_quotient(SEC_TO_DAY, SEC_TO_WEEK),
+        MONTH_UNIT: float_quotient(SEC_TO_DAY, SEC_TO_MONTH),
+        YEAR_UNIT: float_quotient(SEC_TO_DAY, SEC_TO_YEAR),
+
+    },
+
+    WEEK_UNIT: {
+
+        SEC_UNIT: reciprocal(SEC_TO_WEEK),
+        MIN_UNIT: float_quotient(SEC_TO_WEEK, SEC_TO_MIN),
+        HOUR_UNIT: float_quotient(SEC_TO_WEEK, SEC_TO_HR),
+        DAY_UNIT: float_quotient(SEC_TO_WEEK, SEC_TO_DAY),
+        WEEK_UNIT: SELF,
+        MONTH_UNIT: float_quotient(SEC_TO_WEEK, SEC_TO_MONTH),
+        YEAR_UNIT: float_quotient(SEC_TO_WEEK, SEC_TO_YEAR),
+
+    },
+
+    MONTH_UNIT: {
+        
+        SEC_UNIT: reciprocal(SEC_TO_MONTH),
+        MIN_UNIT: float_quotient(SEC_TO_MONTH, SEC_TO_MIN),
+        HOUR_UNIT: float_quotient(SEC_TO_MONTH, SEC_TO_HR),
+        DAY_UNIT: float_quotient(SEC_TO_MONTH, SEC_TO_DAY),
+        WEEK_UNIT: float_quotient(SEC_TO_MONTH, SEC_TO_WEEK),
+        MONTH_UNIT: SELF,
+        YEAR_UNIT: float_quotient(SEC_TO_MONTH, SEC_TO_YEAR),
+
+    },
+
+    YEAR_UNIT: {
+        
+        SEC_UNIT: reciprocal(SEC_TO_YEAR),
+        MIN_UNIT: float_quotient(SEC_TO_YEAR, SEC_TO_MIN),
+        HOUR_UNIT: float_quotient(SEC_TO_YEAR, SEC_TO_HR),
+        DAY_UNIT: float_quotient(SEC_TO_YEAR, SEC_TO_DAY),
+        WEEK_UNIT: float_quotient(SEC_TO_YEAR, SEC_TO_WEEK),
+        MONTH_UNIT: float_quotient(SEC_TO_YEAR, SEC_TO_MONTH),
+        YEAR_UNIT: SELF,
+
+    }
+
+}
 
 LENGTH_CONVERSIONS: float = {}
