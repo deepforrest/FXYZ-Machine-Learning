@@ -281,3 +281,7 @@ def poly_long_div(dividend_coeffs: list, divisor_coeffs: list) -> list:
             new_remainder_coeffs.append(difference(old_remainder_coeffs[prod_coeff]), product_coeffs[prod_coeff])
 
     return quotient_coeffs
+
+def discrete_exponential(initial_value: float, rate: float, intervals: int):
+
+    return None
