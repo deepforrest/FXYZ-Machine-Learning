@@ -13,7 +13,7 @@ def polynomial_point_derivative(coeff: float, base: float, power: float) -> floa
     return polynomial(product(coeff, power), base, subtract_one(power))
 
 
-def log_point_derivative(point: float, base: float, vertical_stretch: float, horizontal_stretch: float, horizontal_displacement: float, vertical_displacement: float) -> float
+def log_point_derivative(point: float, base: float, vertical_stretch: float, horizontal_stretch: float, horizontal_displacement: float, vertical_displacement: float) -> float:
 
     # Domain needs to be tested:
 

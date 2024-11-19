@@ -1,5 +1,5 @@
 from fundamentals_library.computations import *
-from fundamentals_libary.unit_conversions import *
+from fundamentals_library.unit_conversions import *
 
 # Part 1: Readibility Constants
 BINARY_BASE: int = 2
