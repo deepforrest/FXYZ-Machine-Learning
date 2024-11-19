@@ -6,7 +6,7 @@ BINARY_BASE: int = 2
 DENOM_INDEX: int = 1
 DISC_THRESH: int = 0
 HOR_DIR: str = "horizontal"
-INF_CRE: float = sci_note(neg(4))
+INF_CRE: float = 0.000_1
 NUM_DIGITS_INIT: int = 1
 NUM_INDEX: int = 0
 PRODUCT_INIT: int = 1
@@ -26,7 +26,7 @@ TWO_DIGIT_NUM_MAX: int = 99
 THREE_DIGIT_NUM_MIN: int = 100
 THREE_DIGIT_NUM_MAX: int = 999
 
-
+# For arrays with ordered nums for points
 X_IND, Y_IND, Z_IND = 0, 1, 2
 
 # Part 2: Science Constants

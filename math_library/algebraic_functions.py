@@ -282,6 +282,13 @@ def poly_long_div(dividend_coeffs: list, divisor_coeffs: list) -> list:
 
     return quotient_coeffs
 
-def discrete_exponential(initial_value: float, rate: float, intervals: int):
+def discrete_exponential(initial_value: float, rate: float, interval: int, power: int):
 
-    return None
+    if interval < 1 or int(interval) != interval:
+
+        return f'{interval} is not valid'
+
+    base = add(NATURAL_NUM_MIN, float_quotient(rate, interval))
+    exponent = product(interval, power)
+    
+    return polynomial(initial_value, base, exponent)
