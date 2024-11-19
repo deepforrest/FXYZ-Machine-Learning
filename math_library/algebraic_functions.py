@@ -1,6 +1,7 @@
 from fundamentals_library.computations import *
 from fundamentals_library.constants import *
 from math_library.number_theory import *
+from math_library.differential_calculus import *
 import math
 
 def reduce_fraction(num: int, denom: int) -> list:
@@ -67,10 +68,10 @@ def normal_slope(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
     return neg(float_quotient(difference(x_2, x_1), difference(y_2, y_1)))
 
 # Check it out
-def slope_at_point(poly_coeff_arr: List[float], point_value: float) -> float:
+def slope_at_point(poly_coeff_arr: list, point_value: float) -> float:
 
     slope = SUM_INIT
-    power = subtract_one(len(poly_coeff_arr))
+    power = get_highest_power(poly_coeff_arr)
 
     for term in poly_coeff_arr:
 
@@ -80,7 +81,7 @@ def slope_at_point(poly_coeff_arr: List[float], point_value: float) -> float:
     return slope
 
 
-def midpoint_2d_arr(y_2: float, y_1: float, x_2: float, x_1: float, pr: boolean = False) -> float:
+def midpoint_2d_arr(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
     # Returns as a 2d ordered pair
     return [num_midpoint(x_2, x_1), num_midpoint(y_2, y_1)]
@@ -92,7 +93,7 @@ def distance_2d(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
 
 # Verified
-def general_to_vertex_quad(lead_coeff: float, linear_coeff: float, const: float) -> float:
+def general_to_vertex_quad(lead_coeff: float, linear_coeff: float, const: float, pr: bool = False) -> float:
 
     if lead_coeff == 0:
         
@@ -157,7 +158,7 @@ def quad_output(lead_coeff: float, linear_coeff: float, constant: float) -> floa
 
     axis_of_sym = quad_aos(lead_coeff, linear_coeff)
 
-    return add(polynomial(lead_coeff, x_vertex, 2), add(polynomial(linear_coeff, x_vertex, 1), constant))
+    return add(polynomial(lead_coeff, axis_of_sym, 2), add(polynomial(linear_coeff, axis_of_sym, 1), constant))
 
 
 def calc_num_ints_quad(lead_coeff: float, linear_coeff: float, constant: float) -> int:
@@ -291,18 +292,17 @@ def poly_long_div(dividend_coeffs: list, divisor_coeffs: list) -> list:
     quotient_coeffs: list = []
     new_remainder_coeffs: list = dividend_coeffs
 
-    for coeff in range(len(dividend_coeffs)):
+    for dvd_coeff in range(len(dividend_coeffs)):
 
         product_coeffs: list = []
 
-        quotient_coeffs.append(float_quotient(dividend_coeffs[coeff], dividend_coeffs[coeff]))
+        quotient_coeffs.append(float_quotient(dividend_coeffs[dvd_coeff], dividend_coeffs[dvd_coeff]))
 
-        for div_coeff in range(len(divisor_coeffs)):
+        for dvr_coeff in range(len(divisor_coeffs)):
 
-            product_coeffs.append(product(quotient_coeffs[coeff], divisor_coeffs[div_coeff]))
+            product_coeffs.append(product(quotient_coeffs[dvd_coeff], divisor_coeffs[dvr_coeff]))
 
-        old_remainder_coeffs = new_remainder_coeffs
-        new_remainder_coeffs = []
+        old_remainder_coeffs, new_remainder_coeffs = new_remainder_coeffs, []
 
         for prod_coeff in range(len(product_coeffs)):
 
@@ -315,7 +315,7 @@ def discrete_exponential(initial_value: float, rate: float, interval: int, power
 
     if interval < NATURAL_NUM_MIN or int(interval) != interval:
 
-        return f'{interval} is not valid'
+        return f'{interval} is not valid.  Please enter a positive integer.'
 
     base: float = add(NATURAL_NUM_MIN, float_quotient(rate, interval))
 
@@ -336,6 +336,7 @@ def discrete_exponential(initial_value: float, rate: float, interval: int, power
 
 def continuous_exponential(initial_value: float, rate: float, power: int) -> float:
 
+    base: float = math.e
     exponent: float = product(rate, power)
 
     return polynomial(initial_value, math.e, exponent)
