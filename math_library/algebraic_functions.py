@@ -1,5 +1,6 @@
 from fundamentals_library.computations import *
 from fundamentals_library.constants import *
+from math_library.number_theory import *
 import math
 
 def reduce_fraction(num: int, denom: int) -> int:
@@ -343,8 +344,8 @@ def rational_zeroes_poly(num_coeff_arr: list) -> list:
     lead_coeff: int = num_coeff_arr[0]
     constant: int = num_coeff_arr[-1]
 
-    lead_coeff_factors = num_factors(lead_coeff) #num_factors needs to be writing in number theory
-    constant_factors = num_factors(constant)
+    lead_coeff_factors = factors(lead_coeff) # pulled from number theory
+    constant_factors = factors(constant)
 
     if len(constant_factors) == 1:
 
@@ -375,4 +376,3 @@ def rational_zeroes_poly(num_coeff_arr: list) -> list:
                 ind += 1  # Only increment `ind` if no duplicate is found
 
         return rational_zeroes_arr
-

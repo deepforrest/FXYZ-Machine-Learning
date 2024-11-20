@@ -98,3 +98,21 @@ def div_then_mult_num(num: int) -> int:
             to_divide == True
 
     return final_num
+
+def factors(num: int) -> list:
+
+    factors_arr = [1] # one is always a factor
+    
+    starting_factor: int = 1
+    
+    mid_point = half(num) # Ensures half the work is done, since n/2 + k is never a factor of n where k > 0
+
+    while starting_factor <= mid_point:
+
+        if remainder(num, starting_factor) == 0:
+
+            factors_arr.append(starting_factor)
+
+        starting_factor += 1
+
+    return factor_arr
