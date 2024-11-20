@@ -243,9 +243,19 @@ def para_lotus_points(lead_coeff: float, linear_coeff: float, constant: float, d
     return [first_pt, second_pt]
 
 
+# Needs work: Consider when synthetic divisors are in the form of
+# ax - b, a ≠ 1 and your synthetic divisor = b/a
+# Also validate situations so that a ≠ 0
+# Consider entering your arguments differently as a and b instead of a synth divisor
 def poly_syn_div(coeff_arr: list, synth_div: float) -> list:
 
-    if len(coeff_arr) < 2: return None
+    if len(coeff_arr) < 2:
+
+        new_coeff_arr = []
+
+        for coeff in coeff_arr:
+
+            new_coeff_arr.append(float_quotient(coeff_arr[coeff], synth_div))
 
     # Brings down the lead coefficient
     new_coeff_arr = [coeff_arr[0]]
@@ -259,6 +269,7 @@ def poly_syn_div(coeff_arr: list, synth_div: float) -> list:
         new_coeff_arr.append(add(coeff_arr[ind], additive))
 
     return new_coeff_arr
+
 
 # Definitely needs to be double checked, but should be on the right track.
 # Needs validation to ensure the len(remainder) ≥ len(divisor) inside loop
@@ -287,19 +298,81 @@ def poly_long_div(dividend_coeffs: list, divisor_coeffs: list) -> list:
 
     return quotient_coeffs
 
-def discrete_exponential(initial_value: float, rate: float, interval: int, power: int):
+
+def discrete_exponential(initial_value: float, rate: float, interval: int, power: float) -> float:
 
     if interval < 1 or int(interval) != interval:
 
         return f'{interval} is not valid'
 
-    base = add(NATURAL_NUM_MIN, float_quotient(rate, interval))
-    exponent = product(interval, power)
-    
-    return polynomial(initial_value, base, exponent)
+    base: float = add(NATURAL_NUM_MIN, float_quotient(rate, interval))
+
+    # Validates the domain base 
+    if base <= 0:
+        
+        return f'{base} is not a valid base for an exponential function'
+
+    elif base == 1:
+
+        return initial_value # 1 ^ n = 1
+
+    else: 
+        
+        exponent: float = product(interval, power)
+        return polynomial(initial_value, base, exponent)
+
 
 def continuous_exponential(initial_value: float, rate: float, power: int) -> float:
 
     exponent: float = product(rate, power)
 
     return polynomial(initial_value, math.e, exponent)
+
+
+# Needs to be tested and verified that the pop operation works as expected
+def rational_zeroes_poly(num_coeff_arr: list) -> list:
+
+    for coeff in num_coeff_arr:
+
+        # Validates that integers are in the array only
+        if num_coeff_arr[coeff] != int(num_coeff_arr[coeff]):
+
+            return f'Rational Zeroes Theorem will not work easily with non-integers.  Please adjust your values and try again.\nProblem coeff: {num_coeff_arr[coeff]} located at index {coeff}.'
+
+
+    lead_coeff: int = num_coeff_arr[0]
+    constant: int = num_coeff_arr[-1]
+
+    lead_coeff_factors = num_factors(lead_coeff) #num_factors needs to be writing in number theory
+    constant_factors = num_factors(constant)
+
+    if len(constant_factors) == 1:
+
+        return lead_coeff_factors
+
+    else:
+
+        rational_zeroes_arr = []
+
+        for cf in constant_factors:
+
+            for lcf in lead_coeff_factors:
+
+                rational_zeroes_arr.append[float_quotient(lead_coeff_factors[lcf], constant_factors[cf])]
+            
+        rational_zeroes_arr.sort()
+
+        ind = 1  # Start from 1 to avoid out-of-bounds errors
+
+        while ind < len(rational_zeroes_arr): 
+
+            if rational_zeroes_arr[ind] == rational_zeroes_arr[ind - 1]:
+
+                rational_zeroes_arr.pop(ind)  # Remove the duplicate at the current index
+
+            else:
+
+                ind += 1  # Only increment `ind` if no duplicate is found
+
+        return rational_zeroes_arr
+
