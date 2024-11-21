@@ -6,6 +6,7 @@ import math
 BINARY_BASE: int = 2
 DENOM_INDEX: int = 1
 DISC_THRESH: int = 0
+FRACT_ARR_LEN: int = 2
 HOR_DIR: str = "horizontal"
 INF_CRE: float = 0.000_001
 MIN_RANKS: int = 2

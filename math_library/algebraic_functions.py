@@ -30,6 +30,40 @@ def reduce_fraction(num: int, denom: int) -> list:
         denom_reduced *= factor
 
     return [num_reduced, denom_reduced]
+
+
+def reduce_fraction_arr(fract_arr: list) -> list:
+    
+    # Validates that the array represents a num/denom array
+    if len(fract_arr) != FRACT_ARR_LEN: 
+        
+        return f'{fract_arr} does not represent a fraction.  Please enter an array as [numerator, denominator].'
+    
+    # Get unique factors of numerator and denominator
+    num_factors: list = factors(fract_arr[NUM_INDEX])
+    denom_factors: list = factors(fract_arr[DENOM_INDEX])
+
+    # Remove common factors
+    for factor in num_factors[:]:
+        
+        if factor in denom_factors:
+        
+            num_factors.remove(factor)
+            denom_factors.remove(factor)
+
+    # Calculate the reduced numerator and denominator
+    num_reduced = PRODUCT_INIT
+    denom_reduced = PRODUCT_INIT
+
+    for factor in num_factors:
+        
+        num_reduced *= factor
+
+    for factor in denom_factors:
+        
+        denom_reduced *= factor
+
+    return [num_reduced, denom_reduced]
     
 
 def slope_from_two_points(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
@@ -75,7 +109,7 @@ def slope_at_point(poly_coeff_arr: list, point_value: float) -> float:
 
     for term in poly_coeff_arr:
 
-        slope += polynomial_point_derivative(poly_coeff_arr[term], point_value, power)
+        slope += poly_term_pt_der(poly_coeff_arr[term], point_value, power)
         power -= 1
 
     return slope
