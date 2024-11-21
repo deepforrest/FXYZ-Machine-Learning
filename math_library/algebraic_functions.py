@@ -10,7 +10,9 @@ def reduce_fraction(num: int, denom: int) -> list:
 
     # Remove common factors
     for factor in num_factors[:]:
+        
         if factor in denom_factors:
+        
             num_factors.remove(factor)
             denom_factors.remove(factor)
 
@@ -19,14 +21,15 @@ def reduce_fraction(num: int, denom: int) -> list:
     denom_reduced = PRODUCT_INIT
 
     for factor in num_factors:
+        
         num_reduced *= factor
 
     for factor in denom_factors:
+        
         denom_reduced *= factor
 
     return [num_reduced, denom_reduced]
     
-
 
 def slope_from_two_points(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
@@ -54,24 +57,22 @@ def slope_from_point_array(point_arr_2: float, point_arr_1: float) -> float:
 
 def perp_slope(slope: float) -> float:
 
-    return neg(reciprocal(slope)) if slope != ZERO_DENOM else None
+    return neg(reciprocal(slope)) if slope != ZERO_DENOM else f'Reciprocal slope is undefined.'
 
 
 def normal_slope(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
-    if y_2 == y_1:
-
-        return None
+    if y_2 == y_1: return f'Reciprocal slope is undefined. since y_2 = {y_2} and y_1 = {y_1}.'
     
     return neg(float_quotient(difference(x_2, x_1), difference(y_2, y_1)))
 
 # Needs to be thought out
-#def slope_at_point(poly_coeff_arr: List[float]):
+# def slope_at_point(poly_coeff_arr: List[float]):
 #
 #   return -1
 
 
-def midpoint_2d_arr(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
+def midpoint_2d_arr(y_2: float, y_1: float, x_2: float, x_1: float, pr: boolean = False) -> float:
 
     # Returns as a 2d ordered pair
     return [num_midpoint(x_2, x_1), num_midpoint(y_2, y_1)]
@@ -108,24 +109,40 @@ def general_to_vertex_quad(lead_coeff: float, linear_coeff: float, const: float)
 
     # Printing conditions for cleaner output
     
-    horizontal_sign = "-" if horizontal_offset >= WHOLE_NUM_MIN else "+"
-    vertical_sign = "+" if vertical_offset >= WHOLE_NUM_MIN else "-"
-    print_hor_offset: str = str(horizontal_offset) if horizontal_offset >= WHOLE_NUM_MIN else abs_value(horizontal_offset)
-    print_vert_offset: str = str(vertical_offset) if vertical_offset >= WHOLE_NUM_MIN else abs_value(vertical_offset)
-    print_lead_coeff: str = str(lead_coeff) if lead_coeff != 1 else ""
+    if pr == True:
     
-    print("y = ", print_lead_coeff, "(x", horizontal_sign, print_hor_offset, ") ^ 2", vertical_sign, print_vert_offset)
-    
+        horizontal_sign:str = "-" if horizontal_offset >= WHOLE_NUM_MIN else "+"
+        vertical_sign:str = "+" if vertical_offset >= WHOLE_NUM_MIN else "-"
+        print_hor_offset: str = str(horizontal_offset) if horizontal_offset >= WHOLE_NUM_MIN else abs_value(horizontal_offset)
+        print_vert_offset: str = str(vertical_offset) if vertical_offset >= WHOLE_NUM_MIN else abs_value(vertical_offset)
+        print_lead_coeff: str = str(lead_coeff) if lead_coeff != 1 else ""
+        
+        print("y = ", print_lead_coeff, "(x", horizontal_sign, print_hor_offset, ") ^ 2", vertical_sign, print_vert_offset)
+        
     return [horizontal_offset, vertical_offset]
 
-def calc_quad_disc(lead_coeff: float, linear_coeff: float, constant) -> float:
 
-    return difference(exponentiate(linear_coeff, 2), product(4, product(lead_coeff, constant)))
+def quadratic_test(lead_coeff: float) -> bool:
+
+    return False if lead_coeff == 0 else True
+
+
+def calc_quad_disc(lead_coeff: float, linear_coeff: float, constant) -> float:
+    
+    if quadratic_test(lead_coeff) == True:
+
+        return difference(exponentiate(linear_coeff, 2), product(4, product(lead_coeff, constant)))
+        
+    return f'Not a quadratic when a = {lead_coeff}'
 
 
 def calc_x_vertex(lead_coeff: float, linear_coeff: float) -> float:
 
-    return(float_quotient(neg(linear_coeff), product(2, lead_coeff)))
+    if quadratic_test(lead_coeff) == True:
+
+        return(float_quotient(neg(linear_coeff), product(2, lead_coeff)))
+
+    return f'Not a quadratic when a = {lead_coeff}'
 
 
 def calc_y_vertex(lead_coeff: float, linear_coeff: float, constant: float):
@@ -211,20 +228,19 @@ def para_lotus_points(lead_coeff: float, linear_coeff: float, constant: float, d
         
         case "vertical":
             
-            first_pt: float = [focus[0] - adj_value, focus[1]]
-            second_pt: float = [focus[0] + adj_value, focus[1]]
+            first_pt: float = [difference(focus[0], adj_value), focus[1]]
+            second_pt: float = [add(focus[0], adj_value), focus[1]]
         
         case "horizontal":
 
-            first_pt: float = [focus[0], focus[1] - adj_value]
-            second_pt: float = [focus[0], focus[1] + adj_value]
+            first_pt: float = [focus[0], difference(focus[1], adj_value)]
+            second_pt: float = [focus[0], add(focus[1], adj_value)]
         
         case _:
 
-            raise ValueError("Invalid direction specified")
+            raise ValueError("Invalid direction specified.")
 
     return [first_pt, second_pt]
-
 
 # Needs work: Consider when synthetic divisors are in the form of
 # ax - b, a ≠ 1 and your synthetic divisor = b/a
@@ -284,18 +300,18 @@ def poly_long_div(dividend_coeffs: list, divisor_coeffs: list) -> list:
 
 def discrete_exponential(initial_value: float, rate: float, interval: int, power: float) -> float:
 
-    if interval < 1 or int(interval) != interval:
+    if interval < NATURAL_NUM_MIN or int(interval) != interval:
 
         return f'{interval} is not valid'
 
     base: float = add(NATURAL_NUM_MIN, float_quotient(rate, interval))
 
     # Validates the domain base 
-    if base <= 0:
+    if base <= WHOLE_NUM_MIN:
         
         return f'{base} is not a valid base for an exponential function'
 
-    elif base == 1:
+    elif base == NATURAL_NUM_MIN:
 
         return initial_value # 1 ^ n = 1
 
@@ -322,12 +338,11 @@ def rational_zeroes_poly(num_coeff_arr: list) -> list:
 
             return f'Rational Zeroes Theorem will not work easily with non-integers.  Please adjust your values and try again.\nProblem coeff: {num_coeff_arr[coeff]} located at index {coeff}.'
 
-
     lead_coeff: int = num_coeff_arr[0]
     constant: int = num_coeff_arr[-1]
 
-    lead_coeff_factors = factors(lead_coeff) # pulled from number theory
-    constant_factors = factors(constant)
+    lead_coeff_factors: list = factors(lead_coeff) # pulled from number theory
+    constant_factors: list = factors(constant)
 
     if len(constant_factors) == 1:
 
