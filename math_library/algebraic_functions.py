@@ -370,6 +370,7 @@ def rational_zeroes_poly(num_coeff_arr: list) -> list:
 
         ind = 1  # Start from 1 to avoid out-of-bounds errors
 
+        # Get this loop checked.  Maybe .remove is better?
         while ind < len(rational_zeroes_arr): 
 
             if rational_zeroes_arr[ind] == rational_zeroes_arr[ind - 1]:
