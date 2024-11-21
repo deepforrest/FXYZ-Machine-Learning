@@ -144,18 +144,18 @@ def calc_quad_disc(lead_coeff: float, linear_coeff: float, constant) -> float:
     return f'Not a quadratic when a = {lead_coeff}'
 
 
-def calc_x_vertex(lead_coeff: float, linear_coeff: float) -> float:
+def quad_aos(lead_coeff: float, linear_coeff: float) -> float:
 
     if quadratic_test(lead_coeff) == True:
 
-        return(float_quotient(neg(linear_coeff), product(2, lead_coeff)))
+        return(float_quotient(neg(linear_coeff), double( lead_coeff)))
 
     return f'Not a quadratic when a = {lead_coeff}'
 
 
-def calc_y_vertex(lead_coeff: float, linear_coeff: float, constant: float) -> float:
+def quad_output(lead_coeff: float, linear_coeff: float, constant: float) -> float:
 
-    x_vertex = calc_x_vertex(lead_coeff, linear_coeff)
+    axis_of_sym = quad_aos(lead_coeff, linear_coeff)
 
     return add(polynomial(lead_coeff, x_vertex, 2), add(polynomial(linear_coeff, x_vertex, 1), constant))
 
@@ -183,17 +183,20 @@ def calc_num_ints_quad(lead_coeff: float, linear_coeff: float, constant: float) 
             return None
 
 
-def axis_of_sym(coord: float, dir: str) -> str:
+def get_aos(lead_coeff: float, linear_coeff: float, dir: str) -> str:
 
+    
+    axis_of_sym = quad_aos(lead_coeff, linear_coeff)
+    
     match dir:
 
         case "horizontal":
         
-            return f'y = {coord}'
+            return f'y = {axis_of_sym}'
         
         case "vertical":
         
-            return f'x = {coord}'
+            return f'x = {axis_of_sym}'
         
         case _:
             
@@ -207,14 +210,14 @@ def parabola_focus(lead_coeff: float, linear_coeff: float, constant: float, dir:
     if dir == HOR_DIR:
 
         # Though it looks incorrect, we're switching inputs and outputs for the calc portion
-        y_coord: float = calc_x_vertex(lead_coeff, linear_coeff, constant)
-        x_coord: float = calc_y_vertex(lead_coeff, linear_coeff, constant)
+        y_coord: float = quad_aos(lead_coeff, linear_coeff)
+        x_coord: float = quad_output(lead_coeff, linear_coeff, constant)
         x_coord += p_value
 
     elif dir == VER_DIR:
 
-        x_coord: float = calc_x_vertex(lead_coeff, linear_coeff, constant)
-        y_coord: float = calc_y_vertex(lead_coeff, linear_coeff, constant)
+        x_coord: float = quad_aos(lead_coeff, linear_coeff)
+        y_coord: float = quad_output(lead_coeff, linear_coeff, constant)
         y_coord += p_value
 
     else:
@@ -256,23 +259,25 @@ def para_lotus_points(lead_coeff: float, linear_coeff: float, constant: float, d
 # Consider entering your arguments differently as a and b instead of a synth divisor
 def poly_syn_div(coeff_arr: list, synth_div: float) -> list:
 
+    divisor = get_synth_divisor(synth_div)
+
     if len(coeff_arr) < 2:
 
-        new_coeff_arr = []
+        new_coeff_arr: list = []
 
         for coeff in coeff_arr:
 
             new_coeff_arr.append(float_quotient(coeff_arr[coeff], synth_div))
 
     # Brings down the lead coefficient
-    new_coeff_arr = [coeff_arr[0]]
+    new_coeff_arr: list = [coeff_arr[0]]
 
     # Moves the index of analysis over
-    ind = 1
+    ind: int = 1
 
     while ind < range(len(coeff_arr)):
 
-        additive = product(new_coeff_arr[subtract_one(ind)], synth_div)
+        additive: float = product(new_coeff_arr[subtract_one(ind)], synth_div)
         new_coeff_arr.append(add(coeff_arr[ind], additive))
 
     return new_coeff_arr
@@ -358,7 +363,7 @@ def rational_zeroes_poly(num_coeff_arr: list) -> list:
 
     else:
 
-        rational_zeroes_arr = []
+        rational_zeroes_arr: list = []
 
         for cf in constant_factors:
 
@@ -401,3 +406,17 @@ def calculate_poly(poly_coeffs_arr: list, point: float) -> float:
         power -= 1
 
     return poly_sum
+
+def get_synth_divisor(divisor_arr: list) -> float:
+
+    # Looks for an array that fits ax - b = 0
+    if len(divisor_arr) == 2:
+
+        return neg(float_quotient(divisor_arr[1], divisor_arr[0])) if divisor_arr[0] != 0 else f"{divisor_arr[0]} cannot be used as an 'a' value!"
+
+    # In the event the divisor itself is already given
+    elif len(divisor_arr) == 1:
+
+        return divisor_arr
+    
+    return f'Not a valid synthetic divisor!'
