@@ -165,3 +165,7 @@ def product_op(num_start: int, num_finish: int) -> int:
     input_finish = num_finish if num_finish >= num_start else num_start
     
     return float_quotient(factorial(input_finish), factorial(input_start))
+
+def get_highest_power(ceoff_arr: list) -> int:
+
+    return subtract_one(len(coeff_arr))

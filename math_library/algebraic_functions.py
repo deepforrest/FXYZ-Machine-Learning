@@ -282,7 +282,7 @@ def poly_syn_div(coeff_arr: list, synth_div: float) -> list:
 # Needs validation to ensure the len(remainder) ≥ len(divisor) inside loop
 def poly_long_div(dividend_coeffs: list, divisor_coeffs: list) -> list:
 
-    divisor_terms: int = subtract_one(len(divisor_coeffs))
+    divisor_terms: int = get_highest_power(divisor_coeffs)
     quotient_coeffs: list = []
     new_remainder_coeffs: list = dividend_coeffs
 
@@ -382,3 +382,22 @@ def rational_zeroes_poly(num_coeff_arr: list) -> list:
                 ind += 1  # Only increment `ind` if no duplicate is found
 
         return rational_zeroes_arr
+
+# Testing required
+# Code iterates through coefficient array at a point to calcululate result.
+# Ex: [2, -3, 5] at point -1 calculates:
+# 2(-1)^2 + -3(-1) + 5 which returns 10.
+def calculate_poly(poly_coeffs_arr: list, point: float) -> float:
+
+    # Initializations
+    poly_sum = SUM_INIT
+    power = get_highest_power(poly_coeffs_arr)
+
+    # Go through each array and calculate the sum using the coefficient provided
+    for coeff in poly_coeffs_arr:
+
+        poly_sum += polynomial(poly_coeffs_arr[coeff], point, power)
+
+        power -= 1
+
+    return poly_sum
