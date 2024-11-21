@@ -115,4 +115,4 @@ def factors(num: int) -> list:
 
         starting_factor += 1
 
-    return factor_arr
+    return factors_arr
