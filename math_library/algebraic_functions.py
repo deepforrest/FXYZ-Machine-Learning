@@ -3,53 +3,35 @@ from fundamentals_library.constants import *
 from math_library.number_theory import *
 import math
 
-def reduce_fraction(num: int, denom: int) -> int:
+def reduce_fraction(num: int, denom: int) -> list:
+    # Get unique factors of numerator and denominator
+    num_factors = factors(num)
+    denom_factors = factors(denom)
 
-    # Function Steps:
-    #! Determine all factors of numerator and denomonator
-    #! Go through both arrays and cancel out factors
-    # Multiply remaining factors together
-    # Return an array with reduce numerator and denominator
+    # Remove common factors
+    for factor in num_factors[:]:
+        if factor in denom_factors:
+            num_factors.remove(factor)
+            denom_factors.remove(factor)
 
-    # Stage 1: Get Factors
-    num_to_reduce: int = num
-    denom_to_reduce: int = denom
+    # Calculate the reduced numerator and denominator
+    num_reduced = PRODUCT_INIT
+    denom_reduced = PRODUCT_INIT
 
-    num_factors = []
-    denom_factors = []
+    for factor in num_factors:
+        num_reduced *= factor
 
-    # Stage 2: ???
+    for factor in denom_factors:
+        denom_reduced *= factor
 
-    # Stage 3: Create Reduced Numbers
-    reduced_num = PRODUCT_INIT
-    reduced_denom = PRODUCT_INIT
-
-    if range(len(num_factors)) == range(len(denom_factors)):
-
-        for i in num_factors:
-
-            reduced_num *= num_factors[i]
-            reduced_denom *= denom_factors[i]
-
-        return [reduced_num, reduced_denom]
-
-    else: 
-
-        for i in num_factors:
-
-            reduced_num *= num_factors[i]
-
-        for i in denom_factors:
-
-            reduced_denom *= denom_factors[i]
-
-        return [reduced_num, reduced_denom]
+    return [num_reduced, denom_reduced]
+    
 
 
 def slope_from_two_points(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
     # Prevents divide by zero returns
-    if x_2 == x_1: return None
+    if x_2 == x_1: return f'Slope is undefined since x_2 = {x_2} and x_1 = {x_1}'
 
     return(float_quotient(difference(y_2, y_1), difference(x_2, x_1)))
 
@@ -57,7 +39,7 @@ def slope_from_two_points(y_2: float, y_1: float, x_2: float, x_1: float) -> flo
 def slope_from_point_array(point_arr_2: float, point_arr_1: float) -> float:
 
     # Validates arrays to ensure they have two coordinates:
-    if len(point_arr_2) != 2 and len(point_arr_1) != 2:
+    if len(point_arr_2) != 2 or len(point_arr_1) != 2:
 
         return None
 
