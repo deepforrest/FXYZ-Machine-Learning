@@ -66,10 +66,18 @@ def normal_slope(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
     
     return neg(float_quotient(difference(x_2, x_1), difference(y_2, y_1)))
 
-# Needs to be thought out
-# def slope_at_point(poly_coeff_arr: List[float]):
-#
-#   return -1
+# Check it out
+def slope_at_point(poly_coeff_arr: List[float], point_value: float) -> float:
+
+    slope = SUM_INIT
+    power = subtract_one(len(poly_coeff_arr))
+
+    for term in poly_coeff_arr:
+
+        slope += polynomial_point_derivative(poly_coeff_arr[term], point_value, power)
+        power -= 1
+
+    return slope
 
 
 def midpoint_2d_arr(y_2: float, y_1: float, x_2: float, x_1: float, pr: boolean = False) -> float:
@@ -145,7 +153,7 @@ def calc_x_vertex(lead_coeff: float, linear_coeff: float) -> float:
     return f'Not a quadratic when a = {lead_coeff}'
 
 
-def calc_y_vertex(lead_coeff: float, linear_coeff: float, constant: float):
+def calc_y_vertex(lead_coeff: float, linear_coeff: float, constant: float) -> float:
 
     x_vertex = calc_x_vertex(lead_coeff, linear_coeff)
 
