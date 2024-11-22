@@ -107,7 +107,7 @@ def slope_at_point(poly_coeff_arr: list, point_value: float) -> float:
     slope: float = SUM_INIT
     power: int = get_highest_power(poly_coeff_arr)
 
-    for term in poly_coeff_arr:
+    for term in range(len(poly_coeff_arr)):
 
         slope += poly_term_pt_der(poly_coeff_arr[term], point_value, power)
         power -= 1
@@ -252,7 +252,6 @@ def parabola_focus(lead_coeff: float, linear_coeff: float, constant: float, dir:
 
     if dir == HOR_DIR:
 
-        # Though it looks incorrect, we're switching inputs and outputs for the calc portion
         y_coord: float = quad_aos(lead_coeff, linear_coeff)
         x_coord: float = quad_output(lead_coeff, linear_coeff, constant)
         x_coord += p_value
@@ -391,7 +390,7 @@ def rational_zeroes_poly(num_coeff_arr: list) -> list:
 
         return f'Please enter an array of polynomials'
     
-    for coeff in num_coeff_arr:
+    for coeff in range(len(num_coeff_arr)):
 
         # Validates that integers are in the array only
         if num_coeff_arr[coeff] != int(num_coeff_arr[coeff]):
@@ -423,7 +422,7 @@ def rational_zeroes_poly(num_coeff_arr: list) -> list:
         ind = 1  # Start from 1 to avoid out-of-bounds errors
 
         # Get this loop checked.  Maybe .remove is better?
-        while ind < len(rational_zeroes_arr): 
+        while ind < subtract_one(len(rational_zeroes_arr)): 
 
             if rational_zeroes_arr[ind] == rational_zeroes_arr[ind - 1]:
 
@@ -467,3 +466,16 @@ def get_synth_divisor(divisor_arr: list) -> float:
         return divisor_arr
     
     return f'Not a valid synthetic divisor!'
+
+def poly_multiply(poly_arr_1: list, poly_arr_2: list) -> list:
+
+    prod_arr: list = []
+    prod_arr_len: int = len(poly_arr_1) + len(poly_arr_2)
+    ind: int = 1
+
+    while ind <= prod_arr_len:
+
+        prod_arr.append(PRODUCT_INIT)
+
+    # This will be tricky to think out
+    
