@@ -6,8 +6,8 @@ import math
 
 def reduce_fraction(num: int, denom: int) -> list:
     # Get unique factors of numerator and denominator
-    num_factors = factors(num)
-    denom_factors = factors(denom)
+    num_factors: list = factors(num)
+    denom_factors: list = factors(denom)
 
     # Remove common factors
     for factor in num_factors[:]:
@@ -18,8 +18,8 @@ def reduce_fraction(num: int, denom: int) -> list:
             denom_factors.remove(factor)
 
     # Calculate the reduced numerator and denominator
-    num_reduced = PRODUCT_INIT
-    denom_reduced = PRODUCT_INIT
+    num_reduced: int = PRODUCT_INIT
+    denom_reduced: int = PRODUCT_INIT
 
     for factor in num_factors:
         
@@ -52,8 +52,8 @@ def reduce_fraction_arr(fract_arr: list) -> list:
             denom_factors.remove(factor)
 
     # Calculate the reduced numerator and denominator
-    num_reduced = PRODUCT_INIT
-    denom_reduced = PRODUCT_INIT
+    num_reduced: int = PRODUCT_INIT
+    denom_reduced: int = PRODUCT_INIT
 
     for factor in num_factors:
         
@@ -77,7 +77,7 @@ def slope_from_two_points(y_2: float, y_1: float, x_2: float, x_1: float) -> flo
 def slope_from_point_array(point_arr_2: float, point_arr_1: float) -> float:
 
     # Validates arrays to ensure they have two coordinates:
-    if len(point_arr_2) != 2 or len(point_arr_1) != 2:
+    if len(point_arr_2) != POINT_LEN_2D or len(point_arr_1) != POINT_LEN_2D:
 
         return None
 
@@ -87,7 +87,7 @@ def slope_from_point_array(point_arr_2: float, point_arr_1: float) -> float:
 
             return None
 
-    return(float_quotient(difference(point_arr_2[1], point_arr_2[0]), difference(point_arr_1[1], point_arr_1[0])))
+    return float_quotient(difference(point_arr_2[1], point_arr_2[0]), difference(point_arr_1[1], point_arr_1[0]))
 
 
 def perp_slope(slope: float) -> float:
@@ -95,7 +95,7 @@ def perp_slope(slope: float) -> float:
     return neg(reciprocal(slope)) if slope != ZERO_DENOM else f'Reciprocal slope is undefined.'
 
 
-def normal_slope(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
+def normal_line(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
     if y_2 == y_1: return f'Reciprocal slope is undefined. since y_2 = {y_2} and y_1 = {y_1}.'
     
@@ -104,8 +104,8 @@ def normal_slope(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 # Check it out
 def slope_at_point(poly_coeff_arr: list, point_value: float) -> float:
 
-    slope = SUM_INIT
-    power = get_highest_power(poly_coeff_arr)
+    slope: float = SUM_INIT
+    power: int = get_highest_power(poly_coeff_arr)
 
     for term in poly_coeff_arr:
 
@@ -134,10 +134,10 @@ def general_to_vertex_quad(lead_coeff: float, linear_coeff: float, const: float,
         print("Not a quadratic function when a = 0")
         return None
 
-    calc_array = [lead_coeff, linear_coeff, const]
-    horizontal_offset = float_quotient(neg(linear_coeff), double(lead_coeff))
-    power = 2
-    vertical_offset = 0
+    calc_array: list = [lead_coeff, linear_coeff, const]
+    horizontal_offset: float = float_quotient(neg(linear_coeff), double(lead_coeff))
+    power: int = 2
+    vertical_offset: float = 0
 
     
     while power >= ZEROTH_POWER:
@@ -154,8 +154,8 @@ def general_to_vertex_quad(lead_coeff: float, linear_coeff: float, const: float,
     
     if pr == True:
     
-        horizontal_sign:str = "-" if horizontal_offset >= WHOLE_NUM_MIN else "+"
-        vertical_sign:str = "+" if vertical_offset >= WHOLE_NUM_MIN else "-"
+        horizontal_sign: str = "-" if horizontal_offset >= WHOLE_NUM_MIN else "+"
+        vertical_sign: str = "+" if vertical_offset >= WHOLE_NUM_MIN else "-"
         print_hor_offset: str = str(horizontal_offset) if horizontal_offset >= WHOLE_NUM_MIN else abs_value(horizontal_offset)
         print_vert_offset: str = str(vertical_offset) if vertical_offset >= WHOLE_NUM_MIN else abs_value(vertical_offset)
         print_lead_coeff: str = str(lead_coeff) if lead_coeff != 1 else ""
@@ -170,7 +170,7 @@ def quadratic_test(lead_coeff: float) -> bool:
     return False if lead_coeff == 0 else True
 
 
-def calc_quad_disc(lead_coeff: float, linear_coeff: float, constant) -> float:
+def calc_quad_disc(lead_coeff: float, linear_coeff: float, constant: float) -> float:
     
     if quadratic_test(lead_coeff) == True:
 
@@ -190,14 +190,23 @@ def quad_aos(lead_coeff: float, linear_coeff: float) -> float:
 
 def quad_output(lead_coeff: float, linear_coeff: float, constant: float) -> float:
 
-    axis_of_sym = quad_aos(lead_coeff, linear_coeff)
+    axis_of_sym: float = quad_aos(lead_coeff, linear_coeff)
+    quad_arr: list = [lead_coeff, linear_coeff, constant]
+    power: int = highest_power(quad_arr)
 
-    return add(polynomial(lead_coeff, axis_of_sym, 2), add(polynomial(linear_coeff, axis_of_sym, 1), constant))
+    output_coord: float = SUM_INIT
+
+    for coeff in range(len(quad_arr)):
+
+        output_coord += polynomial(quad_arr[coeff], axis_of_sym, power)
+        power -= 1
+
+    return output_coord
 
 
 def calc_num_ints_quad(lead_coeff: float, linear_coeff: float, constant: float) -> int:
     
-    discriminant = calc_quad_disc(lead_coeff, linear_coeff, constant)
+    discriminant: float = calc_quad_disc(lead_coeff, linear_coeff, constant)
 
     match discriminant:
 
@@ -220,8 +229,7 @@ def calc_num_ints_quad(lead_coeff: float, linear_coeff: float, constant: float) 
 
 def get_aos(lead_coeff: float, linear_coeff: float, dir: str) -> str:
 
-    
-    axis_of_sym = quad_aos(lead_coeff, linear_coeff)
+    axis_of_sym: float = quad_aos(lead_coeff, linear_coeff)
     
     match dir:
 
@@ -265,7 +273,7 @@ def parabola_focus(lead_coeff: float, linear_coeff: float, constant: float, dir:
 
 def para_lotus_points(lead_coeff: float, linear_coeff: float, constant: float, dir: str) -> list:
 
-    focus = parabola_focus(lead_coeff, linear_coeff, constant, dir)
+    focus: float = parabola_focus(lead_coeff, linear_coeff, constant, dir)
     adj_value: int = reciprocal(lead_coeff)
 
     first_pt, second_pt = [], []
@@ -294,7 +302,7 @@ def para_lotus_points(lead_coeff: float, linear_coeff: float, constant: float, d
 # Consider entering your arguments differently as a and b instead of a synth divisor
 def poly_syn_div(coeff_arr: list, synth_div: float) -> list:
 
-    divisor = get_synth_divisor(synth_div)
+    divisor: float = get_synth_divisor(synth_div)
 
     if len(coeff_arr) < 2:
 
@@ -360,7 +368,7 @@ def discrete_exponential(initial_value: float, rate: float, interval: int, power
 
     elif base == NATURAL_NUM_MIN:
 
-        return initial_value # 1 ^ n = 1
+        return initial_value # k * (1 ^ n) = k
 
     else: 
         
@@ -379,6 +387,10 @@ def continuous_exponential(initial_value: float, rate: float, power: int) -> flo
 # Needs to be tested and verified that the pop operation works as expected
 def rational_zeroes_poly(num_coeff_arr: list) -> list:
 
+    if len(num_coeff_arr) == SCALAR_LEN:
+
+        return f'Please enter an array of polynomials'
+    
     for coeff in num_coeff_arr:
 
         # Validates that integers are in the array only
@@ -392,7 +404,7 @@ def rational_zeroes_poly(num_coeff_arr: list) -> list:
     lead_coeff_factors: list = factors(lead_coeff) # pulled from number theory
     constant_factors: list = factors(constant)
 
-    if len(constant_factors) == 1:
+    if len(constant_factors) == SCALAR_LEN:
 
         return lead_coeff_factors
 
@@ -400,9 +412,9 @@ def rational_zeroes_poly(num_coeff_arr: list) -> list:
 
         rational_zeroes_arr: list = []
 
-        for cf in constant_factors:
+        for cf in range(len(constant_factors)):
 
-            for lcf in lead_coeff_factors:
+            for lcf in range(len(lead_coeff_factors)):
 
                 rational_zeroes_arr.append[float_quotient(lead_coeff_factors[lcf], constant_factors[cf])]
             
@@ -434,7 +446,7 @@ def calculate_poly(poly_coeffs_arr: list, point: float) -> float:
     power = get_highest_power(poly_coeffs_arr)
 
     # Go through each array and calculate the sum using the coefficient provided
-    for coeff in poly_coeffs_arr:
+    for coeff in range(len(poly_coeffs_arr)):
 
         poly_sum += polynomial(poly_coeffs_arr[coeff], point, power)
 
@@ -447,10 +459,10 @@ def get_synth_divisor(divisor_arr: list) -> float:
     # Looks for an array that fits ax - b = 0
     if len(divisor_arr) == 2:
 
-        return neg(float_quotient(divisor_arr[1], divisor_arr[0])) if divisor_arr[0] != 0 else f"{divisor_arr[0]} cannot be used as an 'a' value!"
+        return neg(float_quotient(divisor_arr[1], divisor_arr[0])) if divisor_arr[0] != ZERO_DENOM else f"{divisor_arr[0]} cannot be used as an 'a' value!"
 
     # In the event the divisor itself is already given
-    elif len(divisor_arr) == 1:
+    elif len(divisor_arr) == SCALAR_LEN:
 
         return divisor_arr
     

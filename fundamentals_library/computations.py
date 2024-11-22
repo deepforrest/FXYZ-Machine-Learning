@@ -11,7 +11,7 @@ def add(first_num: float, second_num: float) -> float:
 
 def add_arr(num_arr: list) -> float:
 
-    sum_of_num: float = SUM_INIT
+    sum_of_nums: float = SUM_INIT
     
     for num in num_arr:
 
@@ -29,7 +29,6 @@ def difference(first_num: float, second_num: float) -> float:
 def product(first_num: float, second_num: float) -> float:
 
     return first_num * second_num
-
 
 
 def product_arr(num_arr: list) -> float:
@@ -145,8 +144,8 @@ def factorial(num: int) -> int:
 
     if num >= WHOLE_NUM_MIN and int(num) == True:
 
-        result = PRODUCT_INIT
-        counter = num
+        result: int = PRODUCT_INIT
+        counter: int = num
 
         while counter > NATURAL_NUM_MIN:
 
@@ -160,12 +159,26 @@ def factorial(num: int) -> int:
 
 def product_op(num_start: int, num_finish: int) -> int:
 
+    if num_start != int(num_start) or num_finish != int(num_finish):
+
+        return f'Function only works with integers.\nInputs detected:{num_start} and {num_finish}'
+
     # Validates that numbers are starting from low to high, switches them if needed.
-    input_start = num_start if num_start <= num_finish else num_finish
-    input_finish = num_finish if num_finish >= num_start else num_start
+    input_start: int = num_start if num_start <= num_finish else num_finish
+    input_finish: int = num_finish if num_finish >= num_start else num_start
     
     return float_quotient(factorial(input_finish), factorial(input_start))
 
 def get_highest_power(ceoff_arr: list) -> int:
 
     return subtract_one(len(coeff_arr))
+
+
+def diff_perf_squares(num_1: float, num_2: float) -> float:
+
+    return difference(exponentiate(num_1, 2), exponentiate(num_2, 2))
+
+
+def sum_perf_squares(num_1: float, num_2: float) -> float:
+
+    return add(exponentiate(num_1, 2), exponentiate(num_2, 2))

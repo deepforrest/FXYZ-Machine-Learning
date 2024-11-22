@@ -6,10 +6,10 @@ class UniversalProperties:
 
     def __init__(self, id_num: int, data: str, tags: str, updated: str):
 
-        self.id_num = id_num
-        self.data = data
-        self.tags = tags
-        self.updated = updated
+        self.id_num: int = id_num
+        self.data: str = data
+        self.tags: str = tags
+        self.updated: int = updated
 
     def display_universal_data(self):
 
