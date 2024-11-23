@@ -183,16 +183,16 @@ def quad_aos(lead_coeff: float, linear_coeff: float) -> float:
 
     if quadratic_test(lead_coeff) == True:
 
-        return(float_quotient(neg(linear_coeff), double( lead_coeff)))
+        return(float_quotient(neg(linear_coeff), double(lead_coeff)))
 
-    return f'Not a quadratic when a = {lead_coeff}'
+    return f'Not a quadratic when a = {lead_coeff}.'
 
 
-def quad_output(lead_coeff: float, linear_coeff: float, constant: float) -> float:
+def quad_aos_output(lead_coeff: float, linear_coeff: float, constant: float) -> float:
 
     axis_of_sym: float = quad_aos(lead_coeff, linear_coeff)
     quad_arr: list = [lead_coeff, linear_coeff, constant]
-    power: int = highest_power(quad_arr)
+    power: int = get_highest_power(quad_arr)
 
     output_coord: float = SUM_INIT
 
@@ -253,13 +253,13 @@ def parabola_focus(lead_coeff: float, linear_coeff: float, constant: float, dir:
     if dir == HOR_DIR:
 
         y_coord: float = quad_aos(lead_coeff, linear_coeff)
-        x_coord: float = quad_output(lead_coeff, linear_coeff, constant)
+        x_coord: float = quad_aos_output(lead_coeff, linear_coeff, constant)
         x_coord += p_value
 
     elif dir == VER_DIR:
 
         x_coord: float = quad_aos(lead_coeff, linear_coeff)
-        y_coord: float = quad_output(lead_coeff, linear_coeff, constant)
+        y_coord: float = quad_aos_output(lead_coeff, linear_coeff, constant)
         y_coord += p_value
 
     else:
@@ -467,15 +467,16 @@ def get_synth_divisor(divisor_arr: list) -> float:
     
     return f'Not a valid synthetic divisor!'
 
+
 def poly_multiply(poly_arr_1: list, poly_arr_2: list) -> list:
 
-    prod_arr: list = []
-    prod_arr_len: int = len(poly_arr_1) + len(poly_arr_2)
-    ind: int = 1
+    prod_arr_len: int = len(poly_arr_1) + len(poly_arr_2) - 2
+    prod_arr: list = product([0], add_one(prod_arr_len))
 
-    while ind <= prod_arr_len:
+    for ind_1, coeff_1 in enumerate(poly_arr_1):
 
-        prod_arr.append(PRODUCT_INIT)
+        for ind_2, coeff_2 in enumerate(poly_arr_2):
 
-    # This will be tricky to think out
-    
+            prod_arr[ind_1 + ind_2] += product(coeff_1, coeff_2)
+
+    return prod_arr

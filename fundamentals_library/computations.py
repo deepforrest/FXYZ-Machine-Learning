@@ -169,7 +169,7 @@ def product_op(num_start: int, num_finish: int) -> int:
     
     return float_quotient(factorial(input_finish), factorial(input_start))
 
-def get_highest_power(ceoff_arr: list) -> int:
+def get_highest_power(coeff_arr: list) -> int:
 
     return subtract_one(len(coeff_arr))
 
