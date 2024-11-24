@@ -502,3 +502,20 @@ def odd_function_test_arr(poly_arr: list) -> bool:
     return True
 
 def even_function_test_arr(poly_arr: list) -> bool:
+
+    # Check to see the number of terms.  Even polynomial arrays must have an odd length: [1, 0 , -4] => x^2 - 4
+    if remainder(len(poly_arr), 2) == 0:
+
+        return False
+
+    # Used for countdown
+    poly_deg = get_highest_power(poly_arr)
+
+    for coeff in range(len(poly_arr)):
+
+        # Checks to see if the term is part of the odd section and if its coefficient is 0 or not.
+        if remainder(poly_deg, 2) != 0 and poly_arr[coeff] != 0: return False
+            
+        poly_deg -= 1
+
+    return True    
