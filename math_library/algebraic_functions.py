@@ -518,4 +518,21 @@ def even_function_test_arr(poly_arr: list) -> bool:
             
         poly_deg -= 1
 
-    return True    
+    return True
+
+def odd_or_even_poly_arr(poly_arr: list) -> str:
+
+    odd_test: bool = odd_function_test_arr(poly_arr)
+    even_test: bool = even_function_test_arr(poly_arr)
+
+    if odd_test == True:
+
+        return f'{poly_arr} is an odd function.'
+
+    elif even_test == True:
+
+        return f'{poly_arr} is an even function.'
+
+    else:
+
+        return f'{poly_arr} is neither odd or even.'
