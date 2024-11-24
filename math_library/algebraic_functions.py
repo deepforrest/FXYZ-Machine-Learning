@@ -480,3 +480,25 @@ def poly_multiply(poly_arr_1: list, poly_arr_2: list) -> list:
             prod_arr[ind_1 + ind_2] += product(coeff_1, coeff_2)
 
     return prod_arr
+
+# Example List: [1, 0, 3, 0]
+def odd_function_test_arr(poly_arr: list) -> bool:
+
+    # Check to see the number of terms.  Odd polynomial arrays must have an even length
+    if remainder(len(poly_arr), 2) != 0:
+
+        return False
+
+    # Used for countdown
+    poly_deg = get_highest_power(poly_arr)
+
+    for coeff in range(len(poly_arr)):
+
+        # Checks to see if the term is part of the even section and if its coefficient is 0 or not.
+        if remainder(poly_deg, 2) == 0 and poly_arr[coeff] != 0: return False
+            
+        poly_deg -= 1
+
+    return True
+
+def even_function_test_arr(poly_arr: list) -> bool:
