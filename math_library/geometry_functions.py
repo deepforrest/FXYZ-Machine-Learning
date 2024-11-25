@@ -43,6 +43,7 @@ def angle_law_of_sines(corr_side: float, another_side: float, another_angle: flo
 
     return math.asin(float_quotient(product(corr_side, math.sin(another_angle)), another_side))
 
+
 def side_law_of_sines(corr_angle: float, another_side: float, another_angle: float, angle_type: str) -> float:
 
     if angle_type == "deg":
@@ -51,3 +52,10 @@ def side_law_of_sines(corr_angle: float, another_side: float, another_angle: flo
         another_angle *= DEG_TO_RAD
 
     return(float_quotient(product(another_side, math.sin(corr_angle)), math.sin(another_angle)))
+
+def area_of_polygon(num_of_sides: int, len_of_side: float) -> float:
+
+    numerator: float = polynomial(num_of_sides, len_of_side, 2)
+    denominator: float = product(4, math.tan(half(FULL_CIRCLE_DEG), num_of_sides))
+
+    return float_quotient(numerator, denominator)
