@@ -1,5 +1,4 @@
 from fundamentals_library.constants import *
-
 # Function 01 Family: Elementary Functions
 # These functions were created to remove the clutter of +, -, *, and / operations to make them more readable and intentional.  This also prevents mismatched parentheses in most cases.
 # Current number of functions: 9
@@ -83,6 +82,26 @@ def root(base: float, nth_root: float) -> float:
 
     # Calls Functions 01-007, ######, & 
     return exponentiate(base, reciprocal(nth_root))
+
+
+def squared(base: float) -> float:
+
+    return exponentiate(base, 2)
+
+
+def cubed(base: float) -> float:
+
+    return exponentiate(base, 3)
+
+
+# Even root validation required
+def sqrt(base: float) -> float:
+
+    return root(base, 2)
+
+def cbrt(base: float) -> float:
+
+    return root(base, 3)
 
 
 def sci_note(power: int) -> float:

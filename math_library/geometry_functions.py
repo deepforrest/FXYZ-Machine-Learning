@@ -56,6 +56,63 @@ def side_law_of_sines(corr_angle: float, another_side: float, another_angle: flo
 def area_of_polygon(num_of_sides: int, len_of_side: float) -> float:
 
     numerator: float = polynomial(num_of_sides, len_of_side, 2)
-    denominator: float = product(4, math.tan(half(FULL_CIRCLE_DEG), num_of_sides))
+    denominator: float = product(4, math.tan(float_quotient(half(FULL_CIRCLE_DEG), num_of_sides)))
 
     return float_quotient(numerator, denominator)
+
+# Triangle Functions
+def area_of_triangle(base: float, height: float) -> float:
+
+    return half(product(base, height))
+
+def per_of_triangle(side_a: float, side_b: float, side_c: float) -> float:
+
+    return sum(side_a, side_b, side_c)
+
+def find_missing_angle_rt_tri(angle: float, angle_input_type: str, angle_output_type: str) -> float:
+
+    angle_to_analyze: float = angle
+
+    if angle_input_type == RAD_UNIT:
+
+        angle_to_analyze *= ANGLE_CONVERSIONS[RAD_UNIT][DEG_UNIT]
+
+    if angle_to_analyze < RIGHT_ANGLE or angle_to_analyze > ZERO_ANGLE:
+
+        return f'The angle {angle} is not a valid angle.'
+    
+    missing_angle: float = difference(RIGHT_ANGLE, angle_to_analyze)
+
+    if angle_output_type == RAD_UNIT:
+
+        missing_angle *= ANGLE_CONVERSIONS[DEG_UNIT][RAD_UNIT]
+    
+    return missing_angle
+
+# Square Functions
+def area_of_square(side_len: float) -> float:
+
+    if side_len <= ZERO_LEN:
+
+        return f'{side_len} is not a valid geometric input.'
+    
+    return squared(side_len)
+
+def per_of_square(side_len: float) -> float:
+
+    if side_len <= ZERO_LEN:
+
+        return f'{side_len} is not a valid geometric input.'
+    
+    return product(NUM_SIDES_QUAD, side_len)
+
+# Circle Functions
+def area_of_circle(len_meas: float, len_type: str = "radius") -> float:
+
+    if len_meas < ZERO_LEN:
+
+        return f'{len_meas} is not a valid {len_type}.'
+
+    calc_len: float = half(len_meas) if len_type != "radius" else len_meas
+
+    return product(math.pi, squared(calc_len))
