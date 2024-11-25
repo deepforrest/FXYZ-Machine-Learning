@@ -5,7 +5,6 @@ def divisible_by_n(num: int, divisor: int) -> bool:
 
     return True if remainder(num, divisor) == 0 else False
 
-
 # Function 02: Sum of Digits
 # Returns the sum of all digits in an integer
 def sum_of_digits(num: int) -> int:
@@ -23,25 +22,28 @@ def prod_of_nz_digits(num: int) -> int:
     num_to_parse: int = abs_value(num)
 
     # Step Two: Parse Number & Discard All Zero Digits
-
     for digit in range(len(num_to_parse)):
 
         if digit > 0: digit_arr.append[digit]
 
+    for digit in range(len(digit_arr)):
+
+        num_prod *= digit_arr[digit]
+
     # Return Product
-    return product(digit_arr)
+    return num_prod
 
 # Function 04: Splt Numbers Into An Array
-# Splits a number into its components.
+# Splits a number into its components as an array.
 # Example: 2491 -> [2000, 400, 90, 1]
-def split_num_into_arr(num: int) -> int:
+def split_num_into_arr(num: int) -> list:
 
     num_arr = []
     num_of_digits: int = len(str(num))
 
     for digit in range(len(num)):
 
-        num_arr.append[exponentiate(digit, num_of_digits)]
+        num_arr.append[product(digit, sci_note(num_of_digits))]
         num_of_digits -= 1
 
     return num_arr
@@ -51,20 +53,17 @@ def split_num_into_arr(num: int) -> int:
 # Domain > 0
 def prod_to_sum_digits_ratio(num: int) -> float:
 
-    return(float_quotient(prod_of_nz_digits(num), sum_of_digits(num)))
+    return float_quotient(prod_of_nz_digits(num), sum_of_digits(num))
 
 def mult_then_divide(num_times: int):
 
     counter: int = 1
     numerator: int = 1
     denominator: int = 1
-    no_remainder: int = 0
 
     while counter <= num_times:
-
-        # Hopefully Python will allow ternary expressions with multiple variable :-/
         
-        if counter % 2 == no_remainder:
+        if divisible_by_n(counter, 2) == True:
         
             numerator *= counter
         
@@ -76,6 +75,7 @@ def mult_then_divide(num_times: int):
     
     # print(numerator, " / ", denominator, " = ", str(numerator/denominator))
     return numerator/denominator
+
 
 def div_then_mult_num(num: int) -> int:
 
@@ -99,13 +99,14 @@ def div_then_mult_num(num: int) -> int:
 
     return final_num
 
+
 def factors(num: int) -> list:
 
-    factors_arr = [1] # one is always a factor
+    factors_arr: list = [1] # One is always a factor
+    starting_factor: int = 2
     
-    starting_factor: int = 1
-    
-    mid_point = half(num) # Ensures half the work is done, since n/2 + k is never a factor of n where k > 0
+    # Ensures half the work is done, since n/2 + k is never a factor of n where k > 0
+    mid_point: float = half(num) 
 
     while starting_factor <= mid_point:
 
@@ -116,3 +117,30 @@ def factors(num: int) -> list:
         starting_factor += 1
 
     return factors_arr
+
+def num_of_doublings(start_num: float, final_num: float) -> int:
+
+    # Validation 1: Checks for zeros in either entry.
+    if start_num == WHOLE_NUM_MIN or final_num == WHOLE_NUM_MIN:
+
+        print(f'Zero cannot be doubled')
+        return -1
+
+    # Validation 2: Ensures numbers are signless.
+    num_to_analyze: float = start_num if start_num > WHOLE_NUM_MIN else abs_value(start_num)
+    num_to_finish: float = final_num if final_num > WHOLE_NUM_MIN else abs_value(final_num)
+
+    # Validation 3: Swaps numbers if entered out of order.
+    if num_to_analyze > num_to_finish:
+
+        num_to_analyze, num_to_finish = num_to_finish, num_to_analyze
+
+    # Now the analysis
+    doubling_count: int = SUM_INIT
+
+    while num_to_analyze < num_to_finish:
+
+        num_to_analyze = double(num_to_analyze)
+        doubling_count += 1
+
+    return doubling_count

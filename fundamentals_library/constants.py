@@ -10,6 +10,7 @@ FRACT_ARR_LEN: int = 2
 HOR_DIR: str = "horizontal"
 INF_CRE: float = 0.000_001
 MIN_RANKS: int = 2
+NO_REMAINDER: int = 0
 NUM_DIGITS_INIT: int = 1
 NUM_SIDES_QUAD: int = 4
 NUM_INDEX: int = 0
