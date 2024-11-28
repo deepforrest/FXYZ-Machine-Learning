@@ -268,3 +268,25 @@ class SocialIndividuals(SocialData):
         self.birth_day_of_month = birth_day_of_month
         self.birth_year = birth_year
         self.birthday: str = f'{birth_month} / {birth_day_of_month} / {birth_year}'
+
+class NusinessOpportunityRadar(BusinessData):
+
+    def __init__(self, id_num, data, tags, status, type, tier, updated):
+
+        super().__init__(id_num, data, tags, updated)
+
+        self.status: str = status
+        self.type: str = type
+        self.tier: str = tier
+
+
+class BusinessPortfolio(BusinessData):
+                
+    def __init__(self, id_num, data, tags, category, subcategory, notes, date, updated):
+
+        super().__init__(id_num, data, tags, updated)
+
+        self.category: str = category
+        self.subcategory: str = subcategory
+        self.notes: str = notes
+        self.date: str = date
