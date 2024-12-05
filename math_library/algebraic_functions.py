@@ -570,3 +570,12 @@ def odd_or_even_poly_arr(poly_arr: list) -> str:
     else:
 
         return f'{poly_arr} is neither odd or even.'
+
+def binomial_coeff(n: int, k: int) -> int:
+
+    # Switches the numbers if entered out order
+    if n < k:
+
+        n, k = k, n
+
+    return float_quotient(factorial(n), product(factorial(k), factorial(difference(n - k))))
