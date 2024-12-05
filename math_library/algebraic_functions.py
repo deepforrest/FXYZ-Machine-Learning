@@ -4,10 +4,10 @@ from math_library.number_theory import *
 from math_library.differential_calculus import *
 import math
 
-def reduce_fraction(num: int, denom: int) -> list:
+def reduce_fraction(num: int, denom: int) -> list[int]:
     # Get unique factors of numerator and denominator
-    num_factors: list = factors(num)
-    denom_factors: list = factors(denom)
+    num_factors: list[int] = factors(num)
+    denom_factors: list[int] = factors(denom)
 
     # Remove common factors
     for factor in num_factors[:]:
@@ -105,7 +105,7 @@ def slope_from_two_points(y_2: float, y_1: float, x_2: float, x_1: float) -> flo
     # Prevents divide by zero returns
     if x_2 == x_1: return f'Slope is undefined since x_2 = {x_2} and x_1 = {x_1}'
 
-    return(float_quotient(difference(y_2, y_1), difference(x_2, x_1)))
+    return float_quotient(difference(y_2, y_1), difference(x_2, x_1))
 
 
 def slope_from_point_array(point_arr_2: float, point_arr_1: float) -> float:
@@ -117,7 +117,7 @@ def slope_from_point_array(point_arr_2: float, point_arr_1: float) -> float:
 
     for coordinate in range(len(point_arr_2)):
 
-        if float(point_arr_2[coordinate]) == False or float(point_arr_1[coordinate]) == False:
+        if not float(point_arr_2[coordinate]) or not float(point_arr_1[coordinate]):
 
             return None
 
@@ -190,7 +190,7 @@ def general_to_vertex_quad(lead_coeff: float, linear_coeff: float, const: float,
 
     # Printing conditions for cleaner output
     
-    if pr == True:
+    if pr:
     
         horizontal_sign: str = "-" if horizontal_offset >= WHOLE_NUM_MIN else "+"
         vertical_sign: str = "+" if vertical_offset >= WHOLE_NUM_MIN else "-"
@@ -210,16 +210,16 @@ def quadratic_test(lead_coeff: float) -> bool:
 
 def calc_quad_disc(lead_coeff: float, linear_coeff: float, constant: float) -> float:
     
-    if quadratic_test(lead_coeff) == True:
+    if quadratic_test(lead_coeff):
 
-        return difference(exponentiate(linear_coeff, 2), product(4, product(lead_coeff, constant)))
+        return difference(squared(linear_coeff), product(4, product(lead_coeff, constant)))
         
     return f'Not a quadratic when a = {lead_coeff}'
 
 
 def quad_aos(lead_coeff: float, linear_coeff: float) -> float:
 
-    if quadratic_test(lead_coeff) == True:
+    if quadratic_test(lead_coeff):
 
         return float_quotient(neg(linear_coeff), double(lead_coeff))
 
@@ -345,7 +345,7 @@ def poly_syn_div(coeff_arr: list[float], synth_div: float) -> list[float]:
 
     if len(coeff_arr) < 2:
 
-        new_coeff_arr: list = []
+        new_coeff_arr: list[float] = []
 
         for coeff in coeff_arr:
 
@@ -566,11 +566,11 @@ def odd_or_even_poly_arr(poly_arr: list[float]) -> str:
     odd_test: bool = odd_function_test_arr(poly_arr)
     even_test: bool = even_function_test_arr(poly_arr)
 
-    if odd_test == True:
+    if odd_test:
 
         return f'{poly_arr} is an odd function.'
 
-    elif even_test == True:
+    elif even_test:
 
         return f'{poly_arr} is an even function.'
 
