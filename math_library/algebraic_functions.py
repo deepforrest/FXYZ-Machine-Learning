@@ -32,7 +32,7 @@ def reduce_fraction(num: int, denom: int) -> list:
     return [num_reduced, denom_reduced]
 
 
-def reduce_fraction_arr(fract_arr: list) -> list:
+def reduce_fraction_arr(fract_arr: list[int]) -> list[int]:
     
     # Validates that the array represents a num/denom array
     if len(fract_arr) != FRACT_ARR_LEN: 
@@ -66,7 +66,7 @@ def reduce_fraction_arr(fract_arr: list) -> list:
     return [num_reduced, denom_reduced]
 
 
-def reduce_fraction_arr(fract_arr: list) -> list:
+def reduce_fraction_arr(fract_arr: list[int]) -> list[int]:
     
     # Validates that the array represents a num/denom array
     if len(fract_arr) != FRACT_ARR_LEN: 
@@ -136,7 +136,7 @@ def normal_line(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
     return neg(float_quotient(difference(x_2, x_1), difference(y_2, y_1)))
 
 # Check it out
-def slope_at_point(poly_coeff_arr: list, point_value: float) -> float:
+def slope_at_point(poly_coeff_arr: list[int], point_value: float) -> float:
 
     slope: float = SUM_INIT
     power: int = get_highest_power(poly_coeff_arr)
@@ -157,7 +157,11 @@ def midpoint_2d_arr(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
 def distance_2d(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
-    return root(add(square_diff(x_1, x_2), square_diff(y_2, y_1)), 2)
+    x_sq_diff = square_diff(x_2, x_1)
+    y_sq_diff = square_diff(y_2, y_1)
+    sq_sum = add(x_sq_diff, y_sq_diff)
+
+    return root(sq_sum, 2)
 
 
 # Verified
@@ -168,7 +172,7 @@ def general_to_vertex_quad(lead_coeff: float, linear_coeff: float, const: float,
         print("Not a quadratic function when a = 0")
         return None
 
-    calc_array: list = [lead_coeff, linear_coeff, const]
+    calc_array: list[int] = [lead_coeff, linear_coeff, const]
     horizontal_offset: float = float_quotient(neg(linear_coeff), double(lead_coeff))
     power: int = 2
     vertical_offset: float = 0
@@ -217,7 +221,7 @@ def quad_aos(lead_coeff: float, linear_coeff: float) -> float:
 
     if quadratic_test(lead_coeff) == True:
 
-        return(float_quotient(neg(linear_coeff), double(lead_coeff)))
+        return float_quotient(neg(linear_coeff), double(lead_coeff))
 
     return f'Not a quadratic when a = {lead_coeff}.'
 
@@ -225,7 +229,7 @@ def quad_aos(lead_coeff: float, linear_coeff: float) -> float:
 def quad_aos_output(lead_coeff: float, linear_coeff: float, constant: float) -> float:
 
     axis_of_sym: float = quad_aos(lead_coeff, linear_coeff)
-    quad_arr: list = [lead_coeff, linear_coeff, constant]
+    quad_arr: list[float] = [lead_coeff, linear_coeff, constant]
     power: int = get_highest_power(quad_arr)
 
     output_coord: float = SUM_INIT
@@ -309,7 +313,8 @@ def para_lotus_points(lead_coeff: float, linear_coeff: float, constant: float, d
     focus: float = parabola_focus(lead_coeff, linear_coeff, constant, dir)
     adj_value: int = reciprocal(lead_coeff)
 
-    first_pt, second_pt = [], []
+    first_pt: list[float] = []
+    second_pt: list[float] = []
 
     match dir:
         
@@ -326,6 +331,7 @@ def para_lotus_points(lead_coeff: float, linear_coeff: float, constant: float, d
         case _:
 
             raise ValueError("Invalid direction specified.")
+            return None
 
     return [first_pt, second_pt]
 
@@ -333,7 +339,7 @@ def para_lotus_points(lead_coeff: float, linear_coeff: float, constant: float, d
 # ax - b, a ≠ 1 and your synthetic divisor = b/a
 # Also validate situations so that a ≠ 0
 # Consider entering your arguments differently as a and b instead of a synth divisor
-def poly_syn_div(coeff_arr: list, synth_div: float) -> list:
+def poly_syn_div(coeff_arr: list[float], synth_div: float) -> list[float]:
 
     divisor: float = get_synth_divisor(synth_div)
 
@@ -346,7 +352,7 @@ def poly_syn_div(coeff_arr: list, synth_div: float) -> list:
             new_coeff_arr.append(float_quotient(coeff_arr[coeff], synth_div))
 
     # Brings down the lead coefficient
-    new_coeff_arr: list = [coeff_arr[0]]
+    new_coeff_arr: list[float] = [coeff_arr[0]]
 
     # Moves the index of analysis over
     ind: int = 1
@@ -361,15 +367,15 @@ def poly_syn_div(coeff_arr: list, synth_div: float) -> list:
 
 # Definitely needs to be double checked, but should be on the right track.
 # Needs validation to ensure the len(remainder) ≥ len(divisor) inside loop
-def poly_long_div(dividend_coeffs: list, divisor_coeffs: list) -> list:
+def poly_long_div(dividend_coeffs: list[float], divisor_coeffs: list[float]) -> list[float]:
 
     divisor_terms: int = get_highest_power(divisor_coeffs)
-    quotient_coeffs: list = []
-    new_remainder_coeffs: list = dividend_coeffs
+    quotient_coeffs: list[float] = []
+    new_remainder_coeffs: list[float] = dividend_coeffs
 
     for dvd_coeff in range(len(dividend_coeffs)):
 
-        product_coeffs: list = []
+        product_coeffs: list[float] = []
 
         quotient_coeffs.append(float_quotient(dividend_coeffs[dvd_coeff], dividend_coeffs[dvd_coeff]))
 
@@ -377,6 +383,7 @@ def poly_long_div(dividend_coeffs: list, divisor_coeffs: list) -> list:
 
             product_coeffs.append(product(quotient_coeffs[dvd_coeff], divisor_coeffs[dvr_coeff]))
 
+        # Swaps the lists
         old_remainder_coeffs, new_remainder_coeffs = new_remainder_coeffs, []
 
         for prod_coeff in range(len(product_coeffs)):
@@ -434,8 +441,8 @@ def rational_zeroes_poly(num_coeff_arr: list) -> list:
     lead_coeff: int = num_coeff_arr[0]
     constant: int = num_coeff_arr[-1]
 
-    lead_coeff_factors: list = factors(lead_coeff) # pulled from number theory
-    constant_factors: list = factors(constant)
+    lead_coeff_factors: list[float] = factors(lead_coeff) # pulled from number theory
+    constant_factors: list[float] = factors(constant)
 
     if len(constant_factors) == SCALAR_LEN:
 
@@ -443,7 +450,7 @@ def rational_zeroes_poly(num_coeff_arr: list) -> list:
 
     else:
 
-        rational_zeroes_arr: list = []
+        rational_zeroes_arr: list[float] = []
 
         for cf in range(len(constant_factors)):
 
@@ -487,7 +494,7 @@ def calculate_poly(poly_coeffs_arr: list, point: float) -> float:
 
     return poly_sum
 
-def get_synth_divisor(divisor_arr: list) -> float:
+def get_synth_divisor(divisor_arr: list[float]) -> float:
 
     # Looks for an array that fits ax - b = 0
     if len(divisor_arr) == 2:
@@ -502,10 +509,10 @@ def get_synth_divisor(divisor_arr: list) -> float:
     return f'Not a valid synthetic divisor!'
 
 
-def poly_multiply(poly_arr_1: list, poly_arr_2: list) -> list:
+def poly_multiply(poly_arr_1: list[float], poly_arr_2: list[float]) -> list[float]:
 
     prod_arr_len: int = len(poly_arr_1) + len(poly_arr_2) - 2
-    prod_arr: list = product([0], add_one(prod_arr_len))
+    prod_arr: list[float] = product([0], add_one(prod_arr_len))
 
     for ind_1, coeff_1 in enumerate(poly_arr_1):
 
@@ -516,7 +523,7 @@ def poly_multiply(poly_arr_1: list, poly_arr_2: list) -> list:
     return prod_arr
 
 # Example List: [1, 0, 3, 0]
-def odd_function_test_arr(poly_arr: list) -> bool:
+def odd_function_test_arr(poly_arr: list[float]) -> bool:
 
     # Check to see the number of terms.  Odd polynomial arrays must have an even length
     if remainder(len(poly_arr), 2) != 0:
@@ -535,7 +542,7 @@ def odd_function_test_arr(poly_arr: list) -> bool:
 
     return True
 
-def even_function_test_arr(poly_arr: list) -> bool:
+def even_function_test_arr(poly_arr: list[float]) -> bool:
 
     # Check to see the number of terms.  Even polynomial arrays must have an odd length: [1, 0 , -4] => x^2 - 4
     if remainder(len(poly_arr), 2) == 0:
@@ -554,7 +561,7 @@ def even_function_test_arr(poly_arr: list) -> bool:
 
     return True
 
-def odd_or_even_poly_arr(poly_arr: list) -> str:
+def odd_or_even_poly_arr(poly_arr: list[float]) -> str:
 
     odd_test: bool = odd_function_test_arr(poly_arr)
     even_test: bool = even_function_test_arr(poly_arr)
@@ -574,20 +581,20 @@ def odd_or_even_poly_arr(poly_arr: list) -> str:
 def binomial_coeff(kth_term: int, nth_exponent) -> int:
 
     # Switches the numbers if entered out order
-    if nth_exponent < kth_term:
+    if nth_exponent > kth_term:
 
         nth_exponent, kth_term = kth_term, nth_exponent
 
     return float_quotient(factorial(nth_exponent), product(factorial(kth_term), factorial(difference(nth_exponent - kth_term))))
 
-def calc_binomial_term(binomial_arr: list[int], kth_term: int, nth_exp: int) -> float:
+def calc_binomial_term(binomial_arr: list[float], kth_term: int, nth_exp: int) -> float:
 
     if not int(kth_term) or not int(nth_exp): return None
 
     k: int = binomial_coeff(kth_term, nth_exp)
-    a: float = binomial_arr[0]
-    b: float = binomial_arr[1]
+    bin_first_term: float = binomial_arr[0]
+    bin_sec_term: float = binomial_arr[1]
 
-    result = [k, exponentiate(a, difference(nth_exp, kth_term)), exponentiate(b, kth_term)]
-    
+    result = [k, exponentiate(bin_first_term, difference(nth_exp, kth_term)), exponentiate(bin_sec_term, kth_term)]
 
+    return product(result)
