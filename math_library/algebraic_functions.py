@@ -571,11 +571,23 @@ def odd_or_even_poly_arr(poly_arr: list) -> str:
 
         return f'{poly_arr} is neither odd or even.'
 
-def binomial_coeff(n: int, k: int) -> int:
+def binomial_coeff(kth_term: int, nth_exponent) -> int:
 
     # Switches the numbers if entered out order
-    if n < k:
+    if nth_exponent < kth_term:
 
-        n, k = k, n
+        nth_exponent, kth_term = kth_term, nth_exponent
 
-    return float_quotient(factorial(n), product(factorial(k), factorial(difference(n - k))))
+    return float_quotient(factorial(nth_exponent), product(factorial(kth_term), factorial(difference(nth_exponent - kth_term))))
+
+def calc_binomial_term(binomial_arr: list[int], kth_term: int, nth_exp: int) -> float:
+
+    if not int(kth_term) or not int(nth_exp): return None
+
+    k: int = binomial_coeff(kth_term, nth_exp)
+    a: float = binomial_arr[0]
+    b: float = binomial_arr[1]
+
+    result = [k, exponentiate(a, difference(nth_exp, kth_term)), exponentiate(b, kth_term)]
+    
+
