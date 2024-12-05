@@ -10,7 +10,10 @@ def poly_term_pt_der(coeff: float, base: float, power: float) -> float:
         
         return None
 
-    return polynomial(product(coeff, power), base, subtract_one(power))
+    new_coeff = product(coeff, power)
+    new_power = subtract_one(power)
+
+    return polynomial(new_coeff, base, new_power)
 
 
 def log_pt_der(point: float, base: float, vertical_stretch: float, horizontal_stretch: float, horizontal_displacement: float, vertical_displacement: float) -> float:
@@ -29,6 +32,36 @@ def exp_pt_der(point: float, base: float, vertical_stretch: float, horizontal_st
     exp_derivative: float =  product(horizontal_displacement, math.log(base, math.e))
 
     return product(original_function, exp_derivative)
+
+def exp_pt_der(point: float, base: float, poly_coeff_arr: list[float]) -> float:
+
+    der_poly_arr: list[float] = []
+    poly_power = get_highest_power(poly_coeff_arr)
+
+    power = poly_power
+
+    for coeff in poly_coeff_arr:
+
+        der_poly_arr.append(product(power, poly_coeff_arr[coeff]))
+        power -= 1
+
+    poly_der_value = SUM_INIT
+    der_power = subtract_one(poly_power)
+
+    for coeff in der_poly_arr:
+
+        poly_der_value += poly_pt_der_arr(der_poly_arr[coeff], point, der_power)
+        der_power -= 1
+
+    der_value: float = product(poly_der_value, math.log(base, math.e))
+
+    # Needs changed to actual formula
+    exp_value = 1
+
+    return product(der_value, exponentiate(point, exp_value))
+    
+    
+
 
 # Unfinished
 def poly_pt_der_arr(coeff_arr: list, point: int) -> float:
