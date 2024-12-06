@@ -134,6 +134,11 @@ def subtract_one(num: float) -> float:
     return difference(num, 1)
 
 
+def diff_from_one(num: float) -> float:
+
+    return difference(1, num)
+
+
 def double(num: float) -> float:
 
     return product(2, num)

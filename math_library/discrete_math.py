@@ -34,9 +34,9 @@ def arith_sum(num_terms: int, first_term: float, last_term: float) -> float:
 
 def geo_sum_part(num_terms: float, nth_term: int, common_ratio: float) -> float:
 
-    numerator: float = difference(1, exponentiate(common_ratio, nth_term))
+    numerator: float = diff_from_one(exponentiate(common_ratio, nth_term))
 
-    denominator = difference(1, common_ratio)
+    denominator: float = diff_from_one(common_ratio)
 
     return float_quotient(numerator, denominator)
 
@@ -44,4 +44,8 @@ def geo_sum_part(num_terms: float, nth_term: int, common_ratio: float) -> float:
 def geo_sum_inf(common_ratio: float, first_term: float) -> float:
 
     # Note that the common_ratio must be between -1 and +1, exclusive.
-    return float_quotient(first_term, difference(1, common_ratio)) if abs_value(common_ratio) < 1 else None
+    if abs_value(common_ratio) < 1:
+
+        return f'Sum diverges since |{common_ratio}| < 1'
+        
+    return float_quotient(first_term, diff_from_one(common_ratio))
