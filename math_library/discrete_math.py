@@ -34,7 +34,7 @@ def arith_sum(num_terms: int, first_term: float, last_term: float) -> float:
 
 def geo_sum_part(num_terms: float, nth_term: int, common_ratio: float) -> float:
 
-    numerator: float = difference(1, exponentiate(common_ratiom nth_term))
+    numerator: float = difference(1, exponentiate(common_ratio, nth_term))
 
     denominator = difference(1, common_ratio)
 
