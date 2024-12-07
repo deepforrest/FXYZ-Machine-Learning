@@ -16,7 +16,7 @@ def poly_term_pt_der(coeff: float, base: float, power: float) -> float:
     return polynomial(new_coeff, base, new_power)
 
 
-def log_pt_der(point: float, base: float, vertical_stretch: float, horizontal_stretch: float, horizontal_displacement: float, vertical_displacement: float) -> float:
+def log_gen_pt_der(point: float, base: float, vertical_stretch: float, horizontal_stretch: float, horizontal_displacement: float, vertical_displacement: float) -> float:
 
     # Domain needs to be tested:
 
@@ -26,14 +26,15 @@ def log_pt_der(point: float, base: float, vertical_stretch: float, horizontal_st
     return float_quotient(numerator, denominator)
 
 
-def exp_pt_der(point: float, base: float, vertical_stretch: float, horizontal_stretch: float, horizontal_displacement: float, vertical_displacement: float) -> float:
+def exp_gen_pt_der(point: float, base: float, vertical_stretch: float, horizontal_stretch: float, horizontal_displacement: float, vertical_displacement: float) -> float:
 
     original_function: float = product(vertical_stretch, exponentiate(base, difference(product(horizontal_stretch, point), horizontal_displacement)))
     exp_derivative: float =  product(horizontal_displacement, math.log(base, math.e))
 
     return product(original_function, exp_derivative)
 
-def exp_pt_der(point: float, base: float, poly_coeff_arr: list[float]) -> float:
+# Fix 
+def exp_poly_pt_der(point: float, base: float, poly_coeff_arr: list[float]) -> float:
 
     der_poly_arr: list[float] = []
     poly_power = get_highest_power(poly_coeff_arr)
@@ -61,8 +62,6 @@ def exp_pt_der(point: float, base: float, poly_coeff_arr: list[float]) -> float:
     return product(der_value, exponentiate(point, exp_value))
     
     
-
-
 # Unfinished
 def poly_pt_der_arr(coeff_arr: list, point: int) -> float:
 
@@ -81,10 +80,25 @@ def poly_pt_der_arr(coeff_arr: list, point: int) -> float:
 
 
 # Unfinished
-def find_critical_points(poly_coeff_arr: list) -> list:
+def find_critical_points(poly_coeff_arr: list[float]) -> list[float]:
 
     poly_der_coeffs = []
-    highest_power = subtract_one(len(poly_coeff_arr))
+    power = get_highest_power(poly_coeff_arr)
     # Generate a new arr of coefficients
 
     return -1
+
+# Just for fun, unfinished
+def log(base: float, number: float) -> float:
+
+    if number <= 0:
+
+        return f'Log of {base} generates nonreal result!'
+
+    test_num: float = number
+    result = SUM_INIT
+
+    while test_num > 1:
+
+        # Do some division here to add to the result
+        pass
