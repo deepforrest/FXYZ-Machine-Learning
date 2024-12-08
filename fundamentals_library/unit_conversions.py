@@ -678,6 +678,16 @@ PA_TO_BAR: float = reciprocal(sci_note(5))
 PA_TO_TORR: float = reciprocal(133.322)
 PA_TO_PSI: float = reciprocal(6894.76)
 
+# Temperature Conversion
+F_UNIT: str = "F"
+C_UNIT: str = "C"
+K_UNIT: str = "K"
+R_UNIT: str = "R"
+
+F_TO_R: float = 459.67
+F_TO_K: float = F_TO_R * float_quotient(5, 9)
+F_TO_C: float = F_TO_K - 273.15
+
 # Time Conversions
 SEC_UNIT: str = "sec"
 MIN_UNIT: str = "min"
@@ -812,6 +822,15 @@ PRESSURE_CONVERSION: float = {
         BAR_UNIT: float_quotient(PA_TO_TORR, PA_TO_BAR),
         TORR_UNIT: SELF,
     }
+
+}
+
+TEMPERATURE_CONVERSION: float = {
+
+    F_UNIT: {},
+    C_UNIT: {},
+    K_UNIT: {},
+    R_UNIT: {}
 
 }
 
