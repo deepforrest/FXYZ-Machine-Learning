@@ -88,17 +88,10 @@ def find_critical_points(poly_coeff_arr: list[float]) -> list[float]:
 
     return -1
 
-# Just for fun, unfinished
-def log(base: float, number: float) -> float:
 
-    if number <= 0:
+def slope_of_circle_at_pt(point_arr: list[float], vertex: list[float] = [0, 0]) -> float:
 
-        return f'Log of {base} generates nonreal result!'
+    numerator = neg(difference(point_arr[X_IND], vertex[X_IND]))
+    denominator = difference(point_arr[Y_IND], vertex[Y_IND])
 
-    test_num: float = number
-    result = SUM_INIT
-
-    while test_num > 1:
-
-        # Do some division here to add to the result
-        pass
+    return float_quotient(numerator, denominator) if denominator != ZERO_DENOM else f'Undefined slope!'

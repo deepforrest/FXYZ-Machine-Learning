@@ -598,3 +598,18 @@ def calc_binomial_term(binomial_arr: list[float], kth_term: int, nth_exp: int) -
     result = [k, exponentiate(bin_first_term, difference(nth_exp, kth_term)), exponentiate(bin_sec_term, kth_term)]
 
     return product(result)
+
+# Just for fun, unfinished
+def log(base: float, number: float) -> float:
+
+    if number <= 0:
+
+        return f'Log of {base} generates nonreal result!'
+
+    test_num: float = number
+    result = SUM_INIT
+
+    while test_num > 1:
+
+        # Do some division here to add to the result
+        pass
