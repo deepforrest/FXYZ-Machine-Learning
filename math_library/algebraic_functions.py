@@ -599,12 +599,81 @@ def calc_binomial_term(binomial_arr: list[float], kth_term: int, nth_exp: int) -
 
     return product(result)
 
-# Just for fun, unfinished
+
+def output_of_poly_function(poly_coeff_arr: list[float], input: float) -> float:
+
+    for coeff in range(len(poly_coeff_arr)):
+
+        if not isinstance(poly_coeff_arr[coeff], (int, float)):
+
+            try:
+
+                poly_coeff_arr[coeff] = float(poly_coeff_arr)
+
+            except ValueError:
+
+                return f'Input {poly_coeff_arr[coeff]} within index {coeff} is not a valid input! Please use numbers and try again'
+        
+        power = get_highest_power(poly_coeff_arr)
+        output = SUM_INIT
+
+        for coeff in poly_coeff_arr:
+
+            output += polynomial(poly_coeff_arr[coeff], input, power)
+            power -= 1
+
+        return output
+
+def validate_pt_on_poly(poly_coeff_arr: list[float], input: float, test_pt: list[float]) -> bool:
+
+    # Validations
+    if len(test_pt) != POINT_LEN_2D:
+
+        return f'The test point {test_pt} does not represent a 2D point.  Please enter [x, y] and try again'
+    
+    for coeff in range(len(poly_coeff_arr)):
+
+        if not isinstance(poly_coeff_arr[coeff], (int, float)):
+
+            try:
+
+                poly_coeff_arr[coeff] = float(poly_coeff_arr[coeff])
+
+            except ValueError:
+
+                return f'The value {poly_coeff_arr[coeff]} at index {coeff} is not a valid input.  Please change input to a numeric value and try again.'
+
+    for pt in test_pt:
+
+        if not isinstance(test_pt[pt], (int, float)):
+
+            try:
+
+                test_pt[pt] = float(test_pt[pt])
+
+            except ValueError:
+
+                return f'The value {test_pt[pt]} at index {pt} is not a valid input. Please change input to a number and try again.'
+
+    # Calculations for comparison
+    expected_output: float = output_of_poly_function(poly_coeff_arr, input)
+
+    if expected_output != test_pt[Y_IND]:
+
+        return False # Different outputs
+    
+    return True # Same outputs
+
+# Only works for integer outputs, needs testing.
 def log(base: float, number: float) -> float:
 
     if number <= 0:
 
-        return f'Log of {base} generates nonreal result!'
+        return f'Log of {number} generates nonreal result!'
+    
+    if base == 1 or base <= 0:
+
+        return f'Bases of 1 or less than or equal to 0 are not valid.'
 
     test_num: float = number
     result = SUM_INIT
@@ -612,4 +681,7 @@ def log(base: float, number: float) -> float:
     while test_num > 1:
 
         # Do some division here to add to the result
-        pass
+        number /= base
+        result += 1
+
+    return result
