@@ -1,13 +1,33 @@
 from fundamentals_library.computations import *
 from fundamentals_library.constants import *
+from fundamentals_library.validations import *
 from math_library.number_theory import *
 from math_library.differential_calculus import *
 import math
 
+
+# This function may prove to be redundant to the arr counterpart.
 def reduce_fraction(num: int, denom: int) -> list[int]:
+
+    fraction: list = [num, denom]
+    # Validates the input to ensure only integers are used.
+
+    for ind in range(len(fraction)):
+
+        if not isinstance(fraction[ind], int):
+
+            try:
+
+                fraction[ind] = int(fraction[ind])
+
+            except ValueError:
+
+                return f'Number {fraction[ind]} was entered that is not valid.'
+    
+    
     # Get unique factors of numerator and denominator
-    num_factors: list[int] = factors(num)
-    denom_factors: list[int] = factors(denom)
+    num_factors: list[int] = factors(fraction[NUM_INDEX])
+    denom_factors: list[int] = factors(fraction[DENOM_INDEX])
 
     # Remove common factors
     for factor in num_factors[:]:
@@ -33,6 +53,10 @@ def reduce_fraction(num: int, denom: int) -> list[int]:
 
 
 def reduce_fraction_arr(fract_arr: list[int]) -> list[int]:
+    
+    if not validate_int_list(fract_arr):
+
+        return f'{fract_arr} contains non-int inputs and cannot be analyzed'
     
     # Validates that the array represents a num/denom array
     if len(fract_arr) != FRACT_ARR_LEN: 
@@ -65,40 +89,6 @@ def reduce_fraction_arr(fract_arr: list[int]) -> list[int]:
 
     return [num_reduced, denom_reduced]
 
-
-def reduce_fraction_arr(fract_arr: list[int]) -> list[int]:
-    
-    # Validates that the array represents a num/denom array
-    if len(fract_arr) != FRACT_ARR_LEN: 
-        
-        return f'{fract_arr} does not represent a fraction.  Please enter an array as [numerator, denominator].'
-    
-    # Get unique factors of numerator and denominator
-    num_factors: list = factors(fract_arr[NUM_INDEX])
-    denom_factors: list = factors(fract_arr[DENOM_INDEX])
-
-    # Remove common factors
-    for factor in num_factors[:]:
-        
-        if factor in denom_factors:
-        
-            num_factors.remove(factor)
-            denom_factors.remove(factor)
-
-    # Calculate the reduced numerator and denominator
-    num_reduced = PRODUCT_INIT
-    denom_reduced = PRODUCT_INIT
-
-    for factor in num_factors:
-        
-        num_reduced *= factor
-
-    for factor in denom_factors:
-        
-        denom_reduced *= factor
-
-    return [num_reduced, denom_reduced]
-    
 
 def slope_from_two_points(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
@@ -129,7 +119,7 @@ def perp_slope(slope: float) -> float:
     return neg(reciprocal(slope)) if slope != ZERO_DENOM else f'Reciprocal slope is undefined.'
 
 
-def normal_line(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
+def normal_line_output(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
     if y_2 == y_1: return f'Reciprocal slope is undefined. since y_2 = {y_2} and y_1 = {y_1}.'
     
@@ -421,7 +411,7 @@ def continuous_exponential(initial_value: float, rate: float, power: int) -> flo
     base: float = math.e
     exponent: float = product(rate, power)
 
-    return polynomial(initial_value, math.e, exponent)
+    return polynomial(initial_value, base, exponent)
 
 
 # Needs to be tested and verified that the pop operation works as expected

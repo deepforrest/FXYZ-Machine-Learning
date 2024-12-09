@@ -1,5 +1,6 @@
 from fundamentals_library.computations import *
 from fundamentals_library.constants import *
+from fundamentals_library.validations import *
 import math
 
 
@@ -88,8 +89,11 @@ def find_critical_points(poly_coeff_arr: list[float]) -> list[float]:
 
     return -1
 
-
 def slope_of_circle_at_pt(point_arr: list[float], vertex: list[float] = [0, 0]) -> float:
+
+    if not validate_point(point_arr, POINT_LEN_2D) or not validate_point(vertex, POINT_LEN_2D):
+
+        return None
 
     numerator = neg(difference(point_arr[X_IND], vertex[X_IND]))
     denominator = difference(point_arr[Y_IND], vertex[Y_IND])

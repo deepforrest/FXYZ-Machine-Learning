@@ -1,5 +1,6 @@
 from fundamentals_library.computations import *
 from fundamentals_library.constants import *
+from fundamentals_library.validations import *
 
 # Discrete Math Terms
 

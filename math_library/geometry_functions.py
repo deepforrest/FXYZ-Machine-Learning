@@ -1,5 +1,6 @@
 from fundamentals_library.computations import *
 from fundamentals_library.constants import *
+from fundamentals_library.validations import *
 from math_library.number_theory import *
 from math_library.differential_calculus import *
 from math_library.algebraic_functions import *
@@ -132,72 +133,3 @@ def area_of_circle(len_meas: float, len_type: str = "radius") -> float:
     calc_len: float = half(len_meas) if len_type != "radius" else len_meas
 
     return product(math.pi, squared(calc_len))
-
-
-def validate_circle_pt(test_pt_arr: list[float], vertex: list[float], radius: float) -> bool:
-
-    # Validation of inputs:
-
-    if not isinstance(radius, (int, float)):
-
-        try:
-
-            radius = float(radius)
-
-        except ValueError:
-        
-            return f'Invalid input for radius! Please enter a numeric value.'
-        
-
-    # Validates that arrays represent a 2D point [x, y]
-    if len(test_pt_arr) != POINT_LEN_2D or len(vertex) != POINT_LEN_2D:
-
-        return f'Either the test point: {test_pt_arr}, or the vertex: {vertex} is not a 2D input.  Please enter a valid input as [x, y].'
-    
-    # Validates that inputs for the arrays are numeric, attempts to correct them otherwise.
-    for ind in range(len(test_pt_arr)):
-
-        if not isinstance(test_pt_arr[ind], (int, float)):
-
-            try:
-
-                test_pt_arr[ind] = float(test_pt_arr[ind])
-
-            except ValueError:
-
-                return f'Invalid input for the test point! Please enter numeric values.'
-            
-        
-        if not isinstance(vertex[ind], (int, float)):
-
-            try:
-
-                vertex[ind] = float(vertex[ind])
-
-            except ValueError:
-
-                return f'Invalid input for the vertex! Please enter numeric values.'
-
-    # Makes the radius positive, if not already.
-    radius = abs_value(radius)
-
-    # Given the input radius and test point, let's find two coordinates that work:
-    y_coord_pt_vert_dist: float = difference(test_pt_arr[Y_IND], vertex[Y_IND])
-    under_sqrt: float = difference(squared(radius), squared(y_coord_pt_vert_dist))
-
-    # If the square root is negative, no further operations can be handled.
-    if under_sqrt >= ZERO_LEN:
-
-        x_coord_1: float = add(sqrt(under_sqrt), vertex[X_IND])
-        x_coord_2: float = neg(x_coord_1)
-
-        valid_pt_1: list[float] = [x_coord_1, test_pt_arr[Y_IND]]
-        valid_pt_2: list[float] = [x_coord_2, test_pt_arr[Y_IND]]
-
-        if test_pt_arr != valid_pt_1 and test_pt_arr != valid_pt_2:
-
-            return False # Point lies inside circle
-            
-        return True # Point lies right on the circle
-    
-    return False # Point lies outside the circle
