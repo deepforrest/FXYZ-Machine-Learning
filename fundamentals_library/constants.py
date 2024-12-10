@@ -3,13 +3,20 @@ from fundamentals_library.unit_conversions import *
 import math
 
 # Part 1: Readibility Constants
+AC_DISC_COEFF: int = 4
 BINARY_BASE: int = 2
 DENOM_INDEX: int = 1
+CENTER_HOR_VAL: int = 0
+CENTER_VERT_VAL: int = 0
 DISC_THRESH: int = 0
+FIRST_IND: int = 0
 FRACT_ARR_LEN: int = 2
 HOR_DIR: str = "horizontal"
 INF_CRE: float = 0.000_001
+LAST_IND: int = -1
+LEN_BINOMIAL_COEFFS: int = 2
 MIN_RANKS: int = 2
+NEXT_IND: int = 1
 NO_REMAINDER: int = 0
 NUM_DIGITS_INIT: int = 1
 NUM_SIDES_TRI: int = 3
@@ -28,6 +35,7 @@ NATURAL_NUM_MIN: int = 1
 VER_DIR: str = "vertical"
 ZERO_ANGLE: int = 0
 ZERO_BASE: int = 0
+ZERO_COEFF: int = 0
 ZERO_DENOM: int = 0
 ZERO_LEN: int = 0
 ZERO_MASS: int = 0

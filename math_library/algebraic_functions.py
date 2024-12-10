@@ -151,21 +151,21 @@ def distance_2d(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
     y_sq_diff = square_diff(y_2, y_1)
     sq_sum = add(x_sq_diff, y_sq_diff)
 
-    return root(sq_sum, 2)
+    return sqrt(sq_sum)
 
 
 # Verified
 def general_to_vertex_quad(lead_coeff: float, linear_coeff: float, const: float, pr: bool = False) -> float:
 
-    if lead_coeff == 0:
+    if lead_coeff == ZERO_COEFF:
         
         print("Not a quadratic function when a = 0")
         return None
 
     calc_array: list[int] = [lead_coeff, linear_coeff, const]
     horizontal_offset: float = float_quotient(neg(linear_coeff), double(lead_coeff))
-    power: int = 2
-    vertical_offset: float = 0
+    power: int = get_highest_power(calc_array)
+    vertical_offset: float = CENTER_VERT_VAL
 
     
     while power >= ZEROTH_POWER:
@@ -195,14 +195,14 @@ def general_to_vertex_quad(lead_coeff: float, linear_coeff: float, const: float,
 
 def quadratic_test(lead_coeff: float) -> bool:
 
-    return False if lead_coeff == 0 else True
+    return False if lead_coeff == ZERO_COEFF else True
 
 
 def calc_quad_disc(lead_coeff: float, linear_coeff: float, constant: float) -> float:
     
     if quadratic_test(lead_coeff):
 
-        return difference(squared(linear_coeff), product(4, product(lead_coeff, constant)))
+        return difference(squared(linear_coeff), product(AC_DISC_COEFF, product(lead_coeff, constant)))
         
     return f'Not a quadratic when a = {lead_coeff}'
 
@@ -276,7 +276,7 @@ def get_aos(lead_coeff: float, linear_coeff: float, dir: str) -> str:
 
 def parabola_focus(lead_coeff: float, linear_coeff: float, constant: float, dir: str) -> float:
 
-    p_value: float = reciprocal(product(4, lead_coeff))
+    p_value: float = reciprocal(product(NUM_SIDES_QUAD, lead_coeff))
 
     if dir == HOR_DIR:
 
@@ -310,18 +310,17 @@ def para_lotus_points(lead_coeff: float, linear_coeff: float, constant: float, d
         
         case "vertical":
             
-            first_pt: float = [difference(focus[0], adj_value), focus[1]]
-            second_pt: float = [add(focus[0], adj_value), focus[1]]
+            first_pt: float = [difference(focus[X_IND], adj_value), focus[Y_IND]]
+            second_pt: float = [add(focus[X_IND], adj_value), focus[Y_IND]]
         
         case "horizontal":
 
-            first_pt: float = [focus[0], difference(focus[1], adj_value)]
-            second_pt: float = [focus[0], add(focus[1], adj_value)]
+            first_pt: float = [focus[X_IND], difference(focus[Y_IND], adj_value)]
+            second_pt: float = [focus[X_IND], add(focus[Y_IND], adj_value)]
         
         case _:
 
             raise ValueError("Invalid direction specified.")
-            return None
 
     return [first_pt, second_pt]
 
@@ -333,7 +332,7 @@ def poly_syn_div(coeff_arr: list[float], synth_div: float) -> list[float]:
 
     divisor: float = get_synth_divisor(synth_div)
 
-    if len(coeff_arr) < 2:
+    if len(coeff_arr) < LEN_BINOMIAL_COEFFS:
 
         new_coeff_arr: list[float] = []
 
@@ -351,6 +350,7 @@ def poly_syn_div(coeff_arr: list[float], synth_div: float) -> list[float]:
 
         additive: float = product(new_coeff_arr[subtract_one(ind)], synth_div)
         new_coeff_arr.append(add(coeff_arr[ind], additive))
+        ind += NEXT_IND
 
     return new_coeff_arr
 
@@ -428,8 +428,8 @@ def rational_zeroes_poly(num_coeff_arr: list) -> list:
 
             return f'Rational Zeroes Theorem will not work easily with non-integers.  Please adjust your values and try again.\nProblem coeff: {num_coeff_arr[coeff]} located at index {coeff}.'
 
-    lead_coeff: int = num_coeff_arr[0]
-    constant: int = num_coeff_arr[-1]
+    lead_coeff: int = num_coeff_arr[FIRST_IND]
+    constant: int = num_coeff_arr[LAST_IND]
 
     lead_coeff_factors: list[float] = factors(lead_coeff) # pulled from number theory
     constant_factors: list[float] = factors(constant)
@@ -450,18 +450,18 @@ def rational_zeroes_poly(num_coeff_arr: list) -> list:
             
         rational_zeroes_arr.sort()
 
-        ind = 1  # Start from 1 to avoid out-of-bounds errors
+        ind = add_one(FIRST_IND)  # Start from 1 to avoid out-of-bounds errors
 
         # Get this loop checked.  Maybe .remove is better?
         while ind < subtract_one(len(rational_zeroes_arr)): 
 
-            if rational_zeroes_arr[ind] == rational_zeroes_arr[ind - 1]:
+            if rational_zeroes_arr[ind] == rational_zeroes_arr[subtract_one(ind)]:
 
                 rational_zeroes_arr.pop(ind)  # Remove the duplicate at the current index
 
             else:
 
-                ind += 1  # Only increment `ind` if no duplicate is found
+                ind += NEXT_IND  # Only increment `ind` if no duplicate is found
 
         return rational_zeroes_arr
 
@@ -487,9 +487,9 @@ def calculate_poly(poly_coeffs_arr: list, point: float) -> float:
 def get_synth_divisor(divisor_arr: list[float]) -> float:
 
     # Looks for an array that fits ax - b = 0
-    if len(divisor_arr) == 2:
+    if len(divisor_arr) == LEN_BINOMIAL_COEFFS:
 
-        return neg(float_quotient(divisor_arr[1], divisor_arr[0])) if divisor_arr[0] != ZERO_DENOM else f"{divisor_arr[0]} cannot be used as an 'a' value!"
+        return neg(float_quotient(divisor_arr[LAST_IND], divisor_arr[FIRST_IND])) if divisor_arr[FIRST_IND] != ZERO_DENOM else f"{divisor_arr[FIRST_IND]} cannot be used as an 'a' value!"
 
     # In the event the divisor itself is already given
     elif len(divisor_arr) == SCALAR_LEN:
@@ -501,8 +501,8 @@ def get_synth_divisor(divisor_arr: list[float]) -> float:
 
 def poly_multiply(poly_arr_1: list[float], poly_arr_2: list[float]) -> list[float]:
 
-    prod_arr_len: int = len(poly_arr_1) + len(poly_arr_2) - 2
-    prod_arr: list[float] = product([0], add_one(prod_arr_len))
+    prod_arr_len: int = add(subtract_one(len(poly_arr_1)), subtract_one(len(poly_arr_2)))
+    prod_arr: list[float] = product([FIRST_IND], add_one(prod_arr_len))
 
     for ind_1, coeff_1 in enumerate(poly_arr_1):
 
@@ -577,15 +577,17 @@ def binomial_coeff(kth_term: int, nth_exponent) -> int:
 
     return float_quotient(factorial(nth_exponent), product(factorial(kth_term), factorial(difference(nth_exponent - kth_term))))
 
+# Needs validation.  What does binomial_arr represent?
 def calc_binomial_term(binomial_arr: list[float], kth_term: int, nth_exp: int) -> float:
 
-    if not int(kth_term) or not int(nth_exp): return None
+    if not isinstance(kth_term, int) or not isinstance(nth_exp, int): return None
+    if len(binomial_arr) != POINT_LEN_2D: return None
 
-    k: int = binomial_coeff(kth_term, nth_exp)
-    bin_first_term: float = binomial_arr[0]
-    bin_sec_term: float = binomial_arr[1]
+    bin_coeff: int = binomial_coeff(kth_term, nth_exp)
+    bin_first_term: float = binomial_arr[FIRST_IND]
+    bin_sec_term: float = binomial_arr[LAST_IND]
 
-    result = [k, exponentiate(bin_first_term, difference(nth_exp, kth_term)), exponentiate(bin_sec_term, kth_term)]
+    result = [binomial_coeff, exponentiate(bin_first_term, difference(nth_exp, kth_term)), exponentiate(bin_sec_term, kth_term)]
 
     return product(result)
 
