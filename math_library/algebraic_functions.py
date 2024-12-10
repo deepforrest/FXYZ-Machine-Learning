@@ -120,8 +120,12 @@ def normal_slope_pt_arr(pt_arr_2: list[float], pt_arr_1: list[float]) -> float:
 
     return float_quotient(neg(numerator), denominator)
 
-# Check it out
+
 def slope_at_point_poly(poly_coeff_arr: list[int], point_value: float) -> float:
+
+    if not validate_int_list(poly_coeff_arr):
+
+        return f'The polynomial array: {poly_coeff_arr} contains a non-numeric coefficient.'
 
     slope: float = SUM_INIT
     power: int = get_highest_power(poly_coeff_arr)
@@ -129,48 +133,110 @@ def slope_at_point_poly(poly_coeff_arr: list[int], point_value: float) -> float:
     for term in range(len(poly_coeff_arr)):
 
         slope += poly_term_pt_der(poly_coeff_arr[term], point_value, power)
-        power -= 1
+        power -= 1 # Next term always reduces power by 1 in polynomials
 
     return slope
 
 
-def midpoint_2d_arr(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
+def midpoint_2d(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
+
+    point_1: list[float] = [x_1, y_1]
+    point_2: list[float] = [x_2, y_2]
+
+    if not validate_numeric_list(point_1, POINT_LEN_2D) or not validate_numeric_list(point_2, POINT_LEN_2D):
+
+        return f'Either point 1 {point_1} or point 2 {point_2} contain non numeric values in the midpoint_2d function.
+        Please fix inputs and try again.'
+    
+    return midpoint_2d_arr(point_2, point_1)
+
+
+def midpoint_2d_arr(pt_arr_1: list[float], pt_arr_2: list[float]) -> float:
+
+    if not validate_numeric_list(pt_arr_1, POINT_LEN_2D) or not validate_numeric_list(pt_arr_2, POINT_LEN_2D):
+
+        return f'Either point 1 {pt_arr_1} or point 2 {pt_arr_2} contain non numeric values in the midpoint_2d function.
+        Please fix inputs and try again.'
+
+    x_mp_coor: float = num_midpoint(pt_arr_1[X_IND], pt_arr_2[X_IND])
+    y_mp_coor: float = num_midpoint(pt_arr_1[Y_IND], pt_arr_2[Y_IND])
 
     # Returns as a 2d ordered pair
-    return [num_midpoint(x_2, x_1), num_midpoint(y_2, y_1)]
+    return [x_mp_coor, y_mp_coor]
 
 
 def distance_2d(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
-    x_sq_diff = square_diff(x_2, x_1)
-    y_sq_diff = square_diff(y_2, y_1)
+    point_1: list[float] = [x_1, y_1]
+    point_2: list[float] = [x_2, y_2]
+
+    if not validate_numeric_list(point_1, POINT_LEN_2D) or not validate_numeric_list(point_2, POINT_LEN_2D):
+
+        return f'Either point 1 {point_1} or point 2 {point_2} contain non numeric values in the distance_2d function.
+        Please fix inputs and try again.'
+
+    return distance_2d_arr(point_2, point_1)
+
+
+def distance_2d_arr(pt_arr_2: list[float], pt_arr_1: list[float]) -> float:
+
+    if not validate_numeric_list(pt_arr_1, POINT_LEN_2D) or not validate_numeric_list(pt_arr_2, POINT_LEN_2D):
+
+        return f'Either point 1 {pt_arr_1} or point 2 {pt_arr_2} contain non numeric values in the distance_2d function.
+        Please fix inputs and try again.'
+
+    x_sq_diff = square_diff(pt_arr_2[X_IND], pt_arr_1[X_IND])
+    y_sq_diff = square_diff(pt_arr_2[Y_IND], pt_arr_1[Y_IND])
     sq_sum = add(x_sq_diff, y_sq_diff)
 
-    return sqrt(sq_sum)
+    return sqrt(sq_sum) # No need to check for domain since squaring differences makes it positive.
 
 
-# Verified
-def general_to_vertex_quad(lead_coeff: float, linear_coeff: float, const: float, pr: bool = False) -> float:
+def general_to_vertex_quad(lead_coeff: float, linear_coeff: float, const: float, pr: bool = False) -> list[float]:
 
+    # Validations
     if lead_coeff == ZERO_COEFF:
         
         print("Not a quadratic function when a = 0")
         return None
 
-    calc_array: list[int] = [lead_coeff, linear_coeff, const]
-    horizontal_offset: float = float_quotient(neg(linear_coeff), double(lead_coeff))
-    power: int = get_highest_power(calc_array)
-    vertical_offset: float = CENTER_VERT_VAL
+    quad_coeff_arr: list[float] = [lead_coeff, linear_coeff, const]
 
+    if not validate_numeric_list(quad_coeff_arr):
+
+        return f'One of the inputs in the list: {quad_coeff_arr} was non-numeric in the general_to_vertex_quad function
+        Please fix inputs and try again.'
+
+    return general_to_vertex_quad_arr(quad_coeff_arr, pr)
+
+
+def general_to_vertex_quad_arr(quad_coeff_arr: list[float], pr: bool = False) -> list[float]:
+
+    if quad_coeff_arr[QUAD_LEAD_COEFF_IND] == ZERO_COEFF:
+
+        return f'Lead coeff of zero found in {quad_coeff_arr}.'
+    
+    if not validate_numeric_list(quad_coeff_arr):
+
+        return f'One of the inputs in the list: {quad_coeff_arr} was non-numeric in the general_to_vertex_quad function
+        Please fix inputs and try again.'
+
+    # Initializations
+    hor_offset_num: float = neg(quad_coeff_arr[QUAD_LIN_COEFF_IND])
+    hor_offset_den: float = double(quad_coeff_arr[QUAD_LEAD_COEFF_IND])
+    horizontal_offset: float = float_quotient(hor_offset_num, hor_offset_den)
+
+    power: int = get_highest_power(quad_coeff_arr)
+    vertical_offset: float = CENTER_VERT_VAL
     
     while power >= ZEROTH_POWER:
     
-        for num in range(len(calc_array)):
+        for term in range(len(quad_coeff_arr)):
         
             # Debugger Line
             # print("k = ", k, "+ ", calc_array[num], " * ", h, "^", power)
             
-            vertical_offset += polynomial(calc_array[num], horizontal_offset, power)
+            vertical_offset += polynomial(quad_coeff_arr[term], horizontal_offset, power)
             power -= 1
 
     # Printing conditions for cleaner output
@@ -181,7 +247,7 @@ def general_to_vertex_quad(lead_coeff: float, linear_coeff: float, const: float,
         vertical_sign: str = "+" if vertical_offset >= WHOLE_NUM_MIN else "-"
         print_hor_offset: str = str(horizontal_offset) if horizontal_offset >= WHOLE_NUM_MIN else abs_value(horizontal_offset)
         print_vert_offset: str = str(vertical_offset) if vertical_offset >= WHOLE_NUM_MIN else abs_value(vertical_offset)
-        print_lead_coeff: str = str(lead_coeff) if lead_coeff != 1 else ""
+        print_lead_coeff: str = str(quad_coeff_arr[QUAD_LIN_COEFF_IND]) if quad_coeff_arr[QUAD_LIN_COEFF_IND] != UNIT_COEFF else ""
         
         print("y = ", print_lead_coeff, "(x", horizontal_sign, print_hor_offset, ") ^ 2", vertical_sign, print_vert_offset)
         
@@ -195,22 +261,79 @@ def quadratic_test(lead_coeff: float) -> bool:
 
 def calc_quad_disc(lead_coeff: float, linear_coeff: float, constant: float) -> float:
     
-    if quadratic_test(lead_coeff):
+    if not quadratic_test(lead_coeff):
 
-        return difference(squared(linear_coeff), product(AC_DISC_COEFF, product(lead_coeff, constant)))
+        return f'Not a quadratic when a = {lead_coeff}'
+    
+    quad_coeff_arr = [lead_coeff, linear_coeff, constant]
+
+    if not validate_numeric_list(quad_coeff_arr):
+
+        return f'An input in the array {quad_coeff_arr} is not valid.  Make sure all inputs are numbers and try again.'
+
+    return calc_quad_disc_arr(quad_coeff_arr)
         
-    return f'Not a quadratic when a = {lead_coeff}'
+
+def calc_quad_disc_arr(quad_coeff_arr: list[float]) -> float:
+
+    if not validate_numeric_list(quad_coeff_arr):
+
+        return f'An input in the array {quad_coeff_arr} is not valid.  Make sure all inputs are numbers and try again.'
+    
+    if len(quad_coeff_arr) != QUAD_COEFF_LEN:
+
+        return f'Array input is not an appropriate length for a quadratic.  Array: {quad_coeff_arr}'
+
+    if quad_coeff_arr[QUAD_LEAD_COEFF_IND] == ZERO_COEFF:
+
+        return f'Lead coeff of quadratic array is 0 and cannot be used to find discriminant.'
+    
+    first_term: float = squared(quad_coeff_arr[QUAD_LIN_COEFF_IND])
+    second_term: float = product[AC_DISC_COEFF, quad_coeff_arr[QUAD_LEAD_COEFF_IND], quad_coeff_arr[QUAD_CONST_COEFF_IND]]
+
+    return difference(first_term, second_term)
 
 
 def quad_aos(lead_coeff: float, linear_coeff: float) -> float:
 
-    if quadratic_test(lead_coeff):
+    # The constant coeff isn't really necessary, so assume it's 0
+    quad_coeff_arr: list[float] = [lead_coeff, linear_coeff, ZERO_COEFF]
 
-        return float_quotient(neg(linear_coeff), double(lead_coeff))
+    if not quadratic_test(lead_coeff):
+        
+        return f'Not a quadratic when a = {lead_coeff}.'
+    
+    if not validate_numeric_list(quad_coeff_arr):
 
-    return f'Not a quadratic when a = {lead_coeff}.'
+        return f'An non-numeric input was detected in the quadratic array {quad_coeff_arr}.  Please change inputs
+        and try again.'
+    
+    return quad_aos_arr(quad_coeff_arr)
 
 
+def quad_aos_arr(quad_coeff_arr: list[float]) -> float:
+
+    if not validate_numeric_list(quad_coeff_arr):
+
+        return f'An non-numeric input was detected in the quadratic array {quad_coeff_arr}.  Please change inputs
+        and try again.'
+    
+    if len(quad_coeff_arr) != QUAD_COEFF_LEN:
+
+        return f'The array: {quad_coeff_arr} does not represent a quadratic.  
+        Please enter a quadratic coeff array and try again.'
+    
+    if not quadratic_test(quad_coeff_arr[QUAD_LEAD_COEFF_IND]):
+
+        return f'First coeff index is 0 and does not represent a quadratic function'
+    
+    aos_num: float = neg(quad_coeff_arr[QUAD_LIN_COEFF_IND])
+    aos_denom: float = double(quad_coeff_arr[QUAD_LEAD_COEFF_IND])
+
+    return float_quotient(aos_num, aos_denom)
+
+
+# PICK UP FROM HERE IN REVAMPS
 def quad_aos_output(lead_coeff: float, linear_coeff: float, constant: float) -> float:
 
     axis_of_sym: float = quad_aos(lead_coeff, linear_coeff)

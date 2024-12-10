@@ -25,6 +25,7 @@ NUM_INDEX: int = 0
 POINT_LEN_2D: int = 2
 POINT_LEN_3D: int = 3
 PRODUCT_INIT: int = 1
+QUAD_COEFF_LEN: int = 3
 RIGHT_ANGLE: int = 90
 SCALAR_LEN: int = 1
 SCI_BASE: int = 10
@@ -32,6 +33,7 @@ SUM_INIT: int = 0
 VARIANCE_THRESHOLD: int = 30
 WHOLE_NUM_MIN: int = 0   #for functions that require whole numbers
 NATURAL_NUM_MIN: int = 1
+UNIT_COEFF: int = 1
 VER_DIR: str = "vertical"
 ZERO_ANGLE: int = 0
 ZERO_BASE: int = 0
@@ -40,6 +42,10 @@ ZERO_DENOM: int = 0
 ZERO_LEN: int = 0
 ZERO_MASS: int = 0
 ZEROTH_POWER: int = 0
+
+QUAD_LEAD_COEFF_IND: int = 0
+QUAD_LIN_COEFF_IND: int = 1
+QUAD_CONST_COEFF_IND: int = 2
 
 FULL_CIRCLE_DEG: float = 360
 FULL_CIRCLE_GRAD: float = 400
