@@ -118,6 +118,10 @@ def reciprocal(num: float) -> float:
 
     return float_quotient(1, num) if num != ZERO_DENOM else None
 
+def neg_recip(num: float) -> float:
+
+    return neg(reciprocal(num)) if num != ZERO_DENOM else None
+
 
 def abs_value(num: float) -> float:
 

@@ -6,7 +6,7 @@ from math_library.differential_calculus import *
 import math
 
 
-# This function may prove to be redundant to the arr counterpart.
+# These might be better for number theory
 def reduce_fraction(num: int, denom: int) -> list[int]:
 
     fraction: list = [num, denom]
@@ -22,34 +22,9 @@ def reduce_fraction(num: int, denom: int) -> list[int]:
 
             except ValueError:
 
-                return f'Number {fraction[ind]} was entered that is not valid.'
+                return f'Number: {fraction[ind]} at index: {ind} was entered that is not valid.'
     
-    
-    # Get unique factors of numerator and denominator
-    num_factors: list[int] = factors(fraction[NUM_INDEX])
-    denom_factors: list[int] = factors(fraction[DENOM_INDEX])
-
-    # Remove common factors
-    for factor in num_factors[:]:
-        
-        if factor in denom_factors:
-        
-            num_factors.remove(factor)
-            denom_factors.remove(factor)
-
-    # Calculate the reduced numerator and denominator
-    num_reduced: int = PRODUCT_INIT
-    denom_reduced: int = PRODUCT_INIT
-
-    for factor in num_factors:
-        
-        num_reduced *= factor
-
-    for factor in denom_factors:
-        
-        denom_reduced *= factor
-
-    return [num_reduced, denom_reduced]
+    return reduce_fraction_arr(fraction)
 
 
 def reduce_fraction_arr(fract_arr: list[int]) -> list[int]:
@@ -63,7 +38,7 @@ def reduce_fraction_arr(fract_arr: list[int]) -> list[int]:
         
         return f'{fract_arr} does not represent a fraction.  Please enter an array as [numerator, denominator].'
     
-    # Get unique factors of numerator and denominator
+    # Get unique factors of numerator and denominator from number theory function.
     num_factors: list = factors(fract_arr[NUM_INDEX])
     denom_factors: list = factors(fract_arr[DENOM_INDEX])
 
@@ -72,6 +47,7 @@ def reduce_fraction_arr(fract_arr: list[int]) -> list[int]:
         
         if factor in denom_factors:
         
+            # Cancels out common factors in numerator and denominator.
             num_factors.remove(factor)
             denom_factors.remove(factor)
 
@@ -89,44 +65,63 @@ def reduce_fraction_arr(fract_arr: list[int]) -> list[int]:
 
     return [num_reduced, denom_reduced]
 
-
+# Algebraic Methods
 def slope_from_two_points(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
     # Prevents divide by zero returns
-    if x_2 == x_1: return f'Slope is undefined since x_2 = {x_2} and x_1 = {x_1}'
+    if x_2 == x_1: return f'Slope is undefined since x_2 = {x_2} and x_1 = {x_1}.'
+    
+    point_1: list[float] = [x_1, y_1]
+    point_2: list[float] = [x_2, y_2]
 
-    return float_quotient(difference(y_2, y_1), difference(x_2, x_1))
+    return slope_from_points_array(point_2, point_1)
 
 
-def slope_from_point_array(point_arr_2: float, point_arr_1: float) -> float:
+def slope_from_points_array(point_arr_2: list[float], point_arr_1: list[float]) -> float:
 
     # Validates arrays to ensure they have two coordinates:
-    if len(point_arr_2) != POINT_LEN_2D or len(point_arr_1) != POINT_LEN_2D:
+    if not validate_numeric_list(point_arr_2) or not validate_numeric_list(point_arr_1):
+        
+        return f'Either Point 1: {point_arr_1} or Point 2: {point_arr_2} contains an invalid entry.  
+        Please change to a numeric entry and try again.'
 
-        return None
+    numerator: float = difference(point_arr_2[Y_IND], point_arr_1[Y_IND])
+    denominator: float = difference(point_arr_2[X_IND], point_arr_1[X_IND])
 
-    for coordinate in range(len(point_arr_2)):
-
-        if not float(point_arr_2[coordinate]) or not float(point_arr_1[coordinate]):
-
-            return None
-
-    return float_quotient(difference(point_arr_2[1], point_arr_2[0]), difference(point_arr_1[1], point_arr_1[0]))
+    return float_quotient(numerator, denominator)
 
 
 def perp_slope(slope: float) -> float:
 
-    return neg(reciprocal(slope)) if slope != ZERO_DENOM else f'Reciprocal slope is undefined.'
+    return neg_recip(slope) if slope != ZERO_DENOM else f'Reciprocal slope of n/0 is undefined.'
 
 
-def normal_line_output(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
+def normal_slope_pt(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
-    if y_2 == y_1: return f'Reciprocal slope is undefined. since y_2 = {y_2} and y_1 = {y_1}.'
+    if y_2 == y_1:
+
+        return f'Normal line is undefined when y_2 = y_1.'
     
-    return neg(float_quotient(difference(x_2, x_1), difference(y_2, y_1)))
+    point_1: list[float] = [x_1, y_1]
+    point_2: list[float] = [x_2, y_2]
+
+    return normal_slope_pt_arr(point_2, point_1)
+
+
+def normal_slope_pt_arr(pt_arr_2: list[float], pt_arr_1: list[float]) -> float:
+
+    if pt_arr_2[Y_IND] == pt_arr_1[Y_IND]:
+
+        return 'Normal is undefined when y-coordinates are the same.'
+    
+    # Remember, with normals, X is on top, Y is on bottom:
+    numerator: float = difference(pt_arr_2[X_IND], pt_arr_1[X_IND])
+    denominator: float = difference(pt_arr_2[Y_IND], pt_arr_1[Y_IND])
+
+    return float_quotient(neg(numerator), denominator)
 
 # Check it out
-def slope_at_point(poly_coeff_arr: list[int], point_value: float) -> float:
+def slope_at_point_poly(poly_coeff_arr: list[int], point_value: float) -> float:
 
     slope: float = SUM_INIT
     power: int = get_highest_power(poly_coeff_arr)
