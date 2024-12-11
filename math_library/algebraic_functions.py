@@ -6,7 +6,7 @@ from math_library.differential_calculus import *
 import math
 
 
-# These might be better for number theory
+# Computational Theory
 def reduce_fraction(num: int, denom: int) -> list[int]:
 
     fraction: list = [num, denom]
@@ -65,7 +65,7 @@ def reduce_fraction_arr(fract_arr: list[int]) -> list[int]:
 
     return [num_reduced, denom_reduced]
 
-# Algebraic Methods
+# Algebraic Methods (most methods have an arr counterpart)
 def slope_from_two_points(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
     # Prevents divide by zero returns
@@ -80,7 +80,7 @@ def slope_from_two_points(y_2: float, y_1: float, x_2: float, x_1: float) -> flo
 def slope_from_points_array(point_arr_2: list[float], point_arr_1: list[float]) -> float:
 
     # Validates arrays to ensure they have two coordinates:
-    if not validate_numeric_list(point_arr_2) or not validate_numeric_list(point_arr_1):
+    if not validate_num_arr(point_arr_2, POINT_LEN_2D) or not validate_num_arr(point_arr_1, POINT_LEN_2D):
         
         return f'Either Point 1: {point_arr_1} or Point 2: {point_arr_2} contains an invalid entry.  
         Please change to a numeric entry and try again.'
@@ -143,7 +143,7 @@ def midpoint_2d(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
     point_1: list[float] = [x_1, y_1]
     point_2: list[float] = [x_2, y_2]
 
-    if not validate_numeric_list(point_1, POINT_LEN_2D) or not validate_numeric_list(point_2, POINT_LEN_2D):
+    if not validate_num_arr(point_1, POINT_LEN_2D) or not validate_num_arr(point_2, POINT_LEN_2D):
 
         return f'Either point 1 {point_1} or point 2 {point_2} contain non numeric values in the midpoint_2d function.
         Please fix inputs and try again.'
@@ -153,7 +153,7 @@ def midpoint_2d(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
 def midpoint_2d_arr(pt_arr_1: list[float], pt_arr_2: list[float]) -> float:
 
-    if not validate_numeric_list(pt_arr_1, POINT_LEN_2D) or not validate_numeric_list(pt_arr_2, POINT_LEN_2D):
+    if not validate_num_arr(pt_arr_1, POINT_LEN_2D) or not validate_num_arr(pt_arr_2, POINT_LEN_2D):
 
         return f'Either point 1 {pt_arr_1} or point 2 {pt_arr_2} contain non numeric values in the midpoint_2d function.
         Please fix inputs and try again.'
@@ -170,7 +170,7 @@ def distance_2d(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
     point_1: list[float] = [x_1, y_1]
     point_2: list[float] = [x_2, y_2]
 
-    if not validate_numeric_list(point_1, POINT_LEN_2D) or not validate_numeric_list(point_2, POINT_LEN_2D):
+    if not validate_num_arr(point_1, POINT_LEN_2D) or not validate_num_arr(point_2, POINT_LEN_2D):
 
         return f'Either point 1 {point_1} or point 2 {point_2} contain non numeric values in the distance_2d function.
         Please fix inputs and try again.'
@@ -180,7 +180,7 @@ def distance_2d(y_2: float, y_1: float, x_2: float, x_1: float) -> float:
 
 def distance_2d_arr(pt_arr_2: list[float], pt_arr_1: list[float]) -> float:
 
-    if not validate_numeric_list(pt_arr_1, POINT_LEN_2D) or not validate_numeric_list(pt_arr_2, POINT_LEN_2D):
+    if not validate_num_arr(pt_arr_1, POINT_LEN_2D) or not validate_num_arr(pt_arr_2, POINT_LEN_2D):
 
         return f'Either point 1 {pt_arr_1} or point 2 {pt_arr_2} contain non numeric values in the distance_2d function.
         Please fix inputs and try again.'
@@ -197,7 +197,7 @@ def general_to_vertex_quad(lead_coeff: float, linear_coeff: float, const: float,
     quad_coeff_arr: list[float] = [lead_coeff, linear_coeff, const]
 
     # Super validation for quadratics
-    if not validate_quad_arr(quad_coeff_arr): return None
+    if not validate_num_arr(quad_coeff_arr, QUAD_COEFF_LEN): return None
 
     return general_to_vertex_quad_arr(quad_coeff_arr, pr)
 
@@ -205,7 +205,7 @@ def general_to_vertex_quad(lead_coeff: float, linear_coeff: float, const: float,
 def general_to_vertex_quad_arr(quad_coeff_arr: list[float], pr: bool = False) -> list[float]:
 
     # Super validation for quadratics
-    if not validate_quad_arr(quad_coeff_arr): return None
+    if not validate_num_arr(quad_coeff_arr, QUAD_COEFF_LEN): return None
 
     # Initializations
     hor_offset_num: float = neg(quad_coeff_arr[QUAD_LIN_COEFF_IND])
@@ -245,7 +245,7 @@ def calc_quad_disc(lead_coeff: float, linear_coeff: float, constant: float) -> f
     quad_coeff_arr = [lead_coeff, linear_coeff, constant]
 
     # Super validation for quadratics
-    if not validate_quad_arr(quad_coeff_arr): return None
+    if not validate_num_arr(quad_coeff_arr, QUAD_COEFF_LEN): return None
 
     return calc_quad_disc_arr(quad_coeff_arr)
         
@@ -253,7 +253,7 @@ def calc_quad_disc(lead_coeff: float, linear_coeff: float, constant: float) -> f
 def calc_quad_disc_arr(quad_coeff_arr: list[float]) -> float:
 
     # Super validation for quadratics
-    if not validate_quad_arr(quad_coeff_arr): return None
+    if not validate_num_arr(quad_coeff_arr, QUAD_COEFF_LEN): return None
     
     first_term: float = squared(quad_coeff_arr[QUAD_LIN_COEFF_IND])
     second_term: float = product[AC_DISC_COEFF, quad_coeff_arr[QUAD_LEAD_COEFF_IND], quad_coeff_arr[QUAD_CONST_COEFF_IND]]
@@ -267,7 +267,7 @@ def quad_aos(lead_coeff: float, linear_coeff: float) -> float:
     quad_coeff_arr: list[float] = [lead_coeff, linear_coeff, ZERO_COEFF]
 
     # Super validation for quadratics
-    if not validate_quad_arr(quad_coeff_arr): return None
+    if not validate_num_arr(quad_coeff_arr, QUAD_COEFF_LEN): return None
     
     return quad_aos_arr(quad_coeff_arr)
 
@@ -275,7 +275,7 @@ def quad_aos(lead_coeff: float, linear_coeff: float) -> float:
 def quad_aos_arr(quad_coeff_arr: list[float]) -> float:
 
     # Super validation for quadratics
-    if not validate_quad_arr(quad_coeff_arr): return None
+    if not validate_num_arr(quad_coeff_arr, QUAD_COEFF_LEN): return None
     
     aos_num: float = neg(quad_coeff_arr[QUAD_LIN_COEFF_IND])
     aos_denom: float = double(quad_coeff_arr[QUAD_LEAD_COEFF_IND])
@@ -312,7 +312,7 @@ def quad_aos_output(lead_coeff: float, linear_coeff: float, constant: float) -> 
 def quad_aos_output_arr(quad_coeff_arr: list[float]) -> float:
     
     # Validations
-    if not validate_quad_arr(quad_coeff_arr):
+    if not validate_num_arr(quad_coeff_arr, QUAD_COEFF_LEN):
 
         return None
     
@@ -362,7 +362,7 @@ def parabola_focus(lead_coeff: float, linear_coeff: float, constant: float, dir:
 
 def parabola_focus_arr(quad_coeff_arr: list[float], dir: str) -> list[float]:
 
-    if not validate_quad_arr(quad_coeff_arr): return None
+    if not validate_num_arr(quad_coeff_arr, QUAD_COEFF_LEN): return None
 
     a_coeff: float = quad_coeff_arr[QUAD_LEAD_COEFF_IND]
     b_coeff: float = quad_coeff_arr[QUAD_LIN_COEFF_IND]
@@ -399,7 +399,7 @@ def para_lotus_points(lead_coeff: float, linear_coeff: float, constant: float, d
 
 def para_lotus_points_arr(quad_coeff_arr: list[float], dir: str) -> list[list[float]]:
 
-    if not validate_quad_arr(quad_coeff_arr): return None
+    if not validate_num_arr(quad_coeff_arr, QUAD_COEFF_LEN): return None
 
     a_coeff: float = quad_coeff_arr[QUAD_LEAD_COEFF_IND]
     b_coeff: float = quad_coeff_arr[QUAD_LIN_COEFF_IND]
@@ -500,40 +500,29 @@ def poly_long_div(dividend_coeffs: list[float], divisor_coeffs: list[float]) -> 
 
     return quotient_coeffs
 
-
+# Ready for testing
 def discrete_exponential(initial_value: float, rate: float, interval: int, power: float) -> float:
 
-    if interval < NATURAL_NUM_MIN or int(interval) != interval:
+    base: float = add(UNIT_BASE, float_quotient(rate, interval))
+    exponent: float = product(interval, power)
+    
+    if not validate_exponential_inputs(initial_value, base, exponent): return None
 
-        return f'{interval} is not valid.  Please enter a positive integer.'
+    return polynomial(initial_value, base, exponent)
 
-    base: float = add(NATURAL_NUM_MIN, float_quotient(rate, interval))
-
-    # Validates the domain base 
-    if base <= WHOLE_NUM_MIN:
-        
-        return f'{base} is not a valid base for an exponential function'
-
-    elif base == NATURAL_NUM_MIN:
-
-        return initial_value # k * (1 ^ n) = k
-
-    else: 
-        
-        exponent: float = product(interval, power)
-        return polynomial(initial_value, base, exponent)
-
-
+# Ready for testing
 def continuous_exponential(initial_value: float, rate: float, power: int) -> float:
 
     base: float = math.e
     exponent: float = product(rate, power)
 
+    if not validate_exponential_inputs(initial_value, base, exponent): return None
+
     return polynomial(initial_value, base, exponent)
 
 
 # Needs to be tested and verified that the pop operation works as expected
-def rational_zeroes_poly(num_coeff_arr: list) -> list:
+def rational_zeroes_poly(num_coeff_arr: list[int]) -> list[float]:
 
     if len(num_coeff_arr) == SCALAR_LEN:
 

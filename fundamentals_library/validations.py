@@ -61,6 +61,7 @@ def validate_int_list(input_arr: list) -> bool:
         
     return True
 
+
 def validate_circle_pt(test_pt_arr: list[float], vertex: list[float], radius: float) -> bool:
 
     # Validation of inputs:
@@ -102,36 +103,70 @@ def validate_circle_pt(test_pt_arr: list[float], vertex: list[float], radius: fl
     
     return False # Point lies outside the circle
 
-def validate_quad_arr(quad_coeff_arr: list[float], function_name: str = "") -> bool:
 
-    if not validate_numeric_list(quad_coeff_arr):
+def validate_num_arr(quad_coeff_arr: list[float], expected_len: int, function_name: str = "") -> bool:
 
-        print(f'The array entered: {quad_coeff_arr} contains a non-numeric entry and cannot be 
-              handled in the {function_name} function.  Please check your inputs and try again.')
+    # Validation Algebra: A ^ B ^ C ^ D ^ E
+    #1: Checks expected length to ensure it's a natural number
+    if not isinstance(expected_len, int) or expected_len <= NATURAL_NUM_MIN:
+
+        print(f'The expected length to be verified is not a natural number.  Please enter a positive nonzero integer and try again.')
+        
+        return False
+
+    #2: Check to make sure the array is a list
+    if not isinstance(quad_coeff_arr, list):
+
+        print(f'The input array: {quad_coeff_arr} is not an array and cannot be used in a numeric list validation.  {CHECK_INPUTS}')
+
+        return False
+
+    #3: Ensures the length of the list matches the target
+    if len(quad_coeff_arr) != expected_len:
+
+        print(f'The array entered {quad_coeff_arr} did not have a length of {expected_len} as expected in the {function_name} function.  {CHECK_INPUTS}')
 
         return False
     
-    if len(quad_coeff_arr) != QUAD_COEFF_LEN:
+    #4: Rejects a list with a lead coeff of zero
+    if quad_coeff_arr[FIRST_IND] == ZERO_COEFF:
 
-        print(f'The array entered {quad_coeff_arr} did not have a length of 3 as expected in the {function_name} function.
-              Please check your inputs and try again.')
-
-        return False
-    
-    if quad_coeff_arr[QUAD_LEAD_COEFF_IND] == ZERO_COEFF:
-
-        print(f'The quadratic array entered contains a zero lead coeff when called in the {function_name} function.
-              Please check your netries and try again.')
+        print(f'The array entered contains a zero lead coeff when called in the {function_name} function.  {CHECK_INPUTS}')
 
         return False
     
+    #5: Checks each coeff to ensure it's a number
     for coeff in range(len(quad_coeff_arr)):
 
         if not isinstance(quad_coeff_arr[coeff], (int, float)):
 
-            print(f'The array entered {quad_coeff_arr} has a non-numeric entry at index {coeff} when called in the {function_name} 
-            function.  Please check your inputs and try again.')
+            print(f'The array entered {quad_coeff_arr} has a non-numeric entry at index {coeff} when called in the {function_name}. {CHECK_INPUTS}')
             
             return False
-        
+    
+    # Returns True when it passes all validations.
+    return True
+
+
+def validate_exponential_inputs(initial_value: float, base: float, power: float) -> bool:
+
+    # Validation Algebra: A ^ B
+    #1: Validates that inputs are all numbers:
+    num_arr: list[float] = [initial_value, base, power]
+
+    for ind in range(len(num_arr)):
+
+        if not isinstance(num_arr[ind], (int, float)):
+
+            print(f'The entry {num_arr[ind]} at index {ind} is not a valid input in array [initial_value, base, power]. {CHECK_INPUTS}')
+            
+            return False
+
+    #2: Validates the base as a positive, non-zero and non-unit (1) base.
+    if base <= ZERO_BASE or base == UNIT_BASE:
+
+        print(f'The base entered: {base} must be a positive, nonzero, and non-unit base (≠ 1). Base domain: (0, 1) U (1, inf). {CHECK_INPUTS}')
+
+        return False
+    
     return True
