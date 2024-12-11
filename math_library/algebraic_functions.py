@@ -194,32 +194,18 @@ def distance_2d_arr(pt_arr_2: list[float], pt_arr_1: list[float]) -> float:
 
 def general_to_vertex_quad(lead_coeff: float, linear_coeff: float, const: float, pr: bool = False) -> list[float]:
 
-    # Validations
-    if lead_coeff == ZERO_COEFF:
-        
-        print("Not a quadratic function when a = 0")
-        return None
-
     quad_coeff_arr: list[float] = [lead_coeff, linear_coeff, const]
 
-    if not validate_numeric_list(quad_coeff_arr):
-
-        return f'One of the inputs in the list: {quad_coeff_arr} was non-numeric in the general_to_vertex_quad function
-        Please fix inputs and try again.'
+    # Super validation for quadratics
+    if not validate_quad_arr(quad_coeff_arr): return None
 
     return general_to_vertex_quad_arr(quad_coeff_arr, pr)
 
 
 def general_to_vertex_quad_arr(quad_coeff_arr: list[float], pr: bool = False) -> list[float]:
 
-    if quad_coeff_arr[QUAD_LEAD_COEFF_IND] == ZERO_COEFF:
-
-        return f'Lead coeff of zero found in {quad_coeff_arr}.'
-    
-    if not validate_numeric_list(quad_coeff_arr):
-
-        return f'One of the inputs in the list: {quad_coeff_arr} was non-numeric in the general_to_vertex_quad function
-        Please fix inputs and try again.'
+    # Super validation for quadratics
+    if not validate_quad_arr(quad_coeff_arr): return None
 
     # Initializations
     hor_offset_num: float = neg(quad_coeff_arr[QUAD_LIN_COEFF_IND])
@@ -254,39 +240,20 @@ def general_to_vertex_quad_arr(quad_coeff_arr: list[float], pr: bool = False) ->
     return [horizontal_offset, vertical_offset]
 
 
-def quadratic_test(lead_coeff: float) -> bool:
-
-    return False if lead_coeff == ZERO_COEFF else True
-
-
 def calc_quad_disc(lead_coeff: float, linear_coeff: float, constant: float) -> float:
-    
-    if not quadratic_test(lead_coeff):
-
-        return f'Not a quadratic when a = {lead_coeff}'
     
     quad_coeff_arr = [lead_coeff, linear_coeff, constant]
 
-    if not validate_numeric_list(quad_coeff_arr):
-
-        return f'An input in the array {quad_coeff_arr} is not valid.  Make sure all inputs are numbers and try again.'
+    # Super validation for quadratics
+    if not validate_quad_arr(quad_coeff_arr): return None
 
     return calc_quad_disc_arr(quad_coeff_arr)
         
 
 def calc_quad_disc_arr(quad_coeff_arr: list[float]) -> float:
 
-    if not validate_numeric_list(quad_coeff_arr):
-
-        return f'An input in the array {quad_coeff_arr} is not valid.  Make sure all inputs are numbers and try again.'
-    
-    if len(quad_coeff_arr) != QUAD_COEFF_LEN:
-
-        return f'Array input is not an appropriate length for a quadratic.  Array: {quad_coeff_arr}'
-
-    if quad_coeff_arr[QUAD_LEAD_COEFF_IND] == ZERO_COEFF:
-
-        return f'Lead coeff of quadratic array is 0 and cannot be used to find discriminant.'
+    # Super validation for quadratics
+    if not validate_quad_arr(quad_coeff_arr): return None
     
     first_term: float = squared(quad_coeff_arr[QUAD_LIN_COEFF_IND])
     second_term: float = product[AC_DISC_COEFF, quad_coeff_arr[QUAD_LEAD_COEFF_IND], quad_coeff_arr[QUAD_CONST_COEFF_IND]]
@@ -299,33 +266,16 @@ def quad_aos(lead_coeff: float, linear_coeff: float) -> float:
     # The constant coeff isn't really necessary, so assume it's 0
     quad_coeff_arr: list[float] = [lead_coeff, linear_coeff, ZERO_COEFF]
 
-    if not quadratic_test(lead_coeff):
-        
-        return f'Not a quadratic when a = {lead_coeff}.'
-    
-    if not validate_numeric_list(quad_coeff_arr):
-
-        return f'An non-numeric input was detected in the quadratic array {quad_coeff_arr}.  Please change inputs
-        and try again.'
+    # Super validation for quadratics
+    if not validate_quad_arr(quad_coeff_arr): return None
     
     return quad_aos_arr(quad_coeff_arr)
 
 
 def quad_aos_arr(quad_coeff_arr: list[float]) -> float:
 
-    if not validate_numeric_list(quad_coeff_arr):
-
-        return f'An non-numeric input was detected in the quadratic array {quad_coeff_arr}.  Please change inputs
-        and try again.'
-    
-    if len(quad_coeff_arr) != QUAD_COEFF_LEN:
-
-        return f'The array: {quad_coeff_arr} does not represent a quadratic.  
-        Please enter a quadratic coeff array and try again.'
-    
-    if not quadratic_test(quad_coeff_arr[QUAD_LEAD_COEFF_IND]):
-
-        return f'First coeff index is 0 and does not represent a quadratic function'
+    # Super validation for quadratics
+    if not validate_quad_arr(quad_coeff_arr): return None
     
     aos_num: float = neg(quad_coeff_arr[QUAD_LIN_COEFF_IND])
     aos_denom: float = double(quad_coeff_arr[QUAD_LEAD_COEFF_IND])
@@ -333,21 +283,51 @@ def quad_aos_arr(quad_coeff_arr: list[float]) -> float:
     return float_quotient(aos_num, aos_denom)
 
 
-# PICK UP FROM HERE IN REVAMPS
-def quad_aos_output(lead_coeff: float, linear_coeff: float, constant: float) -> float:
+def get_aos(lead_coeff: float, linear_coeff: float, dir: str) -> str:
 
     axis_of_sym: float = quad_aos(lead_coeff, linear_coeff)
+    
+    match dir:
+
+        case "horizontal":
+        
+            return f'y = {axis_of_sym}'
+        
+        case "vertical":
+        
+            return f'x = {axis_of_sym}'
+        
+        case _:
+            
+            return f'No direction specified'
+
+
+def quad_aos_output(lead_coeff: float, linear_coeff: float, constant: float) -> float:
+
     quad_arr: list[float] = [lead_coeff, linear_coeff, constant]
-    power: int = get_highest_power(quad_arr)
 
-    output_coord: float = SUM_INIT
+    return quad_aos_output_arr(quad_arr)
+  
 
-    for coeff in range(len(quad_arr)):
+def quad_aos_output_arr(quad_coeff_arr: list[float]) -> float:
+    
+    # Validations
+    if not validate_quad_arr(quad_coeff_arr):
 
-        output_coord += polynomial(quad_arr[coeff], axis_of_sym, power)
+        return None
+    
+    # Calculation Setup    
+    axis_of_sym: float = quad_aos_arr(quad_coeff_arr)
+    power: int = get_highest_power(quad_coeff_arr)
+
+    aos_output: float = SUM_INIT
+
+    for term in range(len(quad_coeff_arr)):
+
+        aos_output += polynomial(quad_coeff_arr[term], axis_of_sym, power)
         power -= 1
 
-    return output_coord
+    return aos_output
 
 
 def calc_num_ints_quad(lead_coeff: float, linear_coeff: float, constant: float) -> int:
@@ -373,74 +353,94 @@ def calc_num_ints_quad(lead_coeff: float, linear_coeff: float, constant: float) 
             return None
 
 
-def get_aos(lead_coeff: float, linear_coeff: float, dir: str) -> str:
+def parabola_focus(lead_coeff: float, linear_coeff: float, constant: float, dir: str) -> list[float]:
 
-    axis_of_sym: float = quad_aos(lead_coeff, linear_coeff)
-    
-    match dir:
+    quad_coeff_arr: list[float] = [lead_coeff, linear_coeff, constant]
 
-        case "horizontal":
-        
-            return f'y = {axis_of_sym}'
-        
-        case "vertical":
-        
-            return f'x = {axis_of_sym}'
-        
-        case _:
-            
-            return f'No direction specified'
+    return parabola_focus_arr(quad_coeff_arr, dir)
 
 
-def parabola_focus(lead_coeff: float, linear_coeff: float, constant: float, dir: str) -> float:
+def parabola_focus_arr(quad_coeff_arr: list[float], dir: str) -> list[float]:
 
-    p_value: float = reciprocal(product(NUM_SIDES_QUAD, lead_coeff))
+    if not validate_quad_arr(quad_coeff_arr): return None
+
+    a_coeff: float = quad_coeff_arr[QUAD_LEAD_COEFF_IND]
+    b_coeff: float = quad_coeff_arr[QUAD_LIN_COEFF_IND]
+    c_coeff: float = quad_coeff_arr[QUAD_CONST_COEFF_IND]
+
+    p_value: float = reciprocal(product(NUM_SIDES_QUAD, a_coeff))
 
     if dir == HOR_DIR:
 
-        y_coord: float = quad_aos(lead_coeff, linear_coeff)
-        x_coord: float = quad_aos_output(lead_coeff, linear_coeff, constant)
+        y_coord: float = quad_aos(a_coeff, b_coeff)
+        x_coord: float = quad_aos_output(a_coeff, b_coeff, c_coeff)
         x_coord += p_value
 
     elif dir == VER_DIR:
 
-        x_coord: float = quad_aos(lead_coeff, linear_coeff)
-        y_coord: float = quad_aos_output(lead_coeff, linear_coeff, constant)
+        x_coord: float = quad_aos(a_coeff, b_coeff)
+        y_coord: float = quad_aos_output(a_coeff, b_coeff, c_coeff)
         y_coord += p_value
 
     else:
 
-        x_coord: float = None
-        y_coord: float = None
+        x_coord = None
+        y_coord = None
 
     return[x_coord, y_coord]
 
 
-def para_lotus_points(lead_coeff: float, linear_coeff: float, constant: float, dir: str) -> list:
+def para_lotus_points(lead_coeff: float, linear_coeff: float, constant: float, dir: str) -> list[list[float]]:
 
-    focus: float = parabola_focus(lead_coeff, linear_coeff, constant, dir)
-    adj_value: int = reciprocal(lead_coeff)
+    quad_coeff_arr: list[float] = [lead_coeff, linear_coeff, constant]
 
-    first_pt: list[float] = []
-    second_pt: list[float] = []
+    return para_lotus_points_arr(quad_coeff_arr, dir)
 
-    match dir:
-        
-        case "vertical":
-            
-            first_pt: float = [difference(focus[X_IND], adj_value), focus[Y_IND]]
-            second_pt: float = [add(focus[X_IND], adj_value), focus[Y_IND]]
-        
-        case "horizontal":
 
-            first_pt: float = [focus[X_IND], difference(focus[Y_IND], adj_value)]
-            second_pt: float = [focus[X_IND], add(focus[Y_IND], adj_value)]
-        
-        case _:
+def para_lotus_points_arr(quad_coeff_arr: list[float], dir: str) -> list[list[float]]:
 
-            raise ValueError("Invalid direction specified.")
+    if not validate_quad_arr(quad_coeff_arr): return None
+
+    a_coeff: float = quad_coeff_arr[QUAD_LEAD_COEFF_IND]
+    b_coeff: float = quad_coeff_arr[QUAD_LIN_COEFF_IND]
+    c_coeff: float = quad_coeff_arr[QUAD_CONST_COEFF_IND]
+
+    focus: list[float] = parabola_focus(a_coeff, b_coeff, c_coeff, dir)
+    adj_value: int = reciprocal(a_coeff)
+
+    # Give points based on direction specified:
+    if dir == VER_DIR:
+
+        x_coord_pt_1: float = difference(focus[X_IND], adj_value)
+        y_coord_pt_1: float = focus[Y_IND]
+
+        x_coord_pt_2: float = difference(focus[X_IND], neg(adj_value))
+        y_coord_pt_2: float = y_coord_pt_1
+
+    elif dir == HOR_DIR:
+
+        x_coord_pt_1: float = focus[X_IND]
+        y_coord_pt_1: float = difference(focus[Y_IND], adj_value)
+
+        x_coord_pt_2: float = x_coord_pt_2
+        y_coord_pt_2: float = difference(focus[Y_IND], neg(adj_value))
+
+    else:
+
+        x_coord_pt_1 = None
+        y_coord_pt_1 = None
+
+        x_coord_pt_2 = None
+        y_coord_pt_2 = None
+
+
+    first_pt: list[float] = [x_coord_pt_1, y_coord_pt_1]
+    second_pt: list[float] = [x_coord_pt_2, y_coord_pt_2]
 
     return [first_pt, second_pt]
+
+###################################################################################################
+# PICK UP FROM HERE IN REVAMPS
 
 # Needs work: Consider when synthetic divisors are in the form of
 # ax - b, a ≠ 1 and your synthetic divisor = b/a

@@ -101,3 +101,37 @@ def validate_circle_pt(test_pt_arr: list[float], vertex: list[float], radius: fl
         return True # Point lies right on the circle
     
     return False # Point lies outside the circle
+
+def validate_quad_arr(quad_coeff_arr: list[float], function_name: str = "") -> bool:
+
+    if not validate_numeric_list(quad_coeff_arr):
+
+        print(f'The array entered: {quad_coeff_arr} contains a non-numeric entry and cannot be 
+              handled in the {function_name} function.  Please check your inputs and try again.')
+
+        return False
+    
+    if len(quad_coeff_arr) != QUAD_COEFF_LEN:
+
+        print(f'The array entered {quad_coeff_arr} did not have a length of 3 as expected in the {function_name} function.
+              Please check your inputs and try again.')
+
+        return False
+    
+    if quad_coeff_arr[QUAD_LEAD_COEFF_IND] == ZERO_COEFF:
+
+        print(f'The quadratic array entered contains a zero lead coeff when called in the {function_name} function.
+              Please check your netries and try again.')
+
+        return False
+    
+    for coeff in range(len(quad_coeff_arr)):
+
+        if not isinstance(quad_coeff_arr[coeff], (int, float)):
+
+            print(f'The array entered {quad_coeff_arr} has a non-numeric entry at index {coeff} when called in the {function_name} 
+            function.  Please check your inputs and try again.')
+            
+            return False
+        
+    return True
