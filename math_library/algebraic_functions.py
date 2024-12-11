@@ -725,34 +725,9 @@ def output_of_poly_function(poly_coeff_arr: list[float], input: float) -> float:
 
 def validate_pt_on_poly(poly_coeff_arr: list[float], input: float, test_pt: list[float]) -> bool:
 
-    # Validations
-    if len(test_pt) != POINT_LEN_2D:
-
-        return f'The test point {test_pt} does not represent a 2D point.  Please enter [x, y] and try again'
-    
-    for coeff in range(len(poly_coeff_arr)):
-
-        if not isinstance(poly_coeff_arr[coeff], (int, float)):
-
-            try:
-
-                poly_coeff_arr[coeff] = float(poly_coeff_arr[coeff])
-
-            except ValueError:
-
-                return f'The value {poly_coeff_arr[coeff]} at index {coeff} is not a valid input.  Please change input to a numeric value and try again.'
-
-    for pt in test_pt:
-
-        if not isinstance(test_pt[pt], (int, float)):
-
-            try:
-
-                test_pt[pt] = float(test_pt[pt])
-
-            except ValueError:
-
-                return f'The value {test_pt[pt]} at index {pt} is not a valid input. Please change input to a number and try again.'
+    # Array Validations
+    if not validate_num_arr(test_pt, POINT_LEN_2D): return None
+    if not validate_num_arr(poly_coeff_arr, len(poly_coeff_arr)): return None
 
     # Calculations for comparison
     expected_output: float = output_of_poly_function(poly_coeff_arr, input)
@@ -766,13 +741,7 @@ def validate_pt_on_poly(poly_coeff_arr: list[float], input: float, test_pt: list
 # Only works for integer outputs, needs testing.
 def log(base: float, number: float) -> float:
 
-    if number <= 0:
-
-        return f'Log of {number} generates nonreal result!'
-    
-    if base == 1 or base <= 0:
-
-        return f'Bases of 1 or less than or equal to 0 are not valid.'
+    if not validate_log_inputs(base, number): return None
 
     test_num: float = number
     result = SUM_INIT
