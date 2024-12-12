@@ -578,12 +578,27 @@ def rational_zeroes_poly(num_coeff_arr: list[int]) -> list[float]:
 # 2(-1)^2 + -3(-1) + 5 which returns 10.
 def calculate_poly(poly_coeffs_arr: list, point: float) -> float:
 
+    # Validations
+    PCA_LEN: int = len(poly_coeffs_arr)
+    if not validate_num_arr(poly_coeffs_arr, PCA_LEN): return None
+
+    if not isinstance(point, (float, int)):
+
+        try:
+
+            point = float(point)
+
+        except ValueError:
+
+            print(f'The point entered: {point} is not a numeric entry. {CHECK_INPUTS}')
+            return None
+
     # Initializations
     poly_sum = SUM_INIT
     power = get_highest_power(poly_coeffs_arr)
 
     # Go through each array and calculate the sum using the coefficient provided
-    for coeff in range(len(poly_coeffs_arr)):
+    for coeff in range(PCA_LEN):
 
         poly_sum += polynomial(poly_coeffs_arr[coeff], point, power)
 
@@ -591,31 +606,32 @@ def calculate_poly(poly_coeffs_arr: list, point: float) -> float:
 
     return poly_sum
 
-def get_synth_divisor(divisor_arr: list[float]) -> float:
+def get_synth_divisor(divisor_coeff_arr: list[float]) -> float:
 
-    # Looks for an array that fits ax - b = 0
-    if len(divisor_arr) == LEN_BINOMIAL_COEFFS:
+    if not validate_num_arr(divisor_coeff_arr, LEN_BINOMIAL_COEFFS): return None
 
-        return neg(float_quotient(divisor_arr[LAST_IND], divisor_arr[FIRST_IND])) if divisor_arr[FIRST_IND] != ZERO_DENOM else f"{divisor_arr[FIRST_IND]} cannot be used as an 'a' value!"
+    numerator: float = neg(divisor_coeff_arr[LAST_IND])
+    denominator: float = divisor_coeff_arr[FIRST_IND]
 
-    # In the event the divisor itself is already given
-    elif len(divisor_arr) == SCALAR_LEN:
+    return float_quotient(numerator, denominator)
 
-        return divisor_arr
-    
-    return f'Not a valid synthetic divisor!'
-
-
+# Needs to be verified with the setup
 def poly_multiply(poly_arr_1: list[float], poly_arr_2: list[float]) -> list[float]:
 
-    prod_arr_len: int = add(subtract_one(len(poly_arr_1)), subtract_one(len(poly_arr_2)))
-    prod_arr: list[float] = product([FIRST_IND], add_one(prod_arr_len))
+    ARR_1_LEN: int = len(poly_arr_1)
+    ARR_2_LEN: int = len(poly_arr_2)
+
+    if not validate_num_arr(poly_arr_1, ARR_1_LEN): return None 
+    if not validate_num_arr(poly_arr_2, ARR_2_LEN): return None
+
+    PROD_ARR_LEN: int = add(subtract_one(ARR_1_LEN), subtract_one(ARR_2_LEN)) # Is this necessary?
+    prod_arr: list[float] = [product([FIRST_IND], add_one(PROD_ARR_LEN))]  # What does this line do again?
 
     for ind_1, coeff_1 in enumerate(poly_arr_1):
 
         for ind_2, coeff_2 in enumerate(poly_arr_2):
 
-            prod_arr[ind_1 + ind_2] += product(coeff_1, coeff_2)
+            prod_arr[add(ind_1, ind_2)] += product(coeff_1, coeff_2)
 
     return prod_arr
 
