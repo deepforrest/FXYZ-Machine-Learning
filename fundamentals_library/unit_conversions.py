@@ -6,6 +6,8 @@ import math
 SELF: float = 1
 
 # PART 1: PREFIXES
+QUETTA_PREFIX: str = "Q"
+RONNA_PREFIX: str = "R"
 YOTTA_PREFIX: str = "Y"
 ZETTA_PREFIX: str = "Z"
 EXA_PREFIX: str = "E"
@@ -27,7 +29,11 @@ FEMTO_PREFIX: str = "f"
 ATTO_PREFIX: str = "a"
 ZEPTO_PREFIX: str = "z"
 YOCTO_PREFIX: str = "y"
+RONTO_PREFIX: str = "r"
+QUECTO_PREFIX: str = "q"
 
+QUETTA_VALUE: float = sci_note(30)
+RONNA_VALUE: float = sci_note(27)
 YOTTA_VALUE: float = sci_note(24)
 ZETTA_VALUE: float = sci_note(21)
 EXA_VALUE: float = sci_note(18)
@@ -49,10 +55,14 @@ FEMTO_VALUE: float = sci_note(neg(15))
 ATTO_VALUE: float = sci_note(neg(18))
 ZEPTO_VALUE: float = sci_note(neg(21))
 YOCTO_VALUE: float = sci_note(neg(24))
+RONTO_VALUE: float = sci_note(neg(27))
+QUECTO_VALUE: float = sci_note(neg(30))
 
 # Prefix Datasets
 PREFIX_IND, VALUE_IND = 0, 1
 
+QUETTA_DATASET: tuple = (QUETTA_PREFIX, QUETTA_VALUE)
+RONNA_DATASET: tuple = (RONNA_PREFIX, RONNA_VALUE)
 YOTTA_DATASET: tuple = (YOTTA_PREFIX, YOTTA_VALUE)
 ZETTA_DATASET: tuple = (ZETTA_PREFIX, ZETTA_VALUE)
 EXA_DATASET: tuple = (EXA_PREFIX, EXA_VALUE)
@@ -74,11 +84,47 @@ FEMTO_DATASET: tuple = (FEMTO_PREFIX, FEMTO_VALUE)
 ATTO_DATASET: tuple = (ATTO_PREFIX, ATTO_VALUE)
 ZEPTO_DATASET: tuple = (ZEPTO_PREFIX, ZEPTO_VALUE)
 YOCTO_DATASET: tuple = (YOCTO_PREFIX, YOCTO_VALUE)
+RONTO_DATASET: tuple = (RONTO_PREFIX, RONTO_VALUE)
+QUECTO_DATASET: tuple = (QUECTO_PREFIX, QUECTO_VALUE)
 
+# Needs updating for the two largest and smallest prefixes.
 PREFIX_CONVERSION: float = {
+
+    QUETTA_PREFIX: {
+
+        QUETTA_PREFIX: SELF,
+        RONNA_PREFIX: float_quotient(RONNA_VALUE, QUETTA_VALUE),
+        YOTTA_PREFIX: float_quotient(YOTTA_VALUE, QUETTA_VALUE),
+        ZETTA_PREFIX: float_quotient(ZETTA_VALUE, QUETTA_VALUE),
+        EXA_PREFIX: float_quotient(EXA_VALUE, QUETTA_VALUE),
+        PETA_PREFIX: float_quotient(PETA_VALUE, QUETTA_VALUE),
+        TERA_PREFIX: float_quotient(TERA_VALUE, QUETTA_VALUE),
+        GIGA_PREFIX: float_quotient(GIGA_VALUE, QUETTA_VALUE),
+        MEGA_PREFIX: float_quotient(MEGA_VALUE, QUETTA_VALUE),
+        KILO_PREFIX: float_quotient(KILO_VALUE, QUETTA_VALUE),
+        HECTO_PREFIX: float_quotient(HECTO_VALUE, QUETTA_VALUE),
+        DECA_PREFIX: float_quotient(DECA_VALUE, QUETTA_VALUE),
+        NO_PREFIX: reciprocal(QUETTA_VALUE),
+        DECI_PREFIX: float_quotient(DECI_VALUE, QUETTA_VALUE),
+        CENTI_PREFIX: float_quotient(CENTI_VALUE, QUETTA_VALUE),
+        MILLI_PREFIX: float_quotient(MILLI_VALUE, QUETTA_VALUE),
+        MICRO_PREFIX: float_quotient(MICRO_VALUE, QUETTA_VALUE),
+        NANO_PREFIX: float_quotient(NANO_VALUE, QUETTA_VALUE),
+        PICO_PREFIX: float_quotient(PICO_VALUE, QUETTA_VALUE),
+        FEMTO_PREFIX: float_quotient(FEMTO_VALUE, QUETTA_VALUE),
+        ATTO_PREFIX: float_quotient(ATTO_VALUE, QUETTA_VALUE),
+        ZEPTO_PREFIX: float_quotient(ZEPTO_VALUE, QUETTA_VALUE),
+        YOCTO_PREFIX: float_quotient(YOCTO_VALUE, QUETTA_VALUE),
+        RONTO_PREFIX: float_quotient(RONTO_VALUE, QUETTA_VALUE),
+        QUECTO_PREFIX: float_quotient(QUECTO_VALUE, QUETTA_VALUE),
+    },
+
+    RONNA_PREFIX: {},
 
     YOTTA_PREFIX: {
 
+        QUETTA_PREFIX: float_quotient(QUETTA_VALUE, YOTTA_VALUE),
+        RONNA_PREFIX: float_quotient(RONNA_VALUE, YOTTA_VALUE),
         YOTTA_PREFIX: SELF,
         ZETTA_PREFIX: float_quotient(ZETTA_VALUE, YOTTA_VALUE),
         EXA_PREFIX: float_quotient(EXA_VALUE, YOTTA_VALUE),
@@ -100,6 +146,8 @@ PREFIX_CONVERSION: float = {
         ATTO_PREFIX: float_quotient(ATTO_VALUE, YOTTA_VALUE),
         ZEPTO_PREFIX: float_quotient(ZEPTO_VALUE, YOTTA_VALUE),
         YOCTO_PREFIX: float_quotient(YOCTO_VALUE, YOTTA_VALUE),
+        RONTO_PREFIX: float_quotient(RONTO_VALUE, YOTTA_VALUE),
+        QUECTO_PREFIX: float_quotient(QUECTO_VALUE, YOTTA_VALUE),
 
     },
 
@@ -623,6 +671,9 @@ PREFIX_CONVERSION: float = {
 
     },
     
+    RONTO_PREFIX: {},
+
+    QUECTO_PREFIX: {},
 }
 
 # PART 2: Unit Conversions
