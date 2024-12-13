@@ -145,3 +145,48 @@ def num_of_doublings(start_num: float, final_num: float) -> int:
         doubling_count += 1
 
     return doubling_count
+
+def rebase_number(num: int, current_base: int, new_base: int) -> int:
+
+    # Validation
+    validation_arr = [num, current_base, new_base]
+    num_converted: bool = False
+
+    for entry in range(len(validation_arr)):
+
+        if not isinstance(validation_arr[entry], int):
+
+            num_converted = True
+
+            try:
+
+                validation_arr[entry] = int(validation_arr[entry])
+
+            except ValueError:
+
+                print(f'The function rebase_number: {validation_arr[entry]} at index {entry} is not valid 
+                      in the validation_array [num, current_base, new_base].  {CHECK_INPUTS}')
+                
+                return None
+    
+    # Updates entries if conversion happened:
+    if num_converted:
+
+        num = validation_arr[0]
+        current_base = validation_arr[1]
+        new_base = validation_arr[2]
+
+    # Calculation
+    new_num: int = SUM_INIT
+    binary_arr: list[int] = []
+    power: int = 1
+    test_base: int = new_base
+
+    # Generate a new array of 1s and 0s to represent the base to that power
+    while exponentiate(test_base, power) < num:
+
+        binary_arr.append(1)
+        power += 1
+
+    # Create new number from binary arr
+    return []

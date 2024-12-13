@@ -35,6 +35,36 @@ def get_intersection_arr(*arrays: list) -> list:
         intersection_set.intersection_update(array)
 
     return list(intersection_set)
+
+
+def get_intersection_c(*arrays: list) -> list:
+
+    # Validations
+    if not arrays: return []
+
+    # Converts an array of arrays into a single array
+    if len(arrays) == LIST_OF_LISTS_LEN and isinstance(arrays[FIRST_IND], (list, tuple)):
+
+        arrays = arrays[FIRST_IND]
+
+    validated_arrays: list = []
+
+    for array in arrays:
+
+        if isinstance(array, (list, tuple)):
+
+            validated_arrays.append(list(array))
+
+        else:
+
+            raise ValueError(f'Input {arrays[array]} is not a valid input.  {CHECK_INPUTS}')
+        
+    intersection_set = set(get_intersection_arr(*arrays))
+    union_set = set(get_union_arr(*arrays))
+
+    complement_set = union_set - intersection_set
+
+    return list(complement_set)
     
 
 def get_union_arr(*arrays: list) -> list:
