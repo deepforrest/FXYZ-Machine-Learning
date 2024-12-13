@@ -16,6 +16,7 @@ HOR_DIR: str = "horizontal"
 INF_CRE: float = 0.000_001
 LAST_IND: int = -1
 LEN_BINOMIAL_COEFFS: int = 2
+LIST_OF_LISTS_LEN: int = 1
 MIN_RANKS: int = 2
 NEXT_IND: int = 1
 NO_REMAINDER: int = 0
