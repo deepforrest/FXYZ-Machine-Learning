@@ -190,3 +190,15 @@ def rebase_number(num: int, current_base: int, new_base: int) -> int:
 
     # Create new number from binary arr
     return []
+
+def binomial_coeff(kth_term: int, nth_exponent) -> int:
+
+    # Switches the numbers if entered out order
+    if nth_exponent > kth_term:
+
+        nth_exponent, kth_term = kth_term, nth_exponent
+
+    numerator:int = factorial(nth_exponent)
+    denominator: int = product(factorial(kth_term), factorial(difference(nth_exponent, kth_term)))
+
+    return float_quotient(numerator, denominator)

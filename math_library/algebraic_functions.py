@@ -691,14 +691,6 @@ def odd_or_even_poly_arr(poly_arr: list[float]) -> str:
 
         return f'{poly_arr} is neither odd or even.'
 
-def binomial_coeff(kth_term: int, nth_exponent) -> int:
-
-    # Switches the numbers if entered out order
-    if nth_exponent > kth_term:
-
-        nth_exponent, kth_term = kth_term, nth_exponent
-
-    return float_quotient(factorial(nth_exponent), product(factorial(kth_term), factorial(difference(nth_exponent - kth_term))))
 
 # Needs validation.  What does binomial_arr represent?
 def calc_binomial_term(binomial_arr: list[float], kth_term: int, nth_exp: int) -> float:
@@ -707,12 +699,10 @@ def calc_binomial_term(binomial_arr: list[float], kth_term: int, nth_exp: int) -
     if len(binomial_arr) != POINT_LEN_2D: return None
 
     bin_coeff: int = binomial_coeff(kth_term, nth_exp)
-    bin_first_term: float = binomial_arr[FIRST_IND]
-    bin_sec_term: float = binomial_arr[LAST_IND]
+    bin_first_term: float = exponentiate(binomial_arr[FIRST_IND], difference(nth_exp, kth_term))
+    bin_sec_term: float = exponentiate(binomial_arr[LAST_IND], kth_term)
 
-    result = [binomial_coeff, exponentiate(bin_first_term, difference(nth_exp, kth_term)), exponentiate(bin_sec_term, kth_term)]
-
-    return product(result)
+    return product[bin_coeff, bin_first_term, bin_sec_term]
 
 
 def output_of_poly_function(poly_coeff_arr: list[float], input: float) -> float:
