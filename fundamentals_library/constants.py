@@ -83,10 +83,17 @@ MFJ_IND: int = 1
 MFS_IND: int = 2
 HOH_IND: int = 3
 
+#.                  Single, Mar. Jt, Mar. Sep, HoH
 FED_TR_10: tuple = (11_925, 23_850, 11_925, 17_000)
 FED_TR_12: tuple = (48_475, 96_950, 48_475, 64_850)
 FED_TR_22: tuple = (103_350, 206_700, 103_350, 103_350)
+FED_TR_24: tuple = ()
+FED_TR_32: tuple = ()
+FED_TR_35: tuple = ()
+FED_TR_37: tuple = ()
 # 24, 32, 35, 37
+
+ST_TAX_DED: tuple = (14_600, 29_200, 14_600, 21_900)
 
 # Part 2: Science Constants
 

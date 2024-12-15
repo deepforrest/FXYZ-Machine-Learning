@@ -5,7 +5,7 @@ from math_library.number_theory import *
 from math_library.differential_calculus import *
 import math
 
-def expected_federal_tax(income: int, year: int) -> int:
+def expected_federal_tax(income: int, year: int, status: str) -> int:
 
     if not isinstance(income, (float, int, list)): return None
     
@@ -36,6 +36,10 @@ def expected_federal_tax(income: int, year: int) -> int:
 
         total_income = income
 
-    
+    ind = get_status_ind(status) # Needs to be defined
+
+    # Calculations (Refer to 2.2 in the Alg Book for method)
+    total_income -= ST_DED_TAX[ind]
+
     tax_liability = SUM_INIT
     
