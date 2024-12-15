@@ -15,7 +15,7 @@ EMPTY_LIST: list = []
 FIRST_IND: int = 0
 FRACT_ARR_LEN: int = 2
 HOR_DIR: str = "horizontal"
-INF_CRE: float = 0.000_001
+INF_CRE: float = 1 ** -6
 LAST_IND: int = -1
 LEN_BINOMIAL_COEFFS: int = 2
 LIST_OF_LISTS_LEN: int = 1
@@ -76,7 +76,20 @@ A_IND: int = 0
 B_IND: int = 1
 H_IND: int = 2
 K_IND: int = 3
+# Part 1: Business Constants
+# https://www.fidelity.com/learning-center/personal-finance/tax-brackets
+SF_IND: int = 0
+MFJ_IND: int = 1
+MFS_IND: int = 2
+HOH_IND: int = 3
+
+FED_TR_10: tuple = (11_925, 23_850, 11_925, 17_000)
+FED_TR_12: tuple = (48_475, 96_950, 48_475, 64_850)
+FED_TR_22: tuple = (103_350, 206_700, 103_350, 103_350)
+# 24, 32, 35, 37
+
 # Part 2: Science Constants
+
 
 # Constants to make as a function of units:
 
