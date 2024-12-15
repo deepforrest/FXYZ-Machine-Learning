@@ -178,7 +178,7 @@ def rebase_number(num: int, current_base: int, new_base: int) -> int:
 
     # Calculation
     new_num: int = SUM_INIT
-    binary_arr: list[int] = []
+    binary_arr: list[int] = EMPTY_LIST
     power: int = 1
     test_base: int = new_base
 
@@ -189,7 +189,7 @@ def rebase_number(num: int, current_base: int, new_base: int) -> int:
         power += 1
 
     # Create new number from binary arr
-    return []
+    return EMPTY_LIST
 
 def binomial_coeff(kth_term: int, nth_exponent) -> int:
 

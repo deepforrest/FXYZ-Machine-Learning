@@ -224,3 +224,12 @@ def validate_log_inputs(base: float, number: float) -> bool:
     # Note: No further validations are required to negate complex numbers or indeterminants since base cannot be negative, 0, or 1.
     
     return True
+
+def validate_alg_list(algebraic_arr: list[float]) -> bool:
+
+    # Validates 
+    if not validate_numeric_list(algebraic_arr, ALG_ARR_LEN) or algebraic_arr[B_IND] == 0:
+
+        return False
+    
+    return True

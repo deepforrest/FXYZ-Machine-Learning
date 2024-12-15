@@ -4,12 +4,14 @@ import math
 
 # Part 1: Readibility Constants
 AC_DISC_COEFF: int = 4
+ALG_ARR_LEN: int = 4
 BINARY_BASE: int = 2
 DENOM_INDEX: int = 1
 CENTER_HOR_VAL: int = 0
 CENTER_VERT_VAL: int = 0
 CHECK_INPUTS: str = "Please check your inputs and try again."
 DISC_THRESH: int = 0
+EMPTY_LIST: list = []
 FIRST_IND: int = 0
 FRACT_ARR_LEN: int = 2
 HOR_DIR: str = "horizontal"
@@ -70,6 +72,10 @@ DAY_PER_YEAR: int = 365.24
 # For arrays with ordered nums for points
 X_IND, Y_IND, Z_IND = 0, 1, 2
 
+A_IND: int = 0
+B_IND: int = 1
+H_IND: int = 2
+K_IND: int = 3
 # Part 2: Science Constants
 
 # Constants to make as a function of units:

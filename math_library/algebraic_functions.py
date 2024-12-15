@@ -744,6 +744,41 @@ def validate_pt_on_poly(poly_coeff_arr: list[float], input: float, test_pt: list
     
     return True # Same outputs
 
+def solve_abs_eq(algebraic_arr: list[float], rhs_target: float) -> list[float]:
+
+    if not validate_alg_list(algebraic_arr): return None
+
+    # algebraic constants for a|b(x-h)| + k = rhs
+    a = algebraic_arr[A_IND]
+    b = algebraic_arr[B_IND]
+    h = algebraic_arr[H_IND]
+    k = algebraic_arr[K_IND]
+
+    if (a > ZERO_COEFF and rhs_target < k) or (a < ZERO_COEFF and rhs_target > k):
+
+        print("No solutions")
+        return None
+
+    if rhs_target == k:
+
+        return h
+
+    numerator: float = difference(rhs_target, k)
+    denominator: float = product(a, b)
+
+    second_term = float_quotient(numerator, denominator)
+
+    sol_1 = add(h, second_term)
+    sol_2 = add(h, neg(second_term))
+
+    return [sol_1, sol_2]
+
+def flip_on_x_axis(algebraic_arr: list[float]) -> list:
+
+    if not validate_alg_list(algebraic_arr): return None
+
+    
+
 # Only works for integer outputs, needs testing.
 def log(base: float, number: float) -> float:
 
