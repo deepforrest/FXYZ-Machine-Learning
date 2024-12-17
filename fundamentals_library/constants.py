@@ -83,17 +83,42 @@ MFJ_IND: int = 1
 MFS_IND: int = 2
 HOH_IND: int = 3
 
-#.                  Single, Mar. Jt, Mar. Sep, HoH
-FED_TR_10: tuple = (11_925, 23_850, 11_925, 17_000)
-FED_TR_12: tuple = (48_475, 96_950, 48_475, 64_850)
-FED_TR_22: tuple = (103_350, 206_700, 103_350, 103_350)
-FED_TR_24: tuple = ()
-FED_TR_32: tuple = ()
-FED_TR_35: tuple = ()
-FED_TR_37: tuple = ()
-# 24, 32, 35, 37
+# These can probably be stored in a different area and called more appropriately...
+FTR_10_nHOH: int = 11_600
+FTR_10_HOH: int = 16_550
 
-ST_TAX_DED: tuple = (14_600, 29_200, 14_600, 21_900)
+FTR_12_nHOH: int = 47_150
+FTR_12_HOH: int = 63_100
+
+FTR_22_nHOH: int = 100_525
+FTR_22_HOH: int = 100_500
+
+FTR_24_nHOH: int = 191_950
+FTR_24_HOH: int = 191_950
+
+FTR_32_nHOH: int = 243_725
+FTR_32_HOH: int = 243_700
+
+FTR_35_nHOH: int = 11_600
+FTR_35_HOH: int = 609_350
+
+ST_TAX_DED_nHOH: int = 14_600
+ST_TAX_DED_HOH: int = 21_900
+
+# 2024, Max Amts            Single,        Mar. Jt,          Mar. Sep,      HoH
+FED_TR_10: tuple[int] = (FTR_10_nHOH, double(FTR_10_nHOH), FTR_10_nHOH, FTR_10_HOH)
+FED_TR_12: tuple[int] = (FTR_12_nHOH, double(FTR_12_nHOH), FTR_12_nHOH, FTR_12_HOH)
+FED_TR_22: tuple[int] = (FTR_22_nHOH, double(FTR_22_nHOH), FTR_22_nHOH, FTR_22_HOH)
+FED_TR_24: tuple[int] = (FTR_24_nHOH, double(FTR_24_nHOH), FTR_24_nHOH, FTR_24_HOH)
+FED_TR_32: tuple[int] = (FTR_32_nHOH, double(FTR_32_nHOH), FTR_32_nHOH, FTR_32_HOH)
+FED_TR_35: tuple[int] = (FTR_35_nHOH, double(FTR_35_nHOH), FTR_35_nHOH, FTR_35_HOH)
+# Anything above the thresholds @ 35 is at 37%
+FED_TR_AMT: tuple[int] = (FED_TR_10, FED_TR_12, FED_TR_22, FED_TR_24, FED_TR_32, FED_TR_35)
+
+ST_TAX_DED: tuple[int] = (ST_TAX_DED_nHOH, double(ST_TAX_DED_nHOH), ST_TAX_DED_nHOH, ST_TAX_DED_HOH)
+FED_TR_PERC: tuple[int] = (0.10, 0.12, 0.22, 0.24, 0.32, 0.35, 0.37)
+
+
 
 # Part 2: Science Constants
 
