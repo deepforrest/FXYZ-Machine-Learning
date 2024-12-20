@@ -102,6 +102,16 @@ FTR_32_HOH: int = 243_700
 FTR_35_nHOH: int = 11_600
 FTR_35_HOH: int = 609_350
 
+STR_02_nHOH: int = 10_412
+STR_04_nHOH: int = 24_684
+STR_06_nHOH: int = 38_959
+STR_08_nHOH: int = 54_081
+STR_09_nHOH: int = 68_350
+STR_10_nHOH: int = 349_137
+STR_11_nHOH: int = 418_961
+STR_12_nHOH: int = 698_271
+STR_13_nHOH: int = 1_000_000
+
 ST_TAX_DED_nHOH: int = 14_600
 ST_TAX_DED_HOH: int = 21_900
 
@@ -115,9 +125,20 @@ FED_TR_35: tuple[int] = (FTR_35_nHOH, double(FTR_35_nHOH), FTR_35_nHOH, FTR_35_H
 # Anything above the thresholds @ 35 is at 37%
 FED_TR_AMT: tuple[int] = (FED_TR_10, FED_TR_12, FED_TR_22, FED_TR_24, FED_TR_32, FED_TR_35)
 
-ST_TAX_DED: tuple[int] = (ST_TAX_DED_nHOH, double(ST_TAX_DED_nHOH), ST_TAX_DED_nHOH, ST_TAX_DED_HOH)
-FED_TR_PERC: tuple[int] = (0.10, 0.12, 0.22, 0.24, 0.32, 0.35, 0.37)
+ST_TR_02: tuple[int] = (STR_02_nHOH, double(STR_02_nHOH))
+ST_TR_04: tuple[int] = (STR_04_nHOH, double(STR_04_nHOH))
+ST_TR_06: tuple[int] = (STR_06_nHOH, double(STR_06_nHOH))
+ST_TR_08: tuple[int] = (STR_08_nHOH, double(STR_08_nHOH))
+ST_TR_09: tuple[int] = (STR_09_nHOH, double(STR_09_nHOH))
+ST_TR_10: tuple[int] = (STR_10_nHOH, double(STR_10_nHOH))
+ST_TR_11: tuple[int] = (STR_11_nHOH, double(STR_11_nHOH))
+ST_TR_12: tuple[int] = (STR_12_nHOH, double(STR_12_nHOH))
+ST_TR_13: tuple[int] = (STR_13_nHOH, double(STR_13_nHOH))
 
+ST_TAX_DED: tuple[int] = (ST_TAX_DED_nHOH, double(ST_TAX_DED_nHOH), ST_TAX_DED_nHOH, ST_TAX_DED_HOH)
+
+FED_TR_PERC: tuple[int] = (0.10, 0.12, 0.22, 0.24, 0.32, 0.35, 0.37)
+CA_TR_PERC: tuple[int] = (0.02, 0.04, 0.06, 0.08, 0.093, 0.103, 0.113, 0.123, 0.133)
 
 
 # Part 2: Science Constants
