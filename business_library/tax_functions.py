@@ -16,6 +16,16 @@ def get_tax_status_ind(status: str) -> int:
 
     return -1
 
+def calc_taxable_income(income: int, deductions: int, year: int, status: str) -> int:
+
+    taxable_income: int = income
+    taxable_income -= ST_TAX_DED[status_ind]
+
+    status_ind = get_tax_status_ind(status)
+    # Needs functions for other inputs
+
+    return difference(taxable_income, deductions)
+
 # Comment this section through and make sure the double indices work.
 def expected_federal_tax(income: int, year: int, status: str) -> int:
 
@@ -58,7 +68,7 @@ def expected_federal_tax(income: int, year: int, status: str) -> int:
 
     # Calculations (Refer to 2.2 in the Alg Book for method)
 
-    taxable_income: int = difference(total_income, deductions)
+    taxable_income: int = difference(total_income, deductions)  # Use Calc taxable income
 
     tr_ind: int = FIRST_IND
     taxable_amount: float = product(FED_TR_PERC[tr_ind], FED_TR_AMT[tr_ind][status_ind])
