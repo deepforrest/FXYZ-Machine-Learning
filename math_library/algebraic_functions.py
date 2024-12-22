@@ -773,6 +773,7 @@ def solve_abs_eq(algebraic_arr: list[float], rhs_target: float) -> list[float]:
 
     return [sol_1, sol_2]
 
+
 def flip_on_x_axis(algebraic_arr: list[float]) -> list[float]:
 
     if not validate_alg_list(algebraic_arr): return None
@@ -781,6 +782,7 @@ def flip_on_x_axis(algebraic_arr: list[float]) -> list[float]:
     new_arr[A_IND] = neg(new_arr[A_IND])
 
     return new_arr
+
 
 def flip_on_y_axis(algebriac_arr: list[float]) -> list[float]:
 
@@ -791,7 +793,8 @@ def flip_on_y_axis(algebriac_arr: list[float]) -> list[float]:
 
     return new_arr
 
-def horizontal_translation(algebraic_arr: list[float], hor_units: float):
+
+def hor_trans_arr(algebraic_arr: list[float], hor_units: float) -> list[float]:
 
     if not validate_alg_list(algebraic_arr): return None
 
@@ -804,13 +807,15 @@ def horizontal_translation(algebraic_arr: list[float], hor_units: float):
         except ValueError:
 
             print(f'The horizontal units entered: {hor_units} is not a number and cannot be processed. {CHECK_INPUTS}.')
+            return None
 
     new_arr: list[float] = algebraic_arr
     new_arr[H_IND] += hor_units
 
     return new_arr
 
-def vertical_translation(algebraic_arr: list[float], ver_units: float):
+
+def ver_trans_arr(algebraic_arr: list[float], ver_units: float) -> float:
 
     if not validate_alg_list(algebraic_arr): return None
 
@@ -822,12 +827,50 @@ def vertical_translation(algebraic_arr: list[float], ver_units: float):
 
         except ValueError:
 
-            print(f'The horizontal units entered: {ver_units} is not a number and cannot be processed. {CHECK_INPUTS}.')
+            print(f'The vertical units entered: {ver_units} is not a number and cannot be processed. {CHECK_INPUTS}.')
+            return None
 
     new_arr: list[float] = algebraic_arr
     new_arr[K_IND] += ver_units
 
     return new_arr
+
+def calculate_algebraic_pt(algebraic_arr: list[float], pt: float, power: float) -> float:
+
+    # Validations
+    if not validate_alg_list(algebraic_arr): return None
+
+    if not isinstance(pt, (int, float)):
+
+        try:
+
+            pt = float(pt)
+
+        except ValueError:
+
+            print(f'The point entered: {pt} is not a number and cannot be processed. {CHECK_INPUTS}.')
+            return None
+        
+    if not isinstance(power, (int, float)):
+
+        try:
+
+            power = float(power)
+
+        except ValueError:
+
+            print(f'The power entered: {power} is not a number and cannot be processed. {CHECK_INPUTS}.')
+            return None
+
+    # Calculations (Progressive build using Order of Operations)
+    pt_output: float = difference(pt, algebraic_arr[H_IND]) # (x - h)
+    pt_output *= algebraic_arr[B_IND] # b(x - h)
+    pt_output = exponentiate(pt_output, power) # (b(x - h))^n
+    pt_output *= algebraic_arr[A_IND] # a(b(x - h))^n
+    pt_output += algebraic_arr[K_IND] # a(b(x - h))^n + k
+
+    return pt_output
+
 
 # Only works for integer outputs, needs testing.
 def log(base: float, number: float) -> float:
