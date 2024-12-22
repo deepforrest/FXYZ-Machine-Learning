@@ -773,9 +773,14 @@ def solve_abs_eq(algebraic_arr: list[float], rhs_target: float) -> list[float]:
 
     return [sol_1, sol_2]
 
-def flip_on_x_axis(algebraic_arr: list[float]) -> list:
+def flip_on_x_axis(algebraic_arr: list[float]) -> list[float]:
 
     if not validate_alg_list(algebraic_arr): return None
+
+    new_arr: list[float] = algebraic_arr
+    new_arr[A_IND] = neg(new_arr[A_IND])
+
+    return new_arr
 
     
 
