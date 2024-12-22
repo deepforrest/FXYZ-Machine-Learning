@@ -782,7 +782,52 @@ def flip_on_x_axis(algebraic_arr: list[float]) -> list[float]:
 
     return new_arr
 
-    
+def flip_on_y_axis(algebriac_arr: list[float]) -> list[float]:
+
+    if not validate_alg_list(algebriac_arr): return None
+
+    new_arr: list[float] = algebriac_arr
+    new_arr[B_IND] = neg(new_arr[B_IND])
+
+    return new_arr
+
+def horizontal_translation(algebraic_arr: list[float], hor_units: float):
+
+    if not validate_alg_list(algebraic_arr): return None
+
+    if not isinstance(hor_units, (int, float)):
+
+        try:
+
+            hor_units = float(hor_units)
+
+        except ValueError:
+
+            print(f'The horizontal units entered: {hor_units} is not a number and cannot be processed. {CHECK_INPUTS}.')
+
+    new_arr: list[float] = algebraic_arr
+    new_arr[H_IND] += hor_units
+
+    return new_arr
+
+def vertical_translation(algebraic_arr: list[float], ver_units: float):
+
+    if not validate_alg_list(algebraic_arr): return None
+
+    if not isinstance(ver_units, (int, float)):
+
+        try:
+
+            ver_units = float(ver_units)
+
+        except ValueError:
+
+            print(f'The horizontal units entered: {ver_units} is not a number and cannot be processed. {CHECK_INPUTS}.')
+
+    new_arr: list[float] = algebraic_arr
+    new_arr[K_IND] += ver_units
+
+    return new_arr
 
 # Only works for integer outputs, needs testing.
 def log(base: float, number: float) -> float:
