@@ -878,7 +878,15 @@ PRESSURE_CONVERSION: float = {
 
 TEMPERATURE_CONVERSION: float = {
 
-    F_UNIT: {},
+    F_UNIT: {
+
+        F_UNIT: SELF,
+        C_UNIT: add(SELF, F_TO_C),
+        K_UNIT: product(SELF, F_TO_K),
+        R_UNIT: add(SELF, F_TO_R),
+
+    },
+    
     C_UNIT: {},
     K_UNIT: {},
     R_UNIT: {}

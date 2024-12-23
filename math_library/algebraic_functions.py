@@ -871,6 +871,10 @@ def calculate_algebraic_pt(algebraic_arr: list[float], pt: float, power: float) 
 
     return pt_output
 
+# Creates an exponential function of ab^x
+def exp_function(pt_1_arr: list[float], pt_2_arr: list[float]) -> list[float]:
+
+    return -1
 
 # Only works for integer outputs, needs testing.
 def log(base: float, number: float) -> float:
