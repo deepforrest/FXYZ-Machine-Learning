@@ -874,7 +874,17 @@ def calculate_algebraic_pt(algebraic_arr: list[float], pt: float, power: float) 
 # Creates an exponential function of ab^x
 def exp_function(pt_1_arr: list[float], pt_2_arr: list[float]) -> list[float]:
 
-    return -1
+    diff_x:float = difference(pt_1_arr[X_IND], pt_2_arr[X_IND])
+    exponent:float = reciprocal(diff_x)
+    y_ratio:float = float_quotient(pt_1_arr[Y_IND], pt_2_arr[Y_IND])
+
+    base: float = exponentiate(y_ratio, exponent)
+
+    lc_denom: float = exponentiate(base, pt_1_arr[X_IND])
+
+    lead_coeff: float = float_quotient(pt_1_arr[Y_IND], lc_denom)
+
+    return [lead_coeff, base]
 
 # Only works for integer outputs, needs testing.
 def log(base: float, number: float) -> float:
