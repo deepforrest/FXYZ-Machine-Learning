@@ -524,11 +524,13 @@ def continuous_exponential(initial_value: float, rate: float, power: int) -> flo
 # Needs to be tested and verified that the pop operation works as expected
 def rational_zeroes_poly(num_coeff_arr: list[int]) -> list[float]:
 
-    if len(num_coeff_arr) == SCALAR_LEN:
+    COEFF_ARR_LEN: int = len(num_coeff_arr)
+
+    if COEFF_ARR_LEN == SCALAR_LEN:
 
         return f'Please enter an array of polynomials'
     
-    for coeff in range(len(num_coeff_arr)):
+    for coeff in range(COEFF_ARR_LEN):
 
         # Validates that integers are in the array only
         if num_coeff_arr[coeff] != int(num_coeff_arr[coeff]):
@@ -872,7 +874,7 @@ def calculate_algebraic_pt(algebraic_arr: list[float], pt: float, power: float) 
     return pt_output
 
 # Creates an exponential function of ab^x
-def exp_function(pt_1_arr: list[float], pt_2_arr: list[float]) -> list[float]:
+def exp_function_arr(pt_1_arr: list[float], pt_2_arr: list[float]) -> list[float]:
 
     diff_x:float = difference(pt_1_arr[X_IND], pt_2_arr[X_IND])
     exponent:float = reciprocal(diff_x)
