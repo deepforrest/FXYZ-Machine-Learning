@@ -9,6 +9,6 @@ def fxyz_main_menu() -> None:
     fxyz_welcome_screen()
     fxyz_division_options()
     fxyz_make_division_selection()
+    fxyz_test_statement()
     
-
 fxyz_main_menu()
