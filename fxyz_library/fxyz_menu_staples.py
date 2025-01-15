@@ -32,4 +32,4 @@ def fxyz_menu_footer() -> None:
 
 def fxyz_test_statement() -> None:
      
-     print("The menu currently represents a prototype and the program cannot be accessed at this time.\nPlease try again later!")
+     print("\nThe menu currently represents a prototype and the program cannot be accessed at this time.\nPlease try again later!\n")
