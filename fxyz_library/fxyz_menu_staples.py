@@ -67,13 +67,28 @@ def fxyz_physical_menu() -> None:
 
 def fxyz_mental_menu() -> None:
 
+    print("Division III: Mental Branches\n\
+            1: Inner Game Engineering\n\
+            2: Transitional Game Engineering\n\
+            3: Outer Game Engineering\n")
+
     return None
 
 def fxyz_spiritual_menu() -> None:
 
+    print("Division IV: Spiritual Branches\n\
+            This branch is under construction. No options available.")
+
     return None
 
 def fxyz_chronological_menu() -> None:
+
+    print("Division V: Chronological Branches\n\
+            1: Activities\n\
+            2: Calendar\n\
+            3: Priorities\n\
+            4: Routines\n\
+            5: Schedules\n")
 
     return None
 
@@ -83,7 +98,9 @@ def fxyz_financial_menu() -> None:
 
 def fxyz_material_menu() -> None:
 
-    return None
+    print("Division VII: Material Branches\n\
+        1: Physical Inventory\n\
+        2: Digital Inventory\n")
 
 def fxyz_knowledge_menu() -> None:
 
