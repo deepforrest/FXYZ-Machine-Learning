@@ -19,3 +19,15 @@ def fxyz_select_division(division_number: int) -> None:
         case _: print(f'Division {division_number} is not a valid entry.  Please try again.')
 
     return None
+
+def fxyz_select_organization_branch(branch_number: int) -> None:
+
+    match branch_number:
+
+        case 1: fxyz_architecture_branch()
+        case 2: fxyz_development_branch()
+        case 3: fxyz_personal_success_branch()
+        case 4: fxyz_document_management_branch()
+        case _: print(f'Branch {branch_number} does not exist.')
+
+    return None
