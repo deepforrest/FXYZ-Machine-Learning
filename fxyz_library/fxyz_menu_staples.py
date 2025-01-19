@@ -104,6 +104,12 @@ def fxyz_material_menu() -> None:
 
 def fxyz_knowledge_menu() -> None:
 
+    print("Division VIII: Knowledge Branches\n\
+        1: Knowledge Library\n\
+        2: Curriculums\n\
+        3: Knowledge Learning & Mastery Framework (KLMF)\n\
+        4: Bits & Trivia\n")
+
     return None
 
 def fxyz_skillsets_menu() -> None:
