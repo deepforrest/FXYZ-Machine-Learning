@@ -114,6 +114,11 @@ def fxyz_knowledge_menu() -> None:
 
 def fxyz_skillsets_menu() -> None:
 
+    print("Division IX: Skillsets Branches\n\
+        1: Skills & Techniques Library\n\
+        2: Ubercraft Hierarchy\n\
+        3: Skills Training & Mastery Framework (STMF)\n")
+    
     return None
 
 def fxyz_creative_menu() -> None:
