@@ -133,6 +133,14 @@ def fxyz_creative_menu() -> None:
 
 def fxyz_social_menu() -> None:
 
+    print("Division XI: Social Branches\n\
+            1: Characteristics\n\
+            2: Individuals\n\
+            3: Organizations\n\
+            4: Social Expansion Strategies\n\
+            5: Social Media\n\
+            6: Website\n")
+
     return None
 
 def fxyz_business_menu() -> None:
