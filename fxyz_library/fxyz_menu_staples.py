@@ -123,6 +123,12 @@ def fxyz_skillsets_menu() -> None:
 
 def fxyz_creative_menu() -> None:
 
+    print("Division X: Creative Branches\n\
+            1: Overall Creative Management System\n\
+            2: Creative Processes\n\
+            3: Creative Catalysts\n\
+            4: Unit Creations\n")
+
     return None
 
 def fxyz_social_menu() -> None:
