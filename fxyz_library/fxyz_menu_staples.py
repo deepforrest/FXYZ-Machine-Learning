@@ -145,4 +145,11 @@ def fxyz_social_menu() -> None:
 
 def fxyz_business_menu() -> None:
 
+
+    print("Division XII: Business Branches\n\
+            1: Opportunity Radar\n\
+            2: Deep Forrest Enteprises\n\
+            3: Marketing Tools\n\
+            4: World Class Partnerships\n")
+
     return None
