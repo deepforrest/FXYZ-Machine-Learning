@@ -55,9 +55,21 @@ def fxyz_organization_menu() -> None:
 
 def fxyz_org_architecture_menu() -> None:
 
+    print("Division I: Organization - Architecture Branch - Subbranches\n\
+            1: Full Hierarchy\n\
+            2: ???\n\
+            3: ???\n\
+            4: ???\n")
+
     return None
 
 def fxyz_org_development_menu() -> None:
+
+    print("Division I: Organization - Development Branch - Subbranches\n\
+            1: Automations\n\
+            2: Continuous Improvement\n\
+            3: Questions\n\
+            4: Templates\n")
 
     return None
 
@@ -68,6 +80,7 @@ def fxyz_org_pss_menu() -> None:
 def fxyz_org_docmanager_menu() -> None:
 
     return None
+
 
 # Division II Menus
 
