@@ -41,7 +41,7 @@ def fxyz_test_statement() -> None:
      
     print("\nThe menu currently represents a prototype and the program cannot be accessed at this time.\nPlease try again later!\n")
 
-# Organization Menus
+# Division I Menus
 
 def fxyz_organization_menu() -> None:
 
@@ -53,7 +53,23 @@ def fxyz_organization_menu() -> None:
 
     return None
 
-# Physical Menus
+def fxyz_org_architecture_menu() -> None:
+
+    return None
+
+def fxyz_org_development_menu() -> None:
+
+    return None
+
+def fxyz_org_pss_menu() -> None:
+
+    return None
+
+def fxyz_org_docmanager_menu() -> None:
+
+    return None
+
+# Division II Menus
 
 def fxyz_physical_menu() -> None:
 
@@ -65,6 +81,9 @@ def fxyz_physical_menu() -> None:
     
     return None
 
+
+# Division III Menus
+
 def fxyz_mental_menu() -> None:
 
     print("Division III: Mental Branches\n\
@@ -74,12 +93,16 @@ def fxyz_mental_menu() -> None:
 
     return None
 
+# Division IV Menus
+
 def fxyz_spiritual_menu() -> None:
 
     print("Division IV: Spiritual Branches\n\
             This branch is under construction. No options available.")
 
     return None
+
+# Division V Menus
 
 def fxyz_chronological_menu() -> None:
 
@@ -92,15 +115,21 @@ def fxyz_chronological_menu() -> None:
 
     return None
 
+# Division VI Menus
+
 def fxyz_financial_menu() -> None:
 
     return None
+
+# Division VII Menus
 
 def fxyz_material_menu() -> None:
 
     print("Division VII: Material Branches\n\
         1: Physical Inventory\n\
         2: Digital Inventory\n")
+
+# Division VIII Menus
 
 def fxyz_knowledge_menu() -> None:
 
@@ -112,6 +141,8 @@ def fxyz_knowledge_menu() -> None:
 
     return None
 
+# Division IX Menus
+
 def fxyz_skillsets_menu() -> None:
 
     print("Division IX: Skillsets Branches\n\
@@ -120,6 +151,8 @@ def fxyz_skillsets_menu() -> None:
         3: Skills Training & Mastery Framework (STMF)\n")
     
     return None
+
+# Division X Menus
 
 def fxyz_creative_menu() -> None:
 
@@ -130,6 +163,8 @@ def fxyz_creative_menu() -> None:
             4: Unit Creations\n")
 
     return None
+
+# Division XI Menus
 
 def fxyz_social_menu() -> None:
 
@@ -142,6 +177,8 @@ def fxyz_social_menu() -> None:
             6: Website\n")
 
     return None
+
+# Division XII Menus
 
 def fxyz_business_menu() -> None:
 
